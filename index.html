@@ -8,6 +8,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Noisflix</title>
+<meta name="apple-mobile-web-app-title" content="Noisflix">
+<meta name="application-name" content="Noisflix">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
 <style>
@@ -359,6 +364,34 @@ select.inp{appearance:none;-webkit-appearance:none;background-image:linear-gradi
 .login-box .inp{background:#222;border-color:#444;padding:15px}
 .login-err{color:#ff8a8a;min-height:20px;margin:14px 0 0;font-size:14px}
 .login-hint{color:#888;font-size:14px;text-align:center;margin:8px 0 0}
+
+/* ---------- instalar app ---------- */
+.install-pill{position:absolute;top:calc(env(safe-area-inset-top) + 14px);right:14px;z-index:5;display:flex;gap:7px;align-items:center;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.35);border-radius:22px;padding:8px 14px;font-weight:700;font-size:14px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.install-pill svg{width:18px;height:18px}
+.appprev{display:flex;flex-direction:column;align-items:center;gap:8px;margin:6px 0 18px}
+.appprev img{width:76px;height:76px;border-radius:18px;box-shadow:0 6px 20px rgba(0,0,0,.6)}
+.appprev span{font-size:14px;color:#eee}
+.steps{margin:0 0 16px;padding-left:22px;line-height:1.6;color:#ddd;font-size:15.5px}
+.steps b{color:#fff}
+
+/* ---------- enquadrar foto ---------- */
+.crop{position:fixed;inset:0;z-index:250;background:#000;display:flex;flex-direction:column;user-select:none;-webkit-user-select:none}
+.crop-top{display:flex;align-items:center;justify-content:space-between;padding:calc(env(safe-area-inset-top) + 12px) 14px 12px;font-weight:700;font-size:17px}
+.crop-top button{width:42px;height:42px;display:grid;place-items:center}
+.crop-top svg{width:26px;height:26px}
+.crop-stage{flex:1;display:flex;align-items:center;justify-content:center;padding:0 16px;touch-action:none;position:relative;min-height:0;cursor:grab;overflow:hidden}
+.crop-frame{position:relative;flex:none;box-shadow:0 0 0 2000px rgba(0,0,0,.72);outline:2px solid #fff;z-index:1;pointer-events:none}
+.crop-frame::before,.crop-frame::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:2}
+.crop-frame::before{border-left:1px solid rgba(255,255,255,.35);border-right:1px solid rgba(255,255,255,.35);left:33.33%;right:33.33%}
+.crop-frame::after{border-top:1px solid rgba(255,255,255,.35);border-bottom:1px solid rgba(255,255,255,.35);top:33.33%;bottom:33.33%}
+.crop-img{position:absolute;left:50%;top:50%;max-width:none;transform-origin:center;z-index:0;pointer-events:none}
+.crop-bot{padding:14px 16px calc(16px + env(safe-area-inset-bottom))}
+.crop-zoom{display:flex;align-items:center;gap:12px;color:#aaa}
+.crop-zoom svg{width:20px;height:20px;flex:none}
+.crop-zoom input{flex:1;accent-color:#e50914}
+.crop-bot p{color:#888;font-size:13px;text-align:center;margin:10px 0 12px}
+.crop-btns{display:flex;gap:10px}
+.crop-btns .sbtn{flex:1;padding:14px;font-size:16px}
 @media (min-width:521px){body{background:#0a0a0a}#app{box-shadow:0 0 60px rgba(0,0,0,.8)}}
 </style>
 </head>
@@ -428,6 +461,10 @@ const I = {
   user:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4.4-6.5 8-6.5s7 2 8 6.5"/></svg>',
   logout:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 16l-4-4 4-4M6 12h10"/></svg>',
   save:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M5 3h11l4 4v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M8 3v5h7V3M8 21v-7h8v7"/></svg>',
+  rotate:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 1 0 2.5-5.8"/><path d="M4 4v4.5h4.5"/></svg>',
+  minus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14"/></svg>',
+  crop:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/></svg>',
+  phone:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7m-3-3 3 3 3-3"/></svg>',
   star:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg>'
 };
 
@@ -653,6 +690,7 @@ function setRoot(name, params = {}) { stack = [{ name, params }]; render(); }
 function back() { history.back(); }
 let overlay = null, afterClose = null;
 window.addEventListener('popstate', () => {
+  if (cropLayer) { cropLayer.close(); return; }
   if (overlay) { removeOverlay(); const f = afterClose; afterClose = null; if (f) f(); return; }
   if (stack.length > 1) { stack.pop(); render(); }
 });
@@ -700,7 +738,7 @@ SCREENS.profiles = {
   html(p) {
     const hero = heroItem(); const poster = hero && mu(hero.posterId || hero.backdropId); const ed = !!p.edit;
     return `<div class="prof" id="prof">
-      <div class="prof-hero" ${poster ? `style="background-image:url('${poster}')"` : ''}>
+      <div class="prof-hero" ${poster ? `style="background-image:url('${poster}')"` : ''}>${installPill()}
         ${!poster ? `<div class="prof-empty">${markHTML(150)}</div>` : ''}
         ${hero && poster ? `<div class="prof-line">${heroLine(hero)}</div>` : ''}
       </div>
@@ -1014,6 +1052,7 @@ SCREENS.my = {
       <div class="my-prof"><div class="bigav">${avatarHTML(p)}</div><button class="my-name" data-a="switchProfile">${esc(p.name)} ${I.chev}</button></div>
       <button class="mrow" data-a="notifs"><span class="icc">${I.bell}</span><span class="tx">Notificações${lastN ? `<small>${esc(lastN.title)}</small>` : '<small>Nenhuma por enquanto</small>'}</span>${nc ? `<span class="tb-badge" style="position:static">${nc}</span>` : ''}<span class="chev">${I.chev}</span></button>
       <button class="mrow" data-a="downloads"><span class="icc b">${I.download}</span><span class="tx">Downloads<small>${u.downloads.length ? u.downloads.length + ' baixado(s)' : 'Baixe títulos para ter no aparelho'}</small></span><span class="chev">${I.chev}</span></button>
+      ${isStandalone() ? '' : `<button class="mrow" data-a="install"><span class="icc">${I.phone}</span><span class="tx">Instalar aplicativo<small>Coloque o ${esc(brandTitle())} na tela inicial</small></span><span class="chev">${I.chev}</span></button>`}
       <button class="mrow" data-a="studio"><span class="icc g">${I.pencil}</span><span class="tx">Estúdio do Autor<small>Adicionar e editar filmes, séries e episódios</small></span><span class="chev">${I.chev}</span></button>
       ${rowHTML('Séries e filmes que você curtiu', liked)}
       ${rowHTML('Minha lista', ml)}
@@ -1090,6 +1129,7 @@ function uploader(path, kind, label, wide, hint) {
   if (url && kind === 'video') { const sz = mediaSize(id); extra = `<small>${sz ? (sz / 1048576).toFixed(1) + ' MB' : ''}</small>`; }
   return `<div class="fld"><label>${label}</label><div class="up"><div class="pv ${wide ? 'wide' : ''}">${pv}</div><div class="up-btns">
     <span class="sbtn">${I.upload} ${url ? 'Trocar' : 'Enviar'} ${kind === 'video' ? 'vídeo' : 'foto'}<input type="file" accept="${kind}/*" data-media="${path}" data-kind="${kind}"></span>
+    ${url && kind === 'image' ? `<button class="sbtn ghost" data-a="recrop" data-path="${path}">${I.crop} Enquadrar</button>` : ''}
     ${url ? `<button class="sbtn ghost" data-a="rmMedia" data-path="${path}">${I.trash} Remover</button>` : ''}${extra}</div></div>${hint ? `<div class="hint">${hint}</div>` : ''}</div>`;
 }
 function editBodyHTML() {
@@ -1174,13 +1214,106 @@ function videoMeta(blob, capture) {
     v.src = url;
   });
 }
+/* ---------------- Enquadrar / recortar foto ----------------
+   Abre a foto numa moldura com o formato certo (capa 2:3, banner 16:9, perfil 1:1).
+   Arrastar = posicionar · pinça / roda do mouse / barra = zoom · botão = girar 90°.
+   Devolve um JPEG já recortado (ou null se cancelar). */
+let cropLayer = null;
+function cropImage(file, aspect, maxW, title) {
+  return new Promise(resolve => {
+    const url = URL.createObjectURL(file);
+    const w = document.createElement('div'); w.className = 'crop';
+    w.innerHTML = `<div class="crop-top"><button data-c="cancel" aria-label="Cancelar">${I.x}</button><span>${esc(title || 'Enquadrar foto')}</span><button data-c="rot" aria-label="Girar">${I.rotate}</button></div>
+      <div class="crop-stage"><img class="crop-img" alt=""><div class="crop-frame"></div></div>
+      <div class="crop-bot"><div class="crop-zoom">${I.minus}<input type="range" min="1" max="5" step="0.01" value="1" aria-label="Zoom">${I.plus}</div>
+        <p>Arraste para posicionar · use dois dedos ou a barra para dar zoom</p>
+        <div class="crop-btns"><button class="sbtn" data-c="cancel">Cancelar</button><button class="sbtn red" data-c="ok">${I.check} Usar foto</button></div></div>`;
+    document.body.appendChild(w);
+    const img = w.querySelector('.crop-img'), frame = w.querySelector('.crop-frame'), stage = w.querySelector('.crop-stage'), zoomEl = w.querySelector('input[type=range]');
+    let iw = 1, ih = 1, fw = 1, fh = 1, rot = 0, z = 1, base = 1, x = 0, y = 0, result = null, ready = false;
+    const dims = () => (rot % 180 ? [ih, iw] : [iw, ih]);
+    function clamp() {
+      const [dw, dh] = dims(); const s = base * z;
+      const mx = Math.max(0, (dw * s - fw) / 2), my = Math.max(0, (dh * s - fh) / 2);
+      x = Math.min(mx, Math.max(-mx, x)); y = Math.min(my, Math.max(-my, y));
+    }
+    function draw() {
+      img.style.width = iw + 'px'; img.style.height = ih + 'px';
+      img.style.transform = `translate(-50%,-50%) translate(${x}px,${y}px) rotate(${rot}deg) scale(${base * z})`;
+      zoomEl.value = z;
+    }
+    function layout() {
+      if (!ready) return;
+      const sw = stage.clientWidth - 32, sh = stage.clientHeight - 24;
+      fw = sw; fh = fw / aspect; if (fh > sh) { fh = sh; fw = fh * aspect; }
+      frame.style.width = fw + 'px'; frame.style.height = fh + 'px';
+      const [dw, dh] = dims(); base = Math.max(fw / dw, fh / dh);
+      clamp(); draw();
+    }
+    function setZoom(nz) { nz = Math.min(5, Math.max(1, nz)); x *= nz / z; y *= nz / z; z = nz; clamp(); draw(); }
+    // gestos
+    const pts = new Map(); let start = null;
+    const snap = () => { const p = [...pts.values()].map(q => ({ ...q })); return { x, y, z, p, d: p.length > 1 ? Math.hypot(p[0].x - p[1].x, p[0].y - p[1].y) : 0, cx: p.length ? p.reduce((a, q) => a + q.x, 0) / p.length : 0, cy: p.length ? p.reduce((a, q) => a + q.y, 0) / p.length : 0 }; };
+    stage.addEventListener('pointerdown', e => { try { stage.setPointerCapture(e.pointerId); } catch (er) {} pts.set(e.pointerId, { x: e.clientX, y: e.clientY }); start = snap(); });
+    stage.addEventListener('pointermove', e => {
+      if (!pts.has(e.pointerId) || !start) return;
+      pts.set(e.pointerId, { x: e.clientX, y: e.clientY }); const now = snap();
+      if (now.p.length >= 2 && start.p.length >= 2 && start.d) {
+        const nz = Math.min(5, Math.max(1, start.z * now.d / start.d));
+        x = start.x * (nz / start.z) + (now.cx - start.cx); y = start.y * (nz / start.z) + (now.cy - start.cy); z = nz;
+      } else if (now.p.length === 1 && start.p.length === 1) {
+        x = start.x + now.cx - start.cx; y = start.y + now.cy - start.cy;
+      }
+      clamp(); draw();
+    });
+    const up = e => { pts.delete(e.pointerId); start = snap(); };
+    stage.addEventListener('pointerup', up); stage.addEventListener('pointercancel', up);
+    stage.addEventListener('wheel', e => { e.preventDefault(); setZoom(z * (e.deltaY < 0 ? 1.08 : 1 / 1.08)); }, { passive: false });
+    zoomEl.addEventListener('input', () => setZoom(Number(zoomEl.value)));
+    function render() {
+      const s = base * z; const srcW = fw / s;
+      const ow = Math.round(Math.max(Math.min(maxW, srcW), Math.min(maxW, 480))); const oh = Math.round(ow / aspect);
+      const c = document.createElement('canvas'); c.width = ow; c.height = oh;
+      const ctx = c.getContext('2d'); const k = ow / fw;
+      ctx.fillStyle = '#000'; ctx.fillRect(0, 0, ow, oh); ctx.imageSmoothingQuality = 'high';
+      ctx.translate(ow / 2 + x * k, oh / 2 + y * k); ctx.rotate(rot * Math.PI / 180); ctx.scale(s * k, s * k);
+      ctx.drawImage(img, -iw / 2, -ih / 2);
+      return new Promise(r => c.toBlob(r, 'image/jpeg', 0.9));
+    }
+    w.addEventListener('click', async e => {
+      const b = e.target.closest('[data-c]'); if (!b) return;
+      if (b.dataset.c === 'cancel') { result = null; history.back(); }
+      else if (b.dataset.c === 'rot') { rot = (rot + 90) % 360; x = y = 0; layout(); }
+      else if (b.dataset.c === 'ok' && ready) { b.disabled = true; b.textContent = 'Recortando…'; result = await render(); history.back(); }
+    });
+    window.addEventListener('resize', layout);
+    cropLayer = { close() { cropLayer = null; window.removeEventListener('resize', layout); w.remove(); URL.revokeObjectURL(url); resolve(result); } };
+    history.pushState({ crop: 1 }, '');
+    img.onload = () => { iw = img.naturalWidth; ih = img.naturalHeight; ready = true; layout(); };
+    img.onerror = () => { alert('Não foi possível abrir esta imagem. Se for HEIC (iPhone), converta para JPG.'); result = null; history.back(); };
+    img.src = url;
+  });
+}
+const aspectOf = path => /backdropId|thumbId/.test(path) ? 16 / 9 : 2 / 3;
+const cropTitle = path => /backdropId/.test(path) ? 'Enquadrar banner (16:9)' : /thumbId/.test(path) ? 'Enquadrar miniatura (16:9)' : 'Enquadrar capa (vertical)';
+async function recropMedia(path) {
+  const id = getPath(draft, path); if (!mu(id)) return;
+  loading(true, 'Abrindo foto…');
+  let src; try { src = await (await fetch(mu(id))).blob(); } catch (e) { loading(false); alert('Não foi possível abrir a foto.'); return; }
+  loading(false);
+  const asp = aspectOf(path); const out = await cropImage(src, asp, asp > 1 ? 1600 : 1000, cropTitle(path)); if (!out) return;
+  loading(true, 'Enviando foto…');
+  try { const nid = await putMedia(out, 'Enviando foto…'); setMedia(path, nid); } catch (e) { loading(false); alert('Não foi possível enviar: ' + e.message); }
+  loading(false); renderEditBody();
+}
+
 async function onMediaFile(input) {
-  const file = input.files[0]; if (!file || !draft) return;
+  const file = input.files[0]; input.value = ''; if (!file || !draft) return;
   const path = input.dataset.media, kind = input.dataset.kind;
+  let blob = file;
+  if (kind === 'image') { const asp = aspectOf(path); blob = await cropImage(file, asp, asp > 1 ? 1600 : 1000, cropTitle(path)); if (!blob) return; }
   loading(true, kind === 'video' ? 'Preparando vídeo…' : 'Preparando foto…');
   try {
-    const blob = kind === 'image' ? await resizeImage(file) : file;
-    checkSize(blob);
     const id = await putMedia(blob, kind === 'video' ? 'Enviando vídeo…' : 'Enviando foto…'); setMedia(path, id);
     loading(true, 'Finalizando…');
     if (kind === 'video') {
@@ -1193,7 +1326,7 @@ async function onMediaFile(input) {
       if (meta.frame) { const fid = await putMedia(meta.frame); if (needThumb) setMedia(pre + 'thumbId', fid); else setMedia('backdropId', fid); }
     }
   } catch (e) { loading(false); alert('Não foi possível enviar: ' + (e.message || e)); }
-  input.value = ''; loading(false); renderEditBody();
+  loading(false); renderEditBody();
 }
 
 /* =====================================================================
@@ -1329,8 +1462,35 @@ function downloadVideo(it, ep) {
   u.downloads = [{ key, itemId: it.id, epId: ep ? ep.id : '', at: Date.now() }, ...u.downloads.filter(d => d.key !== key)]; saveSoon();
   return true;
 }
+/* ---------------- Instalar como aplicativo (tela inicial) ---------------- */
+let installEvt = null;
+const isStandalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+const isIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvt = e; });
+window.addEventListener('appinstalled', () => { installEvt = null; toast('App instalado! Procure o ícone na tela inicial ❤'); document.querySelectorAll('[data-a="install"]').forEach(el => el.remove()); });
+const installPill = () => isStandalone() ? '' : `<button class="install-pill" data-a="install">${I.phone} Instalar app</button>`;
+function installSheet() {
+  const name = brandTitle();
+  const ios = isIOS();
+  const steps = ios
+    ? `<ol class="steps"><li>Abra este link no <b>Safari</b>.</li><li>Toque em <b>Compartilhar</b> (o quadrado com a seta para cima).</li><li>Escolha <b>Adicionar à Tela de Início</b> e toque em <b>Adicionar</b>.</li></ol>`
+    : `<ol class="steps"><li>Abra este link no <b>Chrome</b>.</li><li>Toque no menu <b>⋮</b> (canto de cima).</li><li>Escolha <b>Instalar app</b> ou <b>Adicionar à tela inicial</b>.</li></ol>`;
+  openOverlay(`<div class="sh-title"><h3>Instalar o ${esc(name)}</h3><button class="xbtn" data-a="closeOv">${I.x}</button></div>
+    <div class="appprev"><img src="icons/icon-192.png" alt=""><span>${esc(name)}</span></div>
+    <p style="color:#bbb;margin:0 0 12px;line-height:1.45">O ícone vai aparecer na tela inicial e o app abre em tela cheia, como um aplicativo de verdade.</p>${steps}`);
+}
 const A = {
   closeOv: () => closeOv(),
+  async install() {
+    if (isStandalone()) { toast('O app já está instalado ❤'); return; }
+    if (installEvt) {
+      const ev = installEvt; installEvt = null;
+      try { ev.prompt(); const r = await ev.userChoice; if (r && r.outcome === 'accepted') return; } catch (e) {}
+      return;
+    }
+    const f = () => installSheet(); overlay ? closeOv(f) : f();
+  },
+  recrop(d) { recropMedia(d.path); },
   skipSplash() { if (stack[0] && stack[0].name === 'splash') setRoot('profiles'); },
   back: () => back(),
   pickProfile(d) { cur = d.id; ensureUser(cur); setRoot('home'); },
@@ -1507,9 +1667,11 @@ document.addEventListener('change', async e => {
   if (t.dataset.media) onMediaFile(t);
   if (t.id === 'importFile' && t.files[0]) importBackup(t.files[0]);
   if (t.id === 'profPhoto' && t.files[0]) {
+    const file = t.files[0]; t.value = '';
+    const b = await cropImage(file, 1, 500, 'Enquadrar foto do perfil'); if (!b) return;
     loading(true, 'Enviando foto…');
     try {
-      const b = await resizeImage(t.files[0], 500); const id = await putMedia(b, 'Enviando foto…');
+      const id = await putMedia(b, 'Enviando foto…');
       if (profNewPhoto) deleteMedia(profNewPhoto); profNewPhoto = id; profDraft.photoId = id;
     } catch (err) { alert('Não foi possível enviar: ' + err.message); }
     loading(false); renderProfileSheet();
@@ -1531,7 +1693,8 @@ SCREENS.login = {
         <button class="btn" type="submit" id="lgBtn" style="background:#e50914;color:#fff;font-size:17px;margin-top:6px">Entrar</button>
       </form>
       <p class="login-err" id="lgErr">${esc(p.err || '')}</p>
-      <p class="login-hint">Acesso só para nós dois ❤</p></div></div>`;
+      <p class="login-hint">Acesso só para nós dois ❤</p>
+      ${isStandalone() ? '' : `<button class="sbtn ghost full" data-a="install" style="margin-top:18px">${I.phone} Instalar o app na tela inicial</button>`}</div></div>`;
   }
 };
 document.addEventListener('submit', async e => {
@@ -1571,6 +1734,7 @@ async function boot() {
   stack = [{ name: 'splash' }]; render();
   setTimeout(A.skipSplash, 2700);
 }
+if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
 (async function init() {
   history.replaceState({ root: 1 }, '');
   if (!window.supabase) return fatal('Sem conexão', 'Não foi possível carregar o Supabase. Verifique a internet.', true);
