@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Nossaflix</title>
+<title>Noisflix</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
 <style>
@@ -371,7 +371,7 @@ select.inp{appearance:none;-webkit-appearance:none;background-image:linear-gradi
 <script>
 "use strict";
 /* =====================================================================
-   NOSSAFLIX — "Netflix de casal".
+   NOISFLIX — "Netflix de casal".
    Dados: Supabase (tabela kv) · Fotos/vídeos: Supabase Storage (bucket privado "media")
    ===================================================================== */
 
@@ -510,7 +510,7 @@ async function deleteMedia(id) {
 }
 
 /* ---------------- Estado (tabela kv: "content" + "user:<perfil>") ---------------- */
-let S = { settings: { brand: 'NOSSAFLIX', pin: '', heroId: '' }, profiles: [], items: [], users: {}, notifications: [], media: {} };
+let S = { settings: { brand: 'NOISFLIX', pin: '', heroId: '' }, profiles: [], items: [], users: {}, notifications: [], media: {} };
 let cur = null; // perfil atual
 async function saveContent() {
   const { settings, profiles, items, notifications, media } = S;
@@ -531,7 +531,7 @@ const ensureUser = pid => (S.users[pid] ||= { myList: [], ratings: {}, progress:
 const user = () => ensureUser(cur);
 const profile = () => S.profiles.find(p => p.id === cur) || S.profiles[0];
 const item = id => S.items.find(i => i.id === id);
-const brand = () => (S.settings.brand || 'NOSSAFLIX').trim();
+const brand = () => (S.settings.brand || 'NOISFLIX').trim();
 const brandTitle = () => { const b = brand().toLowerCase(); return b.charAt(0).toUpperCase() + b.slice(1); };
 const sortedItems = () => [...S.items].sort((a, b) => b.createdAt - a.createdAt);
 const allEps = it => (it.seasons || []).flatMap((s, si) => s.episodes.map((ep, ei) => ({ s, si, ep, ei })));
@@ -1002,7 +1002,7 @@ SCREENS.search = {
   }
 };
 
-/* ---- Minha Nossaflix ---- */
+/* ---- Minha Noisflix ---- */
 SCREENS.my = {
   nav: 'my',
   html() {
@@ -1215,7 +1215,7 @@ async function importInto(state, entries) {
       media[en.id] = { type: blob.type || '', size: blob.size, at: Date.now() };
     }
     loading(true, 'Salvando…');
-    S.settings = Object.assign({ brand: 'NOSSAFLIX', pin: '', heroId: '' }, state.settings || {});
+    S.settings = Object.assign({ brand: 'NOISFLIX', pin: '', heroId: '' }, state.settings || {});
     S.profiles = state.profiles || []; S.items = state.items || []; S.notifications = state.notifications || [];
     S.media = Object.assign({}, S.media, media); S.users = state.users || {};
     await saveContent();
@@ -1550,7 +1550,7 @@ async function loadCloud() {
   if (error) throw error;
   const content = (data || []).find(r => r.key === 'content');
   if (content) Object.assign(S, content.value);
-  S.settings = Object.assign({ brand: 'NOSSAFLIX', pin: '', heroId: '' }, S.settings || {});
+  S.settings = Object.assign({ brand: 'NOISFLIX', pin: '', heroId: '' }, S.settings || {});
   S.profiles = S.profiles || []; S.items = S.items || []; S.notifications = S.notifications || []; S.media = S.media || {};
   S.users = {}; (data || []).filter(r => r.key.startsWith('user:')).forEach(r => { S.users[r.key.slice(5)] = r.value; });
   if (!S.profiles.length) { S.profiles = [{ id: uid(), name: 'Ele', color: 'blue', photoId: '' }, { id: uid(), name: 'Ela', color: 'red', photoId: '' }]; await saveContent(); }
