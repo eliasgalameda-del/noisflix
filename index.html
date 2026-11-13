@@ -1,0 +1,1584 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Nossaflix</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:#000;color:#fff}
+body{font-family:"Netflix Sans","Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased;overscroll-behavior-y:none}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:inherit}
+input,textarea,select{font:inherit}
+img,svg,video{display:block}
+#app{max-width:520px;margin:0 auto;min-height:100vh;min-height:100dvh;position:relative;background:#000;overflow-x:hidden}
+.ic{width:24px;height:24px}
+.noscroll{scrollbar-width:none}.noscroll::-webkit-scrollbar{display:none}
+
+/* ---------- marca ---------- */
+.markL{font-family:"Bebas Neue",Impact,sans-serif;color:#e50914;line-height:.8;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+.wordmark{font-family:"Bebas Neue",Impact,sans-serif;color:#e50914;letter-spacing:.02em;line-height:1}
+
+/* ---------- splash ---------- */
+.splash{position:fixed;inset:0;background:#000;z-index:300;display:grid;place-items:center;overflow:hidden;cursor:pointer}
+.stripes{position:absolute;inset:-5% 0;display:flex;filter:blur(1.2px) saturate(1.3)}
+.stripes i{opacity:0;transform:scaleY(.15);animation:stripe 2.8s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes stripe{0%{opacity:0;transform:scaleY(.15)}22%{opacity:1;transform:scaleY(1)}70%{opacity:.95;transform:scaleY(1)}100%{opacity:0;transform:scaleY(1.2) scaleX(.2)}}
+.splash .smark{position:relative;animation:markin 2.8s ease forwards;filter:drop-shadow(0 10px 30px rgba(0,0,0,.7))}
+@keyframes markin{0%{transform:scale(.5);opacity:0}22%{opacity:1;transform:scale(1)}75%{transform:scale(1.06);opacity:1}100%{transform:scale(4);opacity:0}}
+
+/* ---------- perfis ---------- */
+.prof{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;position:relative;background:var(--pc,#1d2b31)}
+.prof-hero{position:relative;flex:1;min-height:56vh;background:#111 center top/cover no-repeat}
+.prof-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.25) 0%,transparent 30%,transparent 55%,var(--pc,#1d2b31) 100%)}
+.prof-empty{position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(circle at 50% 40%,#3a0a0e,#000 70%)}
+.prof-line{position:absolute;bottom:10px;left:0;right:0;text-align:center;z-index:2;font-weight:700;font-size:20px;display:flex;gap:10px;justify-content:center;align-items:center;padding:0 16px;text-shadow:0 2px 8px rgba(0,0,0,.6)}
+.prof-panel{position:relative;padding:26px 16px calc(36px + env(safe-area-inset-bottom));text-align:center;z-index:1}
+.prof-panel::before{content:"";position:absolute;left:-30%;right:-30%;top:72px;bottom:0;border-radius:50% 50% 0 0/60px 60px 0 0;background:linear-gradient(rgba(255,255,255,.07),rgba(255,255,255,.12));z-index:-1}
+.prof-q{font-size:20px;color:rgba(255,255,255,.75);margin-bottom:18px}
+.prof-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:18px 26px}
+.ptile{display:flex;flex-direction:column;align-items:center;gap:10px;width:96px}
+.pav{width:96px;height:96px;border-radius:9px;overflow:hidden;position:relative}
+.pav .av,.pav img{width:100%;height:100%}
+.pedit{position:absolute;inset:0;background:rgba(0,0,0,.55);display:grid;place-items:center}
+.pedit svg{width:34px;height:34px}
+.pname{font-size:19px;font-weight:700;max-width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prof-actions{display:flex;justify-content:center;gap:56px;margin-top:22px}
+.pact{display:flex;flex-direction:column;align-items:center;gap:10px;font-size:18px;color:rgba(255,255,255,.85)}
+.pbox{width:96px;height:96px;border-radius:9px;background:rgba(255,255,255,.14);display:grid;place-items:center}
+.pbox svg{width:34px;height:34px}
+.av{display:block;width:100%;height:100%;object-fit:cover}
+.avc{display:grid;place-items:center;width:100%;height:100%}
+.avc svg{width:100%;height:100%}
+
+/* ---------- topo / chips ---------- */
+.home-bg{position:absolute;left:0;right:0;top:0;height:1000px;background:linear-gradient(to bottom,var(--hc,#16242b) 0%,#000 80%);transition:background .6s;z-index:0;pointer-events:none}
+.topbar{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:18px;padding:calc(env(safe-area-inset-top) + 14px) 16px 10px;transition:background .25s}
+.topbar.solid{background:rgba(0,0,0,.94)}
+.topbar h1{font-size:29px;font-weight:500;margin:0;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tb-btn{position:relative;width:34px;height:34px;display:grid;place-items:center}
+.tb-btn svg{width:28px;height:28px}
+.tb-badge{position:absolute;top:-8px;right:-9px;background:#e50914;font-size:13px;font-weight:700;border-radius:12px;min-width:22px;height:22px;display:grid;place-items:center;padding:0 5px}
+.chips{display:flex;gap:9px;padding:4px 16px 16px;overflow-x:auto;position:relative;z-index:2}
+.chip{flex:none;padding:10px 20px;border:1px solid rgba(255,255,255,.3);border-radius:11px;background:rgba(255,255,255,.08);font-size:17px;font-weight:600;white-space:nowrap;display:flex;align-items:center;gap:6px;backdrop-filter:blur(4px)}
+.chip.on{background:#fff;color:#000;border-color:#fff}
+.chip.x{padding:10px 11px}
+.chip svg{width:18px;height:18px}
+
+/* ---------- hero ---------- */
+.hero{position:relative;margin:0 24px;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.25);box-shadow:0 14px 50px rgba(0,0,0,.6);aspect-ratio:.67;background:#1a1a1a;z-index:1}
+.hero>img,.hero>.ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero .shade{position:absolute;left:0;right:0;bottom:0;height:42%;background:linear-gradient(transparent,rgba(0,0,0,.88))}
+.hero .hc{position:absolute;left:0;right:0;bottom:0;padding:14px 22px 22px;display:flex;flex-direction:column;gap:12px}
+.hero-line{text-align:center;font-size:19px;font-weight:600;display:flex;justify-content:center;align-items:center;gap:9px;margin-bottom:4px;text-shadow:0 1px 6px rgba(0,0,0,.7)}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;height:50px;border-radius:5px;font-size:19px;font-weight:600;width:100%}
+.btn svg{width:26px;height:26px}
+.btn-w{background:#fff;color:#000}
+.btn-g{background:rgba(110,110,110,.55);color:#fff;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.btn-d{background:#2a2a2a;color:#fff}
+.t10{background:#e50914;color:#fff;font-weight:900;width:28px;height:30px;display:inline-flex;flex-direction:column;align-items:center;justify-content:center;border-radius:2px;line-height:.95;flex:none;font-family:Arial,sans-serif}
+.t10 b:first-child{font-size:8px;letter-spacing:.03em}.t10 b:last-child{font-size:14px}
+.t10.sm{width:21px;height:23px}.t10.sm b:first-child{font-size:6px}.t10.sm b:last-child{font-size:11px}
+
+/* ---------- linhas ---------- */
+.row{margin-top:26px;position:relative;z-index:1}
+.row h2{font-size:21px;font-weight:700;margin:0 16px 10px}
+.rail{display:flex;gap:9px;overflow-x:auto;padding:0 16px;scroll-padding:0 16px}
+.card{flex:none;width:calc((100% - 18px)/3.2);max-width:165px;position:relative;border-radius:6px;overflow:hidden;background:#1c1c1c;display:block}
+.pimg{width:100%;aspect-ratio:.71;object-fit:cover;background:#222}
+.ph{display:flex;align-items:center;justify-content:center;text-align:center;padding:10px;background:linear-gradient(160deg,#3b0b10,#141414 70%);font-family:"Bebas Neue",Impact,sans-serif;font-size:22px;line-height:1;color:#fff;word-break:break-word}
+.bdg{position:absolute;left:50%;transform:translateX(-50%);bottom:0;display:flex;flex-direction:column;align-items:stretch;font-size:12.5px;font-weight:700;white-space:nowrap;z-index:2;text-align:center}
+.bdg span{padding:3px 9px;background:#e50914;color:#fff;border-radius:2px 2px 0 0}
+.bdg span+span{background:#fff;color:#000;border-radius:0}
+.c10{position:absolute;top:0;right:0;z-index:2}
+.cw{background:#1c1c1c}
+.cw-top{position:relative;display:block;width:100%}
+.pcirc{position:absolute;left:50%;top:50%;transform:translate(-50%,-62%);width:58px;height:58px;border-radius:50%;border:2px solid #fff;background:rgba(0,0,0,.4);display:grid;place-items:center}
+.pcirc svg{width:24px;height:24px;margin-left:3px}
+.cwbar{height:4px;background:#5a5a5a;margin:10px 9px 8px;border-radius:2px;overflow:hidden}
+.cwbar i,.bar i,.dprog i,.pbar i{display:block;height:100%;background:#e50914}
+.cwfoot{display:flex;align-items:center;justify-content:space-around;padding:2px 0 8px}
+.cwfoot button{padding:4px 10px}
+.cwfoot button svg{width:30px;height:30px}
+.cwfoot span{width:1px;height:26px;background:#555}
+.t10c{flex:none;display:flex;align-items:flex-end;width:calc((100% - 18px)/2.15);max-width:220px}
+.t10n{font-family:"Bebas Neue",Impact,sans-serif;font-size:150px;line-height:.7;color:#000;-webkit-text-stroke:3px #8a8a8a;margin-right:-12px;letter-spacing:-.06em}
+.t10c .pimg{width:62%;border-radius:5px;position:relative;z-index:1;flex:none}
+.empty{position:relative;z-index:1;margin:40px 24px;padding:32px 22px;border:1px dashed #444;border-radius:14px;text-align:center;color:#bbb;line-height:1.5}
+.empty h3{color:#fff;font-size:22px;margin:12px 0 6px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 10px}
+.grid3 .card{width:auto;max-width:none}
+
+/* ---------- navegação inferior ---------- */
+.bnav{position:fixed;bottom:calc(10px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:calc(100% - 28px);max-width:490px;background:rgba(36,36,36,.9);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.08);border-radius:44px;display:flex;padding:6px;z-index:60;box-shadow:0 8px 30px rgba(0,0,0,.5)}
+.bnav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;padding:9px 0 7px;border-radius:36px;color:#b5b5b5;font-size:12.5px;white-space:nowrap;min-width:0}
+.bnav button.on{background:rgba(255,255,255,.1);color:#fff}
+.bnav svg{width:27px;height:27px}
+.bnav .nav-av{width:27px;height:27px;border-radius:5px;overflow:hidden}
+.screen{position:relative;min-height:100vh;min-height:100dvh;padding-bottom:120px}
+
+/* ---------- detalhe ---------- */
+.dhead{position:sticky;top:0;z-index:30;background:#000;padding:calc(env(safe-area-inset-top) + 14px) 14px 14px;display:flex;align-items:center;gap:12px}
+.dhead svg{width:28px;height:28px}
+.dhead h2{margin:0;font-size:20px;font-weight:600;flex:1}
+.dmedia{position:relative;aspect-ratio:16/9;background:#111;overflow:hidden}
+.dmedia video,.dmedia img{width:100%;height:100%;object-fit:cover}
+.roundbtn{position:absolute;right:12px;bottom:14px;width:38px;height:38px;border-radius:50%;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.4);display:grid;place-items:center}
+.roundbtn svg{width:20px;height:20px}
+.dprog{height:3px;background:#444}
+.dbody{padding:12px 16px 0}
+.dtitle{font-size:33px;font-weight:800;margin:0 0 10px;line-height:1.1}
+.meta{display:flex;align-items:center;flex-wrap:wrap;gap:12px;color:#bcbcbc;font-size:19px;margin-bottom:14px}
+.rate{font-size:12px;font-weight:800;padding:3px 4px;border-radius:3px;min-width:26px;text-align:center;line-height:1.2;font-family:Arial,sans-serif}
+.hd{border:1.5px solid #bcbcbc;border-radius:3px;font-size:10px;font-weight:800;padding:1px 4px;line-height:1.3}
+.dbody .btn{margin-bottom:12px}
+.epline{font-weight:700;font-size:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:18px 0 6px}
+.eprog{display:flex;align-items:center;gap:16px;color:#bcbcbc;font-size:16px}
+.bar{flex:1;height:3px;background:#555}
+.eprog span{text-align:center;width:110px}
+.syn{font-size:18px;line-height:1.42;margin:16px 0 10px;white-space:pre-line}
+.cast{color:#bcbcbc;font-size:15.5px;line-height:1.4;margin-bottom:4px;cursor:pointer}
+.cast b{color:#9c9c9c;font-weight:700}
+.cast.clamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.acts{display:flex;justify-content:space-around;padding:26px 4px 18px}
+.act{display:flex;flex-direction:column;align-items:center;gap:9px;font-size:14.5px;color:#bcbcbc;flex:1;text-align:center;line-height:1.3}
+.act svg{width:32px;height:32px;color:#fff}
+.flip{transform:rotate(180deg)}
+.tabs{display:flex;gap:40px;padding:0 16px;border-top:3px solid #333;position:relative}
+.tab{padding:18px 0 14px;font-size:18.5px;font-weight:700;color:#bcbcbc;position:relative}
+.tab.on{color:#fff}
+.tab.on::before{content:"";position:absolute;top:-3px;left:-20px;right:-20px;height:5px;background:#e50914}
+.srow{display:flex;align-items:center;justify-content:space-between;padding:4px 14px 8px 12px}
+.ssel{display:inline-flex;align-items:center;gap:14px;background:#262626;padding:11px 18px;border-radius:4px;font-size:20px;font-weight:700}
+.ssel svg{width:18px;height:18px}
+.ep{padding:8px 16px 22px}
+.ep-top{display:flex;gap:16px;align-items:center}
+.ep-th{position:relative;width:42%;max-width:220px;aspect-ratio:16/9;border-radius:4px;overflow:hidden;background:#222;flex:none}
+.ep-th img{width:100%;height:100%;object-fit:cover}
+.ep-th .pc{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;border:2px solid #fff;background:rgba(0,0,0,.45);display:grid;place-items:center}
+.ep-th .pc svg{width:17px;height:17px;margin-left:2px}
+.pbar{position:absolute;left:0;right:0;bottom:0;height:4px;background:#555}
+.ep-t{flex:1;font-size:18px;font-weight:700;line-height:1.35;min-width:0}
+.ep-t small{display:block;color:#bcbcbc;font-weight:400;font-size:16px;margin-top:2px}
+.ep-dl svg{width:30px;height:30px}
+.ep-syn{color:#d2d2d2;font-size:17px;line-height:1.42;margin-top:14px}
+.simgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:6px 8px}
+.simgrid .card{width:auto;max-width:none}
+.trl{margin:8px 16px}
+.trl .tth{position:relative;aspect-ratio:16/9;border-radius:4px;overflow:hidden;background:#222}
+.trl .tth img{width:100%;height:100%;object-fit:cover}
+.trl h4{margin:10px 0 0;font-size:17px}
+
+/* ---------- sheets / overlays ---------- */
+.ov .sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:140;opacity:0;transition:opacity .25s}
+.ov .sheet{position:fixed;left:50%;bottom:0;transform:translate(-50%,105%);width:100%;max-width:520px;background:#2b2b2b;border-radius:14px 14px 0 0;z-index:141;transition:transform .28s cubic-bezier(.2,.8,.2,1);max-height:90vh;overflow:auto;padding:18px 16px calc(26px + env(safe-area-inset-bottom))}
+.ov.open .sheet-bg{opacity:1}
+.ov.open .sheet{transform:translate(-50%,0)}
+.picker{position:fixed;inset:0;z-index:150;background:rgba(0,0,0,.93);display:flex;flex-direction:column;align-items:center;gap:26px;overflow:auto;padding:80px 20px 150px;opacity:0;transition:opacity .2s}
+.ov.open .picker{opacity:1}
+.picker .po{font-size:19px;color:#a8a8a8;text-align:center}
+.picker .po.on{color:#fff;font-weight:700;font-size:23px}
+.picker .pclose{position:fixed;bottom:calc(40px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:62px;height:62px;border-radius:50%;background:#fff;color:#000;display:grid;place-items:center}
+.picker .pclose svg{width:28px;height:28px}
+.sh-title{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.sh-title h3{margin:0;flex:1;font-size:20px}
+.xbtn{width:32px;height:32px;border-radius:50%;background:#444;display:grid;place-items:center;flex:none}
+.xbtn svg{width:18px;height:18px}
+.sh-opt{display:flex;align-items:center;gap:16px;width:100%;padding:15px 4px;font-size:17px;border-bottom:1px solid #3a3a3a}
+.sh-opt:last-child{border-bottom:0}
+.sh-opt svg{width:24px;height:24px;flex:none}
+.sh-opt.danger{color:#ff6b6b}
+.ish{display:flex;gap:14px}
+.ish img,.ish .ph{width:105px;aspect-ratio:.71;border-radius:5px;object-fit:cover;flex:none}
+.ish h3{margin:2px 0 6px;font-size:21px}
+.ish .meta{font-size:14px;margin-bottom:8px;gap:8px}
+.ish p{margin:0;font-size:15px;line-height:1.4;color:#ddd;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+.ish-acts{display:flex;justify-content:space-around;margin:20px 0 6px}
+.ish-acts .act{font-size:13px}
+.ish-acts .act .circ{width:48px;height:48px;border-radius:50%;background:#444;display:grid;place-items:center}
+.ish-acts .act .circ.w{background:#fff;color:#000}
+.ish-acts .act .circ svg{width:24px;height:24px;color:inherit}
+.ish-more{display:flex;align-items:center;gap:10px;width:100%;padding:16px 4px 4px;border-top:1px solid #444;margin-top:14px;font-size:16px;font-weight:600}
+.ish-more svg{width:22px;height:22px}
+.ish-more .grow{flex:1}
+.rates{display:flex;justify-content:space-around;padding:20px 0 8px}
+.rates button{display:flex;flex-direction:column;align-items:center;gap:10px;font-size:15px;color:#ccc}
+.rates .circ{width:66px;height:66px;border-radius:50%;background:#444;display:grid;place-items:center}
+.rates .on .circ{background:#fff;color:#000}
+.rates svg{width:30px;height:30px}
+#toast{position:fixed;left:50%;bottom:110px;transform:translate(-50%,20px);background:#fff;color:#000;padding:12px 18px;border-radius:8px;font-weight:600;font-size:15px;z-index:400;opacity:0;pointer-events:none;transition:.25s;max-width:90vw;text-align:center}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+#loading{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.75);display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px;font-weight:600}
+#loading.show{display:flex}
+.spin{width:54px;height:54px;border:5px solid rgba(255,255,255,.2);border-top-color:#e50914;border-radius:50%;animation:sp 0.9s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* ---------- player ---------- */
+.player{position:fixed;inset:0;background:#000;z-index:120;user-select:none}
+.player video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.pnov{position:absolute;inset:0;display:grid;place-items:center;color:#aaa;padding:30px;text-align:center}
+.pctl{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(rgba(0,0,0,.7),transparent 25%,transparent 65%,rgba(0,0,0,.8));transition:opacity .3s}
+.pctl.hid{opacity:0}
+.pctl.hid *{pointer-events:none}
+.ptop{display:flex;align-items:center;gap:14px;padding:calc(env(safe-area-inset-top) + 14px) 16px 14px}
+.ptop svg{width:28px;height:28px}
+.ptitle{flex:1;text-align:center;font-weight:600;font-size:16px;padding-right:42px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pmid{display:flex;justify-content:center;align-items:center;gap:60px}
+.pmid button svg{width:46px;height:46px}
+.pmid .pp svg{width:66px;height:66px}
+.pbot{padding:0 18px calc(22px + env(safe-area-inset-bottom))}
+.seek{display:flex;align-items:center;gap:14px;font-size:14px}
+.seek input{flex:1;-webkit-appearance:none;appearance:none;height:4px;border-radius:2px;background:linear-gradient(to right,#e50914 var(--p,0%),rgba(255,255,255,.35) var(--p,0%));outline:none}
+.seek input::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:#e50914}
+.seek input::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:#e50914;border:0}
+.pbtns{display:flex;justify-content:center;gap:34px;margin-top:16px;font-size:15px;font-weight:600}
+.pbtns button{display:flex;align-items:center;gap:8px}
+.pbtns svg{width:24px;height:24px}
+.pnext{position:absolute;right:18px;bottom:110px;background:#fff;color:#000;border-radius:5px;padding:12px 18px;font-weight:700;display:flex;gap:10px;align-items:center}
+.pnext svg{width:22px;height:22px}
+
+/* ---------- clipes ---------- */
+.clips{height:100vh;height:100dvh;overflow-y:auto;scroll-snap-type:y mandatory;background:#000}
+.clip{height:100vh;height:100dvh;scroll-snap-align:start;scroll-snap-stop:always;position:relative;overflow:hidden;display:flex;align-items:center}
+.clip .cbg{position:absolute;inset:-30px;background:center/cover;filter:blur(28px) brightness(.45)}
+.clip video{position:relative;width:100%;max-height:100%;object-fit:contain}
+.clip .cshade{position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.85));pointer-events:none}
+.clip-info{position:absolute;left:16px;right:86px;bottom:calc(112px + env(safe-area-inset-bottom));display:flex;gap:12px;align-items:flex-end}
+.clip-info img,.clip-info .ph{width:62px;aspect-ratio:.71;border-radius:4px;object-fit:cover;flex:none;font-size:12px}
+.clip-info h3{margin:0 0 4px;font-size:20px}
+.clip-info p{margin:0;font-size:14px;color:#ccc;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.clip-side{position:absolute;right:10px;bottom:calc(112px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:22px;align-items:center}
+.clip-side .act{font-size:12px;color:#fff;width:66px}
+.clip-side svg{width:30px;height:30px}
+.clip-top{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:520px;padding:calc(env(safe-area-inset-top) + 14px) 16px 10px;z-index:20;font-size:24px;font-weight:600;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(rgba(0,0,0,.6),transparent);pointer-events:none}
+.clip-top button{pointer-events:auto}
+.clip-top svg{width:26px;height:26px}
+
+/* ---------- buscar ---------- */
+.sbar{display:flex;align-items:center;gap:10px;background:#333;border-radius:6px;padding:0 12px;height:46px;margin:0 16px 8px}
+.sbar svg{width:22px;height:22px;color:#aaa;flex:none}
+.sbar input{flex:1;background:none;border:0;outline:0;color:#fff;font-size:17px;min-width:0}
+.sh2{font-size:21px;font-weight:700;margin:20px 16px 12px}
+.si{display:flex;align-items:center;gap:12px;padding:4px 16px 4px 0;width:100%;margin-bottom:6px}
+.si img,.si .ph{width:150px;aspect-ratio:16/9;object-fit:cover;border-radius:0 3px 3px 0;flex:none;font-size:18px}
+.si .t{flex:1;font-size:16px;font-weight:600;line-height:1.3}
+.si .pc{width:34px;height:34px;border:1.5px solid #fff;border-radius:50%;display:grid;place-items:center;flex:none}
+.si .pc svg{width:15px;height:15px;margin-left:2px}
+
+/* ---------- minha ---------- */
+.my-top{display:flex;justify-content:space-between;align-items:center;padding:calc(env(safe-area-inset-top) + 14px) 16px 8px;position:sticky;top:0;background:#000;z-index:20}
+.my-top h1{margin:0;font-size:27px;font-weight:600}
+.my-top .r{display:flex;gap:18px}
+.my-top svg{width:28px;height:28px}
+.my-prof{display:flex;flex-direction:column;align-items:center;gap:12px;margin:8px 0 22px}
+.my-prof .bigav{width:80px;height:80px;border-radius:8px;overflow:hidden}
+.my-name{font-size:24px;font-weight:700;display:flex;align-items:center;gap:6px}
+.my-name svg{width:20px;height:20px}
+.mrow{display:flex;align-items:center;gap:14px;padding:12px 16px;width:100%}
+.mrow .icc{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#e50914;flex:none}
+.mrow .icc.b{background:#0071eb}
+.mrow .icc.g{background:#333}
+.mrow .icc svg{width:22px;height:22px}
+.mrow .tx{flex:1;font-size:18px;font-weight:700}
+.mrow .tx small{display:block;font-weight:400;font-size:14px;color:#aaa;margin-top:2px}
+.mrow .chev{width:22px;height:22px;transform:rotate(-90deg);color:#aaa}
+.nitem{display:flex;gap:12px;padding:12px 16px;width:100%;align-items:center}
+.nitem img,.nitem .ph{width:120px;aspect-ratio:16/9;border-radius:4px;object-fit:cover;flex:none;font-size:14px}
+.nitem .tx{flex:1;font-size:15px;line-height:1.35}
+.nitem .tx b{display:block;font-size:16px}
+.nitem .tx small{color:#999}
+.nitem .dot{width:8px;height:8px;border-radius:50%;background:#e50914;flex:none}
+
+/* ---------- estúdio ---------- */
+.st{padding:4px 16px 150px}
+.st-hero{background:linear-gradient(135deg,#5b0a11,#1a1a1a);border-radius:12px;padding:18px;margin-bottom:16px}
+.st-hero h2{margin:0 0 6px;font-size:22px}
+.st-hero p{margin:0 0 14px;color:#ddd;font-size:14.5px;line-height:1.45}
+.fld{margin-bottom:14px}
+.fld>label{display:block;font-size:12.5px;color:#aaa;margin-bottom:7px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.fld .hint{font-size:12.5px;color:#888;margin-top:6px;line-height:1.4}
+.inp{width:100%;background:#1c1c1c;border:1px solid #363636;border-radius:7px;padding:12px;color:#fff;font-size:16px;outline:none}
+.inp:focus{border-color:#e50914}
+textarea.inp{min-height:96px;resize:vertical;line-height:1.4}
+select.inp{appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,#aaa 50%),linear-gradient(135deg,#aaa 50%,transparent 50%);background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%;background-size:5px 5px;background-repeat:no-repeat;padding-right:34px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.box{background:#141414;border:1px solid #262626;border-radius:12px;padding:16px 14px 4px;margin-bottom:16px}
+.box>h3{margin:0 0 14px;font-size:17px;display:flex;align-items:center;gap:8px}
+.box>h3 svg{width:20px;height:20px;color:#e50914}
+.up{display:flex;gap:12px;align-items:center}
+.up .pv{width:86px;aspect-ratio:.71;border-radius:6px;background:#222;flex:none;display:grid;place-items:center;color:#666;overflow:hidden}
+.up .pv.wide{width:150px;aspect-ratio:16/9}
+.up .pv img,.up .pv video{width:100%;height:100%;object-fit:cover}
+.up .pv svg{width:30px;height:30px}
+.up-btns{display:flex;flex-direction:column;gap:8px;flex:1;align-items:flex-start}
+.up-btns small{color:#888;font-size:12.5px}
+.sbtn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;border-radius:7px;background:#2d2d2d;font-weight:700;font-size:14px;position:relative;overflow:hidden;white-space:nowrap}
+.sbtn svg{width:18px;height:18px}
+.sbtn input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;font-size:0}
+.sbtn.red{background:#e50914}
+.sbtn.ghost{background:none;border:1px solid #444}
+.sbtn.danger{background:none;border:1px solid #6b1d1d;color:#ff7b7b}
+.sbtn.full{width:100%;padding:13px}
+.seg{display:flex;background:#1c1c1c;border-radius:9px;padding:4px;margin-bottom:16px}
+.seg button{flex:1;padding:11px;border-radius:7px;font-weight:700;color:#aaa;text-align:center}
+.seg button.on{background:#e50914;color:#fff}
+.catchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.catchips button{padding:5px 10px;border-radius:14px;background:#2a2a2a;font-size:13px;color:#ccc}
+.chk{display:flex;align-items:center;gap:10px;font-size:16px;margin-bottom:14px}
+.chk input{width:22px;height:22px;accent-color:#e50914}
+.season{border:1px solid #333;border-radius:10px;padding:12px 12px 2px;margin-bottom:14px;background:#191919}
+.season-h{display:flex;gap:8px;align-items:center;margin-bottom:12px}
+.season-h .inp{font-weight:700}
+.epb{background:#111;border:1px solid #2c2c2c;border-radius:9px;padding:12px 12px 2px;margin-bottom:12px}
+.epb-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-weight:700;color:#e50914}
+.iconbtn{width:40px;height:40px;border-radius:8px;display:grid;place-items:center;background:#2a2a2a;flex:none}
+.iconbtn svg{width:20px;height:20px}
+.iconbtn.danger{color:#ff7b7b}
+.savebar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:520px;padding:14px 16px calc(14px + env(safe-area-inset-bottom));background:linear-gradient(transparent,#000 35%);display:flex;gap:10px;z-index:50}
+.savebar .sbtn{flex:1;padding:15px;font-size:16px}
+.stitem{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid #222}
+.stitem img,.stitem .ph{width:56px;aspect-ratio:.71;border-radius:4px;object-fit:cover;flex:none;font-size:11px}
+.stitem .tx{flex:1;min-width:0}
+.stitem .tx b{display:block;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stitem .tx small{color:#999;font-size:13px}
+.colors{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 14px}
+.colors button{width:54px;height:54px;border-radius:8px;overflow:hidden;border:3px solid transparent}
+.colors button.on{border-color:#fff}
+.avprev{width:110px;height:110px;border-radius:10px;overflow:hidden;margin:4px auto 16px}
+.login{min-height:100vh;min-height:100dvh;position:relative;display:flex;align-items:center;justify-content:center;padding:24px}
+.login-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 0%,rgba(229,9,20,.35),transparent 60%),radial-gradient(ellipse at 80% 100%,rgba(30,91,255,.25),transparent 60%),#000}
+.login-box{position:relative;width:100%;max-width:380px;background:rgba(0,0,0,.7);border-radius:10px;padding:34px 26px}
+.login-box h1{margin:0 0 20px;font-size:30px}
+.login-box form{display:flex;flex-direction:column;gap:12px}
+.login-box .inp{background:#222;border-color:#444;padding:15px}
+.login-err{color:#ff8a8a;min-height:20px;margin:14px 0 0;font-size:14px}
+.login-hint{color:#888;font-size:14px;text-align:center;margin:8px 0 0}
+@media (min-width:521px){body{background:#0a0a0a}#app{box-shadow:0 0 60px rgba(0,0,0,.8)}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="toast"></div>
+<div id="loading"><div class="spin"></div><div id="loadingTxt">Salvando…</div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+"use strict";
+/* =====================================================================
+   NOSSAFLIX — "Netflix de casal".
+   Dados: Supabase (tabela kv) · Fotos/vídeos: Supabase Storage (bucket privado "media")
+   ===================================================================== */
+
+/* ====== CONFIGURAÇÃO DO SUPABASE (Project Settings → API) ====== */
+const SUPABASE_URL = 'https://ymheknskzuvlgrwxyucn.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InltaGVrbnNrenV2bGdyd3h5dWNuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ1OTYwODEsImV4cCI6MjExMDE3MjA4MX0.A7puU4aZGddRHxVtru8AaBwu8Vyih-2RjESRbLie9ws';
+const BUCKET = 'media';
+const MAX_UPLOAD_MB = 50; // limite por arquivo do plano grátis do Supabase
+/* ================================================================ */
+const configured = /^https:\/\//.test(SUPABASE_URL) && SUPABASE_ANON_KEY.length > 30;
+const sb = configured && window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+const app = document.getElementById('app');
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+const norm = s => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+const splitList = s => String(s || '').split(',').map(x => x.trim()).filter(Boolean);
+
+/* ---------------- Ícones ---------------- */
+const I = {
+  home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 10.2 12 4l8 6.2V19a1.6 1.6 0 0 1-1.6 1.6H5.6A1.6 1.6 0 0 1 4 19z"/><path d="M9 16h6" stroke-linecap="round"/></svg>',
+  clips:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="7" y="3" width="13" height="15.5" rx="2.5"/><path d="M4 7.5v10.8A2.7 2.7 0 0 0 6.7 21H15"/><path d="m11.5 8 4 2.8-4 2.8z" fill="currentColor"/></svg>',
+  search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.8-4.8"/></svg>',
+  download:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-5.5-5.5L12 15l5.5-5.5M4 20.5h16"/></svg>',
+  dlSeason:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v10m-4.5-4.5L12 12l4.5-4.5M4 16.5h16M4 21h16"/></svg>',
+  bell:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M6 16.5V11a6 6 0 1 1 12 0v5.5l1.8 1.8H4.2z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></svg>',
+  play:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 3.5v17l15-8.5z"/></svg>',
+  pause:'<svg viewBox="0 0 24 24" fill="currentColor"><rect x="5.5" y="4" width="4.5" height="16" rx="1"/><rect x="14" y="4" width="4.5" height="16" rx="1"/></svg>',
+  plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 4v16M4 12h16"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12.5 5 5L20 6.5"/></svg>',
+  info:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 10.5v6.5" stroke-linecap="round"/><circle cx="12" cy="7.3" r="1.3" fill="currentColor" stroke="none"/></svg>',
+  dots:'<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>',
+  back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4m7-7-7 7 7 7"/></svg>',
+  share:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="m8.3 10.7 7.4-4.3M8.3 13.3l7.4 4.3"/></svg>',
+  thumb:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 10h3.5v11H3zM8 10l4-7.5c1.5 0 2.6 1.1 2.2 2.7L13.4 9H20a2 2 0 0 1 2 2.3l-1.3 7.5A2 2 0 0 1 18.7 21H8z"/></svg>',
+  thumbF:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 10h3.5v11H3zM8 10l4-7.5c1.5 0 2.6 1.1 2.2 2.7L13.4 9H20a2 2 0 0 1 2 2.3l-1.3 7.5A2 2 0 0 1 18.7 21H8z"/></svg>',
+  thumbs2:'<svg viewBox="0 0 28 24" fill="currentColor"><path d="M2 11h3v10H2zM6.5 11 10 4.5c1.3 0 2.2.9 1.9 2.3L11.5 10H17a1.8 1.8 0 0 1 1.8 2.1l-1.1 6.4A1.8 1.8 0 0 1 15.9 20H6.5z"/><path d="M15 3.5c1.3 0 2.2.9 1.9 2.3L16.5 8H22a1.8 1.8 0 0 1 1.8 2.1l-1.1 6.4a1.8 1.8 0 0 1-1.8 1.5h-1l.9-5.6a2.6 2.6 0 0 0-2.6-3h-2.5l.4-2.2A3 3 0 0 0 13.6 4z" opacity=".9"/></svg>',
+  mute:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3.5 9h4l5-4v14l-5-4h-4z" fill="currentColor"/><path d="m16 9.5 5 5m0-5-5 5"/></svg>',
+  sound:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3.5 9h4l5-4v14l-5-4h-4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.6 6a8.6 8.6 0 0 1 0 12"/></svg>',
+  pencil:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/></svg>',
+  x:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>',
+  chev:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 8h14l-7 8z"/></svg>',
+  chevR:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg>',
+  menu:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>',
+  trash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg>',
+  upload:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m-5 5 5-5 5 5M4 20h16"/></svg>',
+  image:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m3 17 5-4 4 3 3-2 6 4"/></svg>',
+  film:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/></svg>',
+  gear:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>',
+  rw:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 12a8 8 0 1 0 2.4-5.7L4 8.5"/><path d="M4 4v4.5h4.5"/><text x="12" y="15.5" font-size="7" font-weight="700" text-anchor="middle" fill="currentColor" stroke="none" font-family="Arial">10</text></svg>',
+  ff:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20 12a8 8 0 1 1-2.4-5.7L20 8.5"/><path d="M20 4v4.5h-4.5"/><text x="12" y="15.5" font-size="7" font-weight="700" text-anchor="middle" fill="currentColor" stroke="none" font-family="Arial">10</text></svg>',
+  next:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 4.5v15l10.5-7.5z"/><rect x="16.5" y="4.5" width="2.8" height="15" rx=".6"/></svg>',
+  list:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="13" height="10" rx="1.5"/><path d="M6 19h12a2 2 0 0 0 2-2V8"/></svg>',
+  heart:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.1 0 3.6 1.1 5.3 3 1.7-1.9 3.2-3 5.3-3 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z"/></svg>',
+  user:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4.4-6.5 8-6.5s7 2 8 6.5"/></svg>',
+  logout:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 16l-4-4 4-4M6 12h10"/></svg>',
+  save:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M5 3h11l4 4v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M8 3v5h7V3M8 21v-7h8v7"/></svg>',
+  star:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg>'
+};
+
+/* ---------------- Banco local (IndexedDB) ---------------- */
+const DB = {
+  db: null,
+  open() {
+    return new Promise((res, rej) => {
+      const r = indexedDB.open('nossaflix', 1);
+      r.onupgradeneeded = () => { const d = r.result; d.createObjectStore('kv'); d.createObjectStore('media'); };
+      r.onsuccess = () => { this.db = r.result; res(); };
+      r.onerror = () => rej(r.error);
+    });
+  },
+  tx(store, mode, fn) {
+    return new Promise((res, rej) => {
+      const t = this.db.transaction(store, mode); const s = t.objectStore(store); let out;
+      const req = fn(s); if (req) req.onsuccess = () => { out = req.result; };
+      t.oncomplete = () => res(out); t.onerror = () => rej(t.error); t.onabort = () => rej(t.error || new Error('Sem espaço de armazenamento'));
+    });
+  },
+  get(st, k) { return this.tx(st, 'readonly', s => s.get(k)); },
+  put(st, k, v) { return this.tx(st, 'readwrite', s => s.put(v, k)); },
+  del(st, k) { return this.tx(st, 'readwrite', s => s.delete(k)); },
+  keys(st) { return this.tx(st, 'readonly', s => s.getAllKeys()); },
+  all(st) { return this.tx(st, 'readonly', s => s.getAll()); },
+  clear(st) { return this.tx(st, 'readwrite', s => s.clear()); }
+};
+/* (o IndexedDB acima só é usado para migrar conteúdo antigo salvo no aparelho) */
+
+/* ---------------- Mídia na nuvem (Supabase Storage) ---------------- */
+const mediaURLs = {};
+const mu = id => (id && mediaURLs[id]) || '';
+const hasMedia = id => !!(id && (S.media[id] || mediaURLs[id]));
+const mediaSize = id => (S.media[id] && S.media[id].size) || 0;
+async function signAll() {
+  const ids = Object.keys(S.media).filter(id => !mediaURLs[id]);
+  for (let i = 0; i < ids.length; i += 500) {
+    const { data, error } = await sb.storage.from(BUCKET).createSignedUrls(ids.slice(i, i + 500), 60 * 60 * 24 * 7);
+    if (error) throw error;
+    (data || []).forEach(d => { if (d.signedUrl) mediaURLs[d.path] = d.signedUrl; });
+  }
+}
+async function uploadFile(id, blob, onProg) {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) throw new Error('sessão expirada, entre de novo');
+  return new Promise((res, rej) => {
+    const x = new XMLHttpRequest();
+    x.open('POST', `${SUPABASE_URL}/storage/v1/object/${BUCKET}/${id}`);
+    x.setRequestHeader('Authorization', 'Bearer ' + session.access_token);
+    x.setRequestHeader('apikey', SUPABASE_ANON_KEY);
+    x.setRequestHeader('x-upsert', 'true');
+    x.setRequestHeader('cache-control', 'max-age=31536000');
+    x.setRequestHeader('Content-Type', blob.type || 'application/octet-stream');
+    x.upload.onprogress = e => { if (e.lengthComputable && onProg) onProg(e.loaded / e.total); };
+    x.onload = () => {
+      if (x.status < 300) return res();
+      let msg = 'erro ' + x.status; try { const j = JSON.parse(x.responseText); msg = j.message || j.error || msg; } catch (e) {}
+      if (x.status === 413 || /maximum allowed size|too large/i.test(msg)) msg = `arquivo maior que o limite do Supabase (${MAX_UPLOAD_MB} MB)`;
+      rej(new Error(msg));
+    };
+    x.onerror = () => rej(new Error('falha de conexão'));
+    x.send(blob);
+  });
+}
+function checkSize(blob) {
+  if (blob.size > MAX_UPLOAD_MB * 1048576) throw new Error(`o arquivo tem ${(blob.size / 1048576).toFixed(0)} MB e o limite por arquivo é ${MAX_UPLOAD_MB} MB. Comprima o vídeo (ex.: 720p) e tente de novo`);
+}
+async function putMedia(blob, label, id) {
+  checkSize(blob); id = id || 'm_' + uid();
+  await uploadFile(id, blob, p => label && loading(true, `${label} ${Math.round(p * 100)}%`));
+  S.media[id] = { type: blob.type || '', size: blob.size, at: Date.now() };
+  mediaURLs[id] = URL.createObjectURL(blob); return id;
+}
+async function deleteMedia(id) {
+  if (!id) return;
+  try { await sb.storage.from(BUCKET).remove([id]); } catch (e) {}
+  if (mediaURLs[id] && mediaURLs[id].startsWith('blob:')) URL.revokeObjectURL(mediaURLs[id]);
+  delete mediaURLs[id]; delete S.media[id];
+}
+
+/* ---------------- Estado (tabela kv: "content" + "user:<perfil>") ---------------- */
+let S = { settings: { brand: 'NOSSAFLIX', pin: '', heroId: '' }, profiles: [], items: [], users: {}, notifications: [], media: {} };
+let cur = null; // perfil atual
+async function saveContent() {
+  const { settings, profiles, items, notifications, media } = S;
+  const { error } = await sb.from('kv').upsert({ key: 'content', value: { settings, profiles, items, notifications, media }, updated_at: new Date().toISOString() });
+  if (error) toast('Erro ao salvar: ' + error.message);
+}
+async function saveUser(pid) {
+  pid = pid || cur; if (!pid || !S.users[pid]) return;
+  const { error } = await sb.from('kv').upsert({ key: 'user:' + pid, value: S.users[pid], updated_at: new Date().toISOString() });
+  if (error) console.warn('saveUser', error.message);
+}
+const saveState = saveContent;
+let saveT, contentT;
+function saveSoon() { clearTimeout(saveT); saveT = setTimeout(() => saveUser(), 800); }
+function saveContentSoon() { clearTimeout(contentT); contentT = setTimeout(saveContent, 800); }
+document.addEventListener('visibilitychange', () => { if (document.hidden && cur) saveUser(); });
+const ensureUser = pid => (S.users[pid] ||= { myList: [], ratings: {}, progress: {}, hidden: {}, downloads: [], notifSeen: 0 });
+const user = () => ensureUser(cur);
+const profile = () => S.profiles.find(p => p.id === cur) || S.profiles[0];
+const item = id => S.items.find(i => i.id === id);
+const brand = () => (S.settings.brand || 'NOSSAFLIX').trim();
+const brandTitle = () => { const b = brand().toLowerCase(); return b.charAt(0).toUpperCase() + b.slice(1); };
+const sortedItems = () => [...S.items].sort((a, b) => b.createdAt - a.createdAt);
+const allEps = it => (it.seasons || []).flatMap((s, si) => s.episodes.map((ep, ei) => ({ s, si, ep, ei })));
+const findEp = (it, epId) => allEps(it).find(e => e.ep.id === epId);
+const cats = it => splitList(it.categories);
+function allCategories() {
+  const out = [];
+  [...S.items].sort((a, b) => a.createdAt - b.createdAt).forEach(it => cats(it).forEach(c => { if (!out.some(o => norm(o) === norm(c))) out.push(c); }));
+  return out;
+}
+
+/* ---------------- Utilidades visuais ---------------- */
+function fmtDur(sec) {
+  sec = Math.round(sec || 0); if (!sec) return '';
+  const m = Math.max(1, Math.round(sec / 60)); if (m < 60) return m + 'm';
+  return Math.floor(m / 60) + 'h ' + (m % 60 ? (m % 60) + 'min' : '');
+}
+function fmtClock(s) { s = Math.max(0, Math.floor(s || 0)); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), ss = s % 60; return (h ? h + ':' + String(m).padStart(2, '0') : m) + ':' + String(ss).padStart(2, '0'); }
+const RATINGS = { L: ['L', '#0c9447', '#fff'], '10': ['A10', '#0f7dc2', '#fff'], '12': ['A12', '#f8c411', '#000'], '14': ['A14', '#e67824', '#fff'], '16': ['A16', '#db2827', '#fff'], '18': ['A18', '#111', '#fff'] };
+function rateBadge(r) { const x = RATINGS[r]; if (!x) return ''; return `<span class="rate" style="background:${x[1]};color:${x[2]};${r === '18' ? 'box-shadow:inset 0 0 0 1px #fff' : ''}">${x[0]}</span>`; }
+const t10 = (sm) => `<span class="t10 ${sm ? 'sm' : ''}"><b>TOP</b><b>10</b></span>`;
+function badgeHTML(it) {
+  switch (it.badge) {
+    case 'novidade': return '<div class="bdg"><span>Novidade</span></div>';
+    case 'novoep': return '<div class="bdg"><span>Novo episódio</span><span>Assista já</span></div>';
+    case 'novatemp': return '<div class="bdg"><span>Nova temporada</span><span>Assista já</span></div>';
+    case 'tempbreve': return '<div class="bdg"><span>Nova temporada</span><span>em breve</span></div>';
+    case 'embreve': return '<div class="bdg"><span>Em breve</span></div>';
+    default: return '';
+  }
+}
+function posterImg(it, cls = 'pimg') {
+  const u = mu(it.posterId || it.backdropId);
+  return u ? `<img class="${cls}" src="${u}" loading="lazy" alt="">` : `<div class="${cls} ph"><span>${esc(it.title || 'Sem título')}</span></div>`;
+}
+function wideImg(it, ep) {
+  const u = mu((ep && ep.thumbId) || it.backdropId || it.posterId);
+  return u ? `<img src="${u}" loading="lazy" alt="">` : `<div class="ph"><span>${esc((ep && ep.title) || it.title || '')}</span></div>`;
+}
+function markHTML(h) {
+  const L = (brand()[0] || 'N').toUpperCase();
+  if (L === 'N') return `<svg viewBox="0 0 100 180" style="height:${h}px;width:${h * 0.555}px"><defs><linearGradient id="ng" x1="0" x2="1"><stop offset="0" stop-color="#b20710"/><stop offset="1" stop-color="#e50914"/></linearGradient></defs><path d="M0 0h31v180q-16-2-31-4z" fill="#b1060f"/><path d="M69 0h31v176q-15 2-31 4z" fill="#b1060f"/><path d="M0 0h31l69 176q-15 2-31 4z" fill="url(#ng)" style="filter:drop-shadow(0 0 6px rgba(0,0,0,.6))"/></svg>`;
+  return `<span class="markL" style="font-size:${Math.round(h * 1.15)}px">${esc(L)}</span>`;
+}
+const AV_COLORS = { blue: ['#3d7bf0', '#2253c9'], red: ['#e53935', '#b71c1c'], yellow: ['#f5c518', '#d19a00'], green: ['#2fae5d', '#1c7a3d'], purple: ['#8e5cf7', '#5a2fc2'], pink: ['#f0619a', '#c2185b'], teal: ['#21b5b0', '#11807c'], orange: ['#ff8a2b', '#d35400'] };
+function avatarHTML(p) {
+  if (p && p.photoId && mu(p.photoId)) return `<img class="av" src="${mu(p.photoId)}" alt="">`;
+  const c = AV_COLORS[(p && p.color) || 'blue'] || AV_COLORS.blue;
+  return `<span class="avc" style="background:linear-gradient(160deg,${c[0]},${c[1]})"><svg viewBox="0 0 100 100"><circle cx="31" cy="40" r="5.5" fill="#fff"/><circle cx="69" cy="40" r="5.5" fill="#fff"/><path d="M25 61q25 15 50 0" stroke="#fff" stroke-width="5.5" fill="none" stroke-linecap="round"/></svg></span>`;
+}
+const colorCache = {};
+function avgColor(url) {
+  if (!url) return Promise.resolve(null);
+  if (colorCache[url]) return Promise.resolve(colorCache[url]);
+  return new Promise(res => {
+    const im = new Image();
+    im.onload = () => { try { const c = document.createElement('canvas'); c.width = c.height = 14; const x = c.getContext('2d'); x.drawImage(im, 0, 0, 14, 14); const d = x.getImageData(0, 0, 14, 14).data; let r = 0, g = 0, b = 0, n = 0; for (let i = 0; i < d.length; i += 4) { r += d[i]; g += d[i + 1]; b += d[i + 2]; n++; } res(colorCache[url] = [r / n, g / n, b / n]); } catch (e) { res(null); } };
+    im.onerror = () => res(null); if (!url.startsWith('blob:')) im.crossOrigin = 'anonymous'; im.src = url;
+  });
+}
+const shade = (c, f) => `rgb(${c[0] * f | 0},${c[1] * f | 0},${c[2] * f | 0})`;
+let toastT;
+function toast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 2400); }
+function loading(on, txt) { document.getElementById('loading').classList.toggle('show', !!on); if (txt) document.getElementById('loadingTxt').textContent = txt; }
+
+/* ---------------- Progresso / continuar assistindo ---------------- */
+function resume(it) {
+  const p = user().progress;
+  if (it.type !== 'series') { const pr = p[it.id]; const started = !!pr && pr.t > 3 && pr.d && pr.t / pr.d < 0.95; return { ep: null, pr: pr || null, started, finished: !!pr && pr.d && pr.t / pr.d >= 0.95, at: pr ? pr.at : 0 }; }
+  const eps = allEps(it); if (!eps.length) return { ep: null, started: false };
+  let last = null;
+  for (const e of eps) { const pr = p[e.ep.id]; if (pr && (!last || pr.at > last.pr.at)) last = { ...e, pr }; }
+  if (!last) return { ...eps[0], pr: null, started: false, at: 0 };
+  const at = last.pr.at;
+  if (last.pr.d && last.pr.t / last.pr.d >= 0.95) {
+    const idx = eps.findIndex(x => x.ep.id === last.ep.id); const nx = eps[idx + 1];
+    if (nx) return { ...nx, pr: p[nx.ep.id] || null, started: true, at };
+    return { ...last, started: true, finished: true, at };
+  }
+  return { ...last, started: true, at };
+}
+function continueList(filter) {
+  const u = user();
+  return S.items.filter(it => !filter || it.type === filter).map(it => ({ it, r: resume(it) }))
+    .filter(x => x.r.started && !x.r.finished && !(u.hidden[x.it.id] && u.hidden[x.it.id] >= x.r.at))
+    .sort((a, b) => b.r.at - a.r.at);
+}
+function heroItem(list) {
+  list = list || sortedItems(); if (!list.length) return null;
+  return list.find(i => i.id === S.settings.heroId) || list.find(i => i.featured) || list.find(i => i.posterId) || list[0];
+}
+function heroLine(it) {
+  if (it.top10) return `${t10()} <span>Top ${it.top10} em ${it.type === 'series' ? 'séries' : 'filmes'} hoje</span>`;
+  if (it.heroText) return `<span>${esc(it.heroText)}</span>`;
+  const t = splitList(it.tags).slice(0, 3); return t.length ? `<span>${t.map(esc).join(' • ')}</span>` : '';
+}
+function notifCount() { const u = user(); return S.notifications.filter(n => n.at > u.notifSeen).length; }
+function notify(itemId, title, text, epId) { S.notifications.unshift({ id: uid(), itemId, epId: epId || '', title, text, at: Date.now() }); S.notifications = S.notifications.slice(0, 60); }
+
+/* ---------------- Roteador ---------------- */
+let stack = [];
+let cleanups = [];
+function render() {
+  cleanups.forEach(f => { try { f(); } catch (e) {} }); cleanups = [];
+  const top = stack[stack.length - 1]; const scr = SCREENS[top.name];
+  app.innerHTML = scr.html(top.params || {}) + (scr.nav ? navHTML(scr.nav) : '');
+  if (scr.mount) scr.mount(top.params || {});
+  window.scrollTo(0, top.scroll || 0);
+  if (top.name !== 'player' && document.fullscreenElement) { document.exitFullscreen().catch(() => {}); try { screen.orientation.unlock(); } catch (e) {} }
+}
+function refresh() { const t = stack[stack.length - 1]; t.scroll = window.scrollY; render(); }
+function go(name, params = {}, replace = false) {
+  const top = stack[stack.length - 1];
+  if (replace) { stack[stack.length - 1] = { name, params }; }
+  else { if (top) top.scroll = window.scrollY; stack.push({ name, params }); history.pushState({ d: stack.length }, ''); }
+  render();
+}
+function setRoot(name, params = {}) { stack = [{ name, params }]; render(); }
+function back() { history.back(); }
+let overlay = null, afterClose = null;
+window.addEventListener('popstate', () => {
+  if (overlay) { removeOverlay(); const f = afterClose; afterClose = null; if (f) f(); return; }
+  if (stack.length > 1) { stack.pop(); render(); }
+});
+function openOverlay(inner, kind = 'sheet') {
+  if (overlay) { overlay.remove(); overlay = null; }
+  const w = document.createElement('div'); w.className = 'ov';
+  w.innerHTML = kind === 'sheet' ? `<div class="sheet-bg" data-a="closeOv"></div><div class="sheet">${inner}</div>` : inner;
+  document.body.appendChild(w); overlay = w; history.pushState({ ov: 1 }, '');
+  requestAnimationFrame(() => requestAnimationFrame(() => w.classList.add('open')));
+  return w;
+}
+function closeOv(then) { if (!overlay) { if (then) then(); return; } afterClose = then || null; history.back(); }
+function removeOverlay() { const w = overlay; overlay = null; if (!w) return; w.classList.remove('open'); setTimeout(() => w.remove(), 280); }
+
+function navHTML(active) {
+  const p = profile();
+  const b = (k, ic, label) => `<button class="${active === k ? 'on' : ''}" data-a="tab" data-t="${k}">${ic}<span>${label}</span></button>`;
+  return `<nav class="bnav">${b('home', I.home, 'Início')}${b('clips', I.clips, 'Clipes')}${b('search', I.search, 'Buscar')}${b('my', `<span class="nav-av">${avatarHTML(p)}</span>`, 'Minha ' + esc(brandTitle()))}</nav>`;
+}
+
+/* =====================================================================
+   TELAS
+   ===================================================================== */
+const SCREENS = {};
+
+/* ---- Abertura ---- */
+SCREENS.splash = {
+  html() {
+    const warm = ['#ff1f1f', '#ff4d2e', '#ff7a45', '#ffa06b', '#ffcf9e', '#e8336f', '#b8174a', '#ff5468'];
+    const cool = ['#1e5bff', '#2f8bff', '#5fb8ff', '#0a3fbf', '#7a8cff', '#3fd0ff', '#9fd8ff', '#1236a8'];
+    const mid = ['#c2185b', '#8e24aa', '#ff3d7f', '#5e35b1'];
+    let s = ''; const n = 54;
+    for (let i = 0; i < n; i++) {
+      const t = i / n; const pal = t < .42 ? warm : t > .58 ? cool : mid;
+      const c = pal[Math.floor(Math.random() * pal.length)];
+      const dark = Math.random() < .18;
+      s += `<i style="flex:${(0.4 + Math.random() * 2.6).toFixed(2)};background:${dark ? '#000' : `linear-gradient(transparent,${c} 18%,${c} 82%,transparent)`};animation-delay:${(Math.random() * .25).toFixed(2)}s"></i>`;
+    }
+    return `<div class="splash" data-a="skipSplash"><div class="stripes">${s}</div><div class="smark">${markHTML(190)}</div></div>`;
+  }
+};
+
+/* ---- Perfis ---- */
+SCREENS.profiles = {
+  html(p) {
+    const hero = heroItem(); const poster = hero && mu(hero.posterId || hero.backdropId); const ed = !!p.edit;
+    return `<div class="prof" id="prof">
+      <div class="prof-hero" ${poster ? `style="background-image:url('${poster}')"` : ''}>
+        ${!poster ? `<div class="prof-empty">${markHTML(150)}</div>` : ''}
+        ${hero && poster ? `<div class="prof-line">${heroLine(hero)}</div>` : ''}
+      </div>
+      <div class="prof-panel">
+        <div class="prof-q">${ed ? 'Gerenciar perfis' : 'Escolha o seu perfil'}</div>
+        <div class="prof-grid">${S.profiles.map(pr => `<button class="ptile" data-a="${ed ? 'editProfile' : 'pickProfile'}" data-id="${pr.id}"><div class="pav">${avatarHTML(pr)}${ed ? `<div class="pedit">${I.pencil}</div>` : ''}</div><div class="pname">${esc(pr.name)}</div></button>`).join('')}</div>
+        <div class="prof-actions">
+          ${S.profiles.length < 5 ? `<button class="pact" data-a="addProfile"><div class="pbox">${I.plus}</div>Adicionar</button>` : ''}
+          <button class="pact" data-a="toggleEditProfiles"><div class="pbox">${ed ? I.check : I.pencil}</div>${ed ? 'Concluído' : 'Editar'}</button>
+        </div>
+      </div></div>`;
+  },
+  mount() {
+    const hero = heroItem(); const url = hero && mu(hero.posterId || hero.backdropId);
+    avgColor(url).then(c => { const el = document.getElementById('prof'); if (c && el) el.style.setProperty('--pc', shade(c, .34)); });
+  }
+};
+
+/* ---- Início ---- */
+function filterItems(f) {
+  let l = sortedItems();
+  if (f === 'series') l = l.filter(i => i.type === 'series');
+  else if (f === 'movie') l = l.filter(i => i.type === 'movie');
+  else if (f === 'list') { const ml = user().myList; l = ml.map(item).filter(Boolean); }
+  else if (f && f.startsWith('cat:')) { const c = norm(f.slice(4)); l = l.filter(i => cats(i).some(x => norm(x) === c)); }
+  return l;
+}
+function cardHTML(it) { return `<button class="card" data-a="open" data-id="${it.id}">${posterImg(it)}${it.top10 ? `<div class="c10">${t10(1)}</div>` : ''}${badgeHTML(it)}</button>`; }
+function cwCardHTML(it, r) {
+  const pct = r.pr && r.pr.d ? Math.min(100, r.pr.t / r.pr.d * 100) : 0;
+  return `<div class="card cw"><button class="cw-top" data-a="play" data-id="${it.id}" ${r.ep ? `data-ep="${r.ep.id}"` : ''}>${posterImg(it)}<span class="pcirc">${I.play}</span>${badgeHTML(it)}</button>
+    <div class="cwbar"><i style="width:${pct}%"></i></div>
+    <div class="cwfoot"><button data-a="info" data-id="${it.id}">${I.info}</button><span></span><button data-a="more" data-id="${it.id}">${I.dots}</button></div></div>`;
+}
+const rowHTML = (title, list) => list.length ? `<section class="row"><h2>${esc(title)}</h2><div class="rail noscroll">${list.map(cardHTML).join('')}</div></section>` : '';
+SCREENS.home = {
+  nav: 'home',
+  html(p) {
+    const f = p.filter || ''; const list = filterItems(f);
+    const title = f === 'series' ? 'Séries' : f === 'movie' ? 'Filmes' : f === 'list' ? 'Minha lista' : f.startsWith('cat:') ? f.slice(4) : 'Início';
+    const nc = notifCount();
+    let chips;
+    if (!f) chips = `<button class="chip" data-a="chip" data-f="series">Séries</button><button class="chip" data-a="chip" data-f="movie">Filmes</button><button class="chip" data-a="chip" data-f="list">Minha lista</button><button class="chip" data-a="chipCats">Categorias ${I.chev}</button>`;
+    else chips = `<button class="chip x" data-a="chip" data-f="">${I.x}</button><button class="chip on" data-a="${f.startsWith('cat:') ? 'chipCats' : 'chip'}" data-f="">${esc(title)}${f.startsWith('cat:') ? ' ' + I.chev : ''}</button>${f.startsWith('cat:') ? '' : `<button class="chip" data-a="chipCats">Categorias ${I.chev}</button>`}`;
+    let body = '';
+    if (!S.items.length) {
+      body = `<div class="empty">${markHTML(60)}<h3>Nada por aqui ainda ❤</h3>Abra o <b>Estúdio do Autor</b> para adicionar os filmes e séries de vocês: fotos, vídeos, sinopses e episódios.<br><br><button class="sbtn red" data-a="studio">${I.pencil} Abrir Estúdio</button></div>`;
+    } else if (!list.length) {
+      body = `<div class="empty"><h3>Nenhum título aqui</h3>${f === 'list' ? 'Toque em “+ Minha lista” em qualquer título para salvar aqui.' : 'Ainda não há títulos nesta seção.'}</div>`;
+    } else {
+      const hero = heroItem(list);
+      const inList = user().myList.includes(hero.id); const r = resume(hero);
+      const heroPlay = r.started && !r.finished ? 'Continuar' : hero.type === 'series' ? 'Assista à série' : 'Assista ao filme';
+      body += `<div class="hero"><button data-a="open" data-id="${hero.id}" style="position:absolute;inset:0">${mu(hero.posterId || hero.backdropId) ? `<img src="${mu(hero.posterId || hero.backdropId)}" alt="" style="width:100%;height:100%;object-fit:cover">` : `<div class="ph" style="position:absolute;inset:0;font-size:48px">${esc(hero.title)}</div>`}</button>
+        <div class="shade"></div>
+        <div class="hc"><div class="hero-line">${heroLine(hero)}</div>
+          <button class="btn btn-w" data-a="play" data-id="${hero.id}">${I.play} ${heroPlay}</button>
+          <button class="btn btn-g" data-a="toggleList" data-id="${hero.id}" data-k="hero">${inList ? I.check : I.plus} Minha lista</button>
+        </div></div>`;
+      if (f === 'list') {
+        body += `<section class="row"><h2>Tudo na sua lista</h2><div class="grid3">${list.map(cardHTML).join('')}</div></section>`;
+      } else {
+        const cw = continueList(f === 'series' || f === 'movie' ? f : '').filter(x => !f.startsWith('cat:') || list.includes(x.it));
+        if (cw.length) body += `<section class="row"><h2>Continuar assistindo como ${esc(profile().name)}</h2><div class="rail noscroll">${cw.map(x => cwCardHTML(x.it, x.r)).join('')}</div></section>`;
+        const top = list.filter(i => i.top10).sort((a, b) => a.top10 - b.top10);
+        if (top.length) body += `<section class="row"><h2>Top 10 ${f === 'series' ? 'séries' : f === 'movie' ? 'filmes' : ''} de hoje</h2><div class="rail noscroll">${top.map(it => `<button class="t10c" data-a="open" data-id="${it.id}"><span class="t10n">${it.top10}</span>${posterImg(it)}</button>`).join('')}</div></section>`;
+        body += rowHTML('Descubra suas próximas histórias', list);
+        if (!f) { const ml = user().myList.map(item).filter(Boolean); body += rowHTML('Minha lista', ml); }
+        const news = list.filter(i => i.badge && i.badge !== 'embreve' && i.badge !== 'tempbreve');
+        body += rowHTML('Novidades', news);
+        const cs = f.startsWith('cat:') ? [] : allCategories();
+        cs.forEach(c => body += rowHTML(c, list.filter(i => cats(i).some(x => norm(x) === norm(c)))));
+        if (!f) { const s = list.filter(i => i.type === 'series'), m = list.filter(i => i.type === 'movie'); if (s.length && m.length) { body += rowHTML('Nossas séries', s); body += rowHTML('Nossos filmes', m); } }
+        const soon = list.filter(i => i.badge === 'embreve' || i.badge === 'tempbreve'); body += rowHTML('Em breve', soon);
+      }
+    }
+    return `<div class="screen"><div class="home-bg" id="homebg"></div>
+      <header class="topbar" id="topbar">${markHTML(38)}<h1>${esc(title)}</h1>
+        <button class="tb-btn" data-a="downloads">${I.download}</button>
+        <button class="tb-btn" data-a="notifs">${I.bell}${nc ? `<span class="tb-badge">${nc > 99 ? '99+' : nc}</span>` : ''}</button></header>
+      <div class="chips noscroll">${chips}</div>${body}<div style="height:30px"></div></div>`;
+  },
+  mount(p) {
+    const tb = document.getElementById('topbar');
+    const onS = () => tb && tb.classList.toggle('solid', window.scrollY > 40); onS();
+    window.addEventListener('scroll', onS, { passive: true }); cleanups.push(() => window.removeEventListener('scroll', onS));
+    const list = filterItems(p.filter || ''); const hero = heroItem(list);
+    if (hero) avgColor(mu(hero.posterId || hero.backdropId)).then(c => { const el = document.getElementById('homebg'); if (c && el) el.style.setProperty('--hc', shade(c, .5)); });
+  }
+};
+
+/* ---- Detalhe ---- */
+let detailMuted = true;
+function seasonsLabel(it) { const n = (it.seasons || []).length; if (n === 1) { const e = it.seasons[0].episodes.length; return n + ' temporada' + (e ? '' : ''); } return n + ' temporadas'; }
+function detailInfoHTML(it) {
+  const r = resume(it);
+  const metaTxt = it.type === 'series' ? seasonsLabel(it) : fmtDur(it.duration);
+  const playLbl = r.started && !r.finished ? 'Continuar' : 'Assistir';
+  const epAttr = r.ep ? `data-ep="${r.ep.id}"` : '';
+  const dlLbl = it.type === 'series' ? (r.ep ? `Baixar T${r.si + 1}:E${r.ep.number}` : 'Baixar') : 'Baixar';
+  let epLine = '';
+  if (r.started && r.pr && r.pr.d) {
+    const pct = Math.min(100, r.pr.t / r.pr.d * 100), rem = r.pr.d - r.pr.t;
+    epLine = `${it.type === 'series' && r.ep ? `<div class="epline">T${r.si + 1}:E${r.ep.number} "${esc(r.ep.title)}"</div>` : '<div style="height:10px"></div>'}<div class="eprog"><div class="bar"><i style="width:${pct}%"></i></div><span>Tempo restante: ${fmtDur(rem)}</span></div>`;
+  } else if (it.type === 'series' && r.started && r.ep) {
+    epLine = `<div class="epline">Próximo: T${r.si + 1}:E${r.ep.number} "${esc(r.ep.title)}"</div>`;
+  }
+  const syn = (it.type === 'series' && r.started && r.ep && r.ep.synopsis) ? r.ep.synopsis : it.synopsis;
+  const cast = splitList(it.cast), dir = splitList(it.director);
+  return `<h1 class="dtitle">${esc(it.title)}</h1>
+    <div class="meta"><span>${esc(it.year || '')}</span>${rateBadge(it.rating)}${metaTxt ? `<span>${metaTxt}</span>` : ''}${it.quality ? `<span class="hd">${esc(it.quality)}</span>` : ''}</div>
+    <button class="btn btn-w" data-a="play" data-id="${it.id}" ${epAttr}>${I.play} ${playLbl}</button>
+    <button class="btn btn-d" data-a="dl" data-id="${it.id}" ${epAttr}>${I.download} ${dlLbl}</button>
+    ${epLine}
+    ${syn ? `<p class="syn">${esc(syn)}</p>` : ''}
+    ${cast.length ? `<div class="cast clamp" data-a="expand"><b>Estrelando:</b> ${esc(cast.join(', '))}</div>` : ''}
+    ${dir.length ? `<div class="cast clamp" data-a="expand"><b>${it.type === 'series' ? 'Criação' : 'Direção'}:</b> ${esc(dir.join(', '))}</div>` : ''}`;
+}
+function listBtnInner(id, k) {
+  const on = user().myList.includes(id);
+  if (k === 'hero') return `${on ? I.check : I.plus} Minha lista`;
+  if (k === 'circ') return `<span class="circ">${on ? I.check : I.plus}</span>Minha lista`;
+  return `${on ? I.check : I.plus}<span>Minha lista</span>`;
+}
+function rateBtnInner(id, k) {
+  const v = user().ratings[id];
+  const ic = v === 2 ? I.thumbs2 : v === 1 ? I.thumbF : v === -1 ? `<span class="flip">${I.thumbF}</span>` : I.thumb;
+  if (k === 'circ') return `<span class="circ">${ic}</span>${v ? 'Avaliado' : 'Avaliar'}`;
+  return `${ic}<span>${v ? 'Avaliado' : 'Avaliar'}</span>`;
+}
+function detailActsHTML(it) {
+  return `<button class="act" data-a="toggleList" data-id="${it.id}" data-k="act">${listBtnInner(it.id, 'act')}</button>
+    <button class="act" data-a="rate" data-id="${it.id}" data-k="act">${rateBtnInner(it.id, 'act')}</button>
+    <button class="act" data-a="share" data-id="${it.id}">${I.share}<span>Compartilhe</span></button>
+    ${it.type === 'series' ? `<button class="act" data-a="dlSeason" data-id="${it.id}">${I.dlSeason}<span>Baixar<br>Temporada</span></button>` : `<button class="act" data-a="dl" data-id="${it.id}">${I.download}<span>Baixar</span></button>`}`;
+}
+function similarTo(it) {
+  const c = cats(it).map(norm);
+  const others = sortedItems().filter(i => i.id !== it.id);
+  const score = i => cats(i).filter(x => c.includes(norm(x))).length * 2 + (i.type === it.type ? 1 : 0);
+  return others.sort((a, b) => score(b) - score(a));
+}
+function detailTabsHTML(it, p) {
+  const tabs = [];
+  if (it.type === 'series') tabs.push(['eps', 'Episódios']);
+  tabs.push(['sim', 'Títulos semelhantes']);
+  if (it.trailerId) tabs.push(['trl', 'Trailers e mais']);
+  const tab = tabs.some(t => t[0] === p.tab) ? p.tab : tabs[0][0];
+  let content = '';
+  if (tab === 'eps') {
+    const seasons = it.seasons || []; const r = resume(it);
+    const si = Math.min(p.si ?? (r.si || 0), Math.max(0, seasons.length - 1)); const s = seasons[si];
+    if (!s) content = '<p style="padding:16px;color:#aaa">Nenhuma temporada cadastrada ainda.</p>';
+    else {
+      const prog = user().progress;
+      content = `<div class="srow"><button class="ssel" data-a="seasonPick" data-id="${it.id}">${esc(s.name || 'Temporada ' + (si + 1))} ${I.chev}</button>${s.desc ? `<button data-a="seasonInfo" data-id="${it.id}" data-si="${si}" style="color:#bbb">${I.info.replace('<svg', '<svg style="width:30px;height:30px"')}</button>` : ''}</div>
+      ${s.episodes.length ? s.episodes.map(ep => { const pr = prog[ep.id]; const pct = pr && pr.d ? Math.min(100, pr.t / pr.d * 100) : 0; return `<div class="ep"><div class="ep-top"><button class="ep-th" data-a="play" data-id="${it.id}" data-ep="${ep.id}">${wideImg(it, ep)}<span class="pc">${I.play}</span>${pct ? `<span class="pbar"><i style="width:${pct}%"></i></span>` : ''}</button><div class="ep-t">${esc(ep.number)}. ${esc(ep.title || 'Episódio ' + ep.number)}<small>${fmtDur(ep.duration)}</small></div><button class="ep-dl" data-a="dl" data-id="${it.id}" data-ep="${ep.id}">${I.download}</button></div>${ep.synopsis ? `<div class="ep-syn">${esc(ep.synopsis)}</div>` : ''}</div>`; }).join('') : '<p style="padding:16px;color:#aaa">Nenhum episódio nesta temporada ainda.</p>'}`;
+    }
+  } else if (tab === 'sim') {
+    const sim = similarTo(it);
+    content = sim.length ? `<div class="simgrid">${sim.map(cardHTML).join('')}</div>` : '<p style="padding:16px;color:#aaa">Adicione mais títulos para ver sugestões aqui.</p>';
+  } else {
+    content = `<button class="trl" data-a="playTrailer" data-id="${it.id}" style="display:block;width:calc(100% - 32px)"><div class="tth">${wideImg(it)}<span class="pcirc" style="transform:translate(-50%,-50%)">${I.play}</span></div><h4>Trailer: ${esc(it.title)}</h4></button>`;
+  }
+  return `<div class="tabs">${tabs.map(t => `<button class="tab ${t[0] === tab ? 'on' : ''}" data-a="dtab" data-t="${t[0]}">${t[1]}</button>`).join('')}</div>${content}`;
+}
+function refreshDetail() {
+  const top = stack[stack.length - 1]; if (top.name !== 'detail') return; const it = item(top.params.id); if (!it) return;
+  const a = document.getElementById('dinfo'), b = document.getElementById('dacts'), c = document.getElementById('dtabs');
+  if (a) a.innerHTML = detailInfoHTML(it); if (b) b.innerHTML = detailActsHTML(it); if (c) c.innerHTML = detailTabsHTML(it, top.params);
+}
+SCREENS.detail = {
+  nav: 'home',
+  html(p) {
+    const it = item(p.id); if (!it) return `<div class="screen"><div class="dhead"><button data-a="back">${I.back}</button></div><p style="padding:20px">Título não encontrado.</p></div>`;
+    const r = resume(it); const pct = r.started && r.pr && r.pr.d ? Math.min(100, r.pr.t / r.pr.d * 100) : 0;
+    const bd = mu(it.backdropId || it.posterId);
+    const media = it.trailerId && mu(it.trailerId)
+      ? `<video id="dvid" src="${mu(it.trailerId)}" ${bd ? `poster="${bd}"` : ''} autoplay ${detailMuted ? 'muted' : ''} playsinline loop></video><button class="roundbtn" data-a="dmute">${detailMuted ? I.mute : I.sound}</button>`
+      : (bd ? `<img src="${bd}" alt="">` : `<div class="ph" style="position:absolute;inset:0;font-size:40px">${esc(it.title)}</div>`);
+    return `<div class="screen"><div class="dhead"><button data-a="back">${I.back}</button></div>
+      <div class="dmedia">${media}</div>${pct ? `<div class="dprog"><i style="width:${pct}%"></i></div>` : ''}
+      <div class="dbody" id="dinfo">${detailInfoHTML(it)}</div>
+      <div class="acts" id="dacts">${detailActsHTML(it)}</div>
+      <div id="dtabs">${detailTabsHTML(it, p)}</div></div>`;
+  },
+  mount() {
+    const v = document.getElementById('dvid');
+    if (v) { v.play().catch(() => { v.muted = true; detailMuted = true; v.play().catch(() => {}); }); cleanups.push(() => { v.pause(); v.removeAttribute('src'); v.load(); }); }
+  }
+};
+
+/* ---- Player ---- */
+let ctlTimer;
+SCREENS.player = {
+  html(p) {
+    const it = item(p.id); if (!it) return '<div class="player"></div>';
+    const e = p.ep ? findEp(it, p.ep) : null;
+    const vid = p.trailer ? it.trailerId : e ? e.ep.videoId : it.videoId;
+    const title = p.trailer ? `Trailer: ${it.title}` : e ? `${it.title} · T${e.si + 1}:E${e.ep.number} "${e.ep.title}"` : it.title;
+    const nx = e && !p.trailer ? allEps(it)[allEps(it).findIndex(x => x.ep.id === e.ep.id) + 1] : null;
+    return `<div class="player" id="player">
+      ${vid && mu(vid) ? `<video id="pv" src="${mu(vid)}" playsinline preload="auto"></video>` : `<div class="pnov">Este ${e ? 'episódio' : 'título'} ainda não tem vídeo.<br>Adicione pelo Estúdio do Autor.</div>`}
+      <div class="pctl" id="pctl" data-a="pTap">
+        <div class="ptop"><button data-a="back">${I.back}</button><div class="ptitle">${esc(title)}</div></div>
+        <div class="pmid"><button data-a="pRw">${I.rw}</button><button class="pp" data-a="pPlay" id="ppbtn">${I.pause}</button><button data-a="pFf">${I.ff}</button></div>
+        <div class="pbot"><div class="seek"><input type="range" id="pseek" min="0" max="1000" value="0" step="1"><span id="ptime">0:00</span></div>
+          <div class="pbtns">${e && !p.trailer ? `<button data-a="pEps" data-id="${it.id}">${I.list} Episódios</button>` : ''}${nx ? `<button data-a="pSwitch" data-id="${it.id}" data-ep="${nx.ep.id}">${I.next} Próximo ep.</button>` : ''}</div></div>
+      </div><div id="pnext"></div></div>`;
+  },
+  mount(p) {
+    const it = item(p.id); const v = document.getElementById('pv'); const ctl = document.getElementById('pctl');
+    const root = document.documentElement;
+    if (!document.fullscreenElement && root.requestFullscreen) root.requestFullscreen().then(() => { try { screen.orientation.lock('landscape').catch(() => {}); } catch (e) {} }).catch(() => {});
+    if (!v || !it) return;
+    const e = p.ep ? findEp(it, p.ep) : null; const key = e ? e.ep.id : it.id; const track = !p.trailer;
+    const seek = document.getElementById('pseek'), time = document.getElementById('ptime'), ppb = document.getElementById('ppbtn');
+    const pr = user().progress[key];
+    v.addEventListener('loadedmetadata', () => {
+      if (track && pr && pr.d && pr.t / pr.d < 0.95 && pr.t > 3) v.currentTime = pr.t;
+      if (track && v.duration && isFinite(v.duration)) { if (e && !e.ep.duration) e.ep.duration = Math.round(v.duration); else if (!e && !it.duration) it.duration = Math.round(v.duration); }
+    });
+    let lastSave = 0;
+    const save = (force) => {
+      if (!track || !v.duration || !isFinite(v.duration)) return;
+      if (!force && v.currentTime < 1) return;
+      user().progress[key] = { t: v.currentTime, d: v.duration, at: Date.now(), itemId: it.id }; saveSoon();
+    };
+    v.addEventListener('timeupdate', () => {
+      const d = v.duration || 0; const pct = d ? v.currentTime / d * 100 : 0;
+      if (!seek.dragging) { seek.value = Math.round(pct * 10); seek.style.setProperty('--p', pct + '%'); }
+      time.textContent = '-' + fmtClock(d - v.currentTime);
+      if (Date.now() - lastSave > 10000) { lastSave = Date.now(); save(); }
+    });
+    v.addEventListener('play', () => { ppb.innerHTML = I.pause; hideSoon(); });
+    v.addEventListener('pause', () => { ppb.innerHTML = I.play; ctl.classList.remove('hid'); save(); });
+    seek.addEventListener('input', () => { seek.dragging = true; seek.style.setProperty('--p', seek.value / 10 + '%'); if (v.duration) v.currentTime = seek.value / 1000 * v.duration; });
+    seek.addEventListener('change', () => { seek.dragging = false; hideSoon(); });
+    v.addEventListener('ended', () => {
+      if (track) { user().progress[key] = { t: v.duration, d: v.duration, at: Date.now(), itemId: it.id }; saveUser(); }
+      const all = e ? allEps(it) : []; const nx = e && track ? all[all.findIndex(x => x.ep.id === e.ep.id) + 1] : null;
+      if (nx) {
+        let n = 5; const box = document.getElementById('pnext');
+        const tick = () => { box.innerHTML = `<button class="pnext" data-a="pSwitch" data-id="${it.id}" data-ep="${nx.ep.id}">${I.next} Próximo episódio em ${n}</button>`; };
+        tick(); const iv = setInterval(() => { n--; if (n <= 0) { clearInterval(iv); go('player', { id: it.id, ep: nx.ep.id }, true); } else tick(); }, 1000);
+        cleanups.push(() => clearInterval(iv));
+      } else setTimeout(() => { if (stack[stack.length - 1].name === 'player') back(); }, 800);
+    });
+    function hideSoon() { clearTimeout(ctlTimer); ctlTimer = setTimeout(() => { if (!v.paused) ctl.classList.add('hid'); }, 3200); }
+    v.play().catch(() => { ppb.innerHTML = I.play; });
+    cleanups.push(() => { save(); clearTimeout(saveT); saveUser(); clearTimeout(ctlTimer); v.pause(); v.removeAttribute('src'); v.load(); });
+  }
+};
+
+/* ---- Clipes ---- */
+let clipMuted = true;
+SCREENS.clips = {
+  nav: 'clips',
+  html() {
+    const list = sortedItems().filter(i => i.trailerId && mu(i.trailerId));
+    if (!list.length) return `<div class="screen"><div class="my-top"><h1>Clipes</h1></div><div class="empty">${I.clips.replace('<svg', '<svg style="width:48px;height:48px;margin:0 auto"')}<h3>Sem clipes ainda</h3>Os trailers que você enviar no Estúdio aparecem aqui, em tela cheia, um atrás do outro.</div></div>`;
+    return `<div class="clip-top"><span>Clipes</span><button data-a="clipMute" id="cmute">${clipMuted ? I.mute : I.sound}</button></div><div class="clips noscroll" id="clips">${list.map(it => `
+      <section class="clip"><div class="cbg" style="background-image:url('${mu(it.backdropId || it.posterId)}')"></div>
+        <video src="${mu(it.trailerId)}" ${clipMuted ? 'muted' : ''} playsinline loop preload="metadata" data-a="clipMute"></video><div class="cshade"></div>
+        <div class="clip-info"><button data-a="open" data-id="${it.id}">${posterImg(it, '')}</button><div><h3>${esc(it.title)}</h3><p>${esc(it.synopsis || splitList(it.tags).join(' • '))}</p></div></div>
+        <div class="clip-side">
+          <button class="act" data-a="toggleList" data-id="${it.id}" data-k="act">${listBtnInner(it.id, 'act')}</button>
+          <button class="act" data-a="rate" data-id="${it.id}" data-k="act">${rateBtnInner(it.id, 'act')}</button>
+          <button class="act" data-a="share" data-id="${it.id}">${I.share}<span>Compartilhe</span></button>
+          <button class="act" data-a="play" data-id="${it.id}">${I.play}<span>Assistir</span></button>
+        </div></section>`).join('')}</div>`;
+  },
+  mount() {
+    const box = document.getElementById('clips'); if (!box) return;
+    const io = new IntersectionObserver(es => es.forEach(en => { const v = en.target.querySelector('video'); if (!v) return; if (en.isIntersecting) { v.muted = clipMuted; v.play().catch(() => { v.muted = true; v.play().catch(() => {}); }); } else v.pause(); }), { root: box, threshold: .6 });
+    box.querySelectorAll('.clip').forEach(c => io.observe(c));
+    cleanups.push(() => { io.disconnect(); box.querySelectorAll('video').forEach(v => { v.pause(); v.removeAttribute('src'); v.load(); }); });
+  }
+};
+
+/* ---- Buscar ---- */
+function searchResults(q) {
+  const n = norm(q).trim();
+  if (!n) {
+    const l = sortedItems();
+    if (!l.length) return '<div class="empty"><h3>Nada para buscar ainda</h3>Adicione títulos pelo Estúdio do Autor.</div>';
+    return `<div class="sh2">Séries e filmes recomendados</div>${l.map(it => `<button class="si" data-a="open" data-id="${it.id}">${wideImg(it)}<span class="t">${esc(it.title)}</span><span class="pc" data-a="play" data-id="${it.id}">${I.play}</span></button>`).join('')}`;
+  }
+  const res = sortedItems().filter(it => [it.title, it.synopsis, it.cast, it.director, it.categories, it.tags, it.year, ...allEps(it).map(e => e.ep.title + ' ' + e.ep.synopsis)].some(x => norm(x).includes(n)));
+  if (!res.length) return `<div class="empty"><h3>Nenhum resultado</h3>Não encontramos nada para “${esc(q)}”.</div>`;
+  return `<div class="sh2">Principais resultados</div><div class="grid3">${res.map(cardHTML).join('')}</div>`;
+}
+SCREENS.search = {
+  nav: 'search',
+  html(p) {
+    return `<div class="screen"><div class="dhead" style="padding-bottom:6px"><h2 style="font-size:26px">Buscar</h2></div>
+      <div class="sbar">${I.search}<input id="q" type="search" placeholder="Pesquise séries, filmes, momentos…" value="${esc(p.q || '')}" autocomplete="off">${p.q ? `<button data-a="qclear">${I.x}</button>` : ''}</div>
+      <div id="sres">${searchResults(p.q || '')}</div></div>`;
+  }
+};
+
+/* ---- Minha Nossaflix ---- */
+SCREENS.my = {
+  nav: 'my',
+  html() {
+    const p = profile(), u = user(); const nc = notifCount();
+    const liked = Object.keys(u.ratings).filter(k => u.ratings[k] > 0).map(item).filter(Boolean);
+    const ml = u.myList.map(item).filter(Boolean); const cw = continueList();
+    const lastN = S.notifications[0];
+    return `<div class="screen"><div class="my-top"><h1>Minha ${esc(brandTitle())}</h1><div class="r"><button data-a="tab" data-t="search">${I.search}</button><button data-a="myMenu">${I.menu}</button></div></div>
+      <div class="my-prof"><div class="bigav">${avatarHTML(p)}</div><button class="my-name" data-a="switchProfile">${esc(p.name)} ${I.chev}</button></div>
+      <button class="mrow" data-a="notifs"><span class="icc">${I.bell}</span><span class="tx">Notificações${lastN ? `<small>${esc(lastN.title)}</small>` : '<small>Nenhuma por enquanto</small>'}</span>${nc ? `<span class="tb-badge" style="position:static">${nc}</span>` : ''}<span class="chev">${I.chev}</span></button>
+      <button class="mrow" data-a="downloads"><span class="icc b">${I.download}</span><span class="tx">Downloads<small>${u.downloads.length ? u.downloads.length + ' baixado(s)' : 'Baixe títulos para ter no aparelho'}</small></span><span class="chev">${I.chev}</span></button>
+      <button class="mrow" data-a="studio"><span class="icc g">${I.pencil}</span><span class="tx">Estúdio do Autor<small>Adicionar e editar filmes, séries e episódios</small></span><span class="chev">${I.chev}</span></button>
+      ${rowHTML('Séries e filmes que você curtiu', liked)}
+      ${rowHTML('Minha lista', ml)}
+      ${cw.length ? `<section class="row"><h2>Continuar assistindo</h2><div class="rail noscroll">${cw.map(x => cwCardHTML(x.it, x.r)).join('')}</div></section>` : ''}
+    </div>`;
+  }
+};
+
+/* ---- Notificações ---- */
+SCREENS.notifs = {
+  html() {
+    const seen = user().notifSeen;
+    return `<div class="screen"><div class="dhead"><button data-a="back">${I.back}</button><h2>Notificações</h2></div>
+      ${S.notifications.length ? S.notifications.map(n => { const it = item(n.itemId); const ep = it && n.epId ? findEp(it, n.epId) : null; return `<button class="nitem" data-a="notifOpen" data-id="${n.itemId}">${it ? wideImg(it, ep && ep.ep) : '<div class="ph"></div>'}<span class="tx"><b>${esc(n.title)}</b>${esc(n.text)}<br><small>${new Date(n.at).toLocaleDateString('pt-BR', { day: 'numeric', month: 'short' })}</small></span>${n.at > seen ? '<span class="dot"></span>' : ''}</button>`; }).join('') : '<div class="empty"><h3>Nenhuma notificação</h3>Quando um novo título ou episódio for lançado, ele aparece aqui.</div>'}</div>`;
+  },
+  mount() { user().notifSeen = Date.now(); saveSoon(); }
+};
+
+/* ---- Downloads ---- */
+SCREENS.downloads = {
+  html() {
+    const u = user();
+    const rows = u.downloads.map(d => { const it = item(d.itemId); if (!it) return ''; const e = d.epId ? findEp(it, d.epId) : null; const size = mediaSize(e ? e.ep.videoId : it.videoId);
+      return `<div class="nitem"><button data-a="play" data-id="${it.id}" ${e ? `data-ep="${e.ep.id}"` : ''} style="display:flex;gap:12px;align-items:center;flex:1;text-align:left">${wideImg(it, e && e.ep)}<span class="tx"><b>${esc(it.title)}</b>${e ? `T${e.si + 1}:E${e.ep.number} · ${esc(e.ep.title)}<br>` : ''}<small>${size ? (size / 1048576).toFixed(1) + ' MB' : ''}</small></span></button><button class="iconbtn" data-a="rmDl" data-k="${d.key}">${I.trash}</button></div>`; }).join('');
+    return `<div class="screen"><div class="dhead"><button data-a="back">${I.back}</button><h2>Downloads</h2></div>${rows || `<div class="empty">${I.download.replace('<svg', '<svg style="width:48px;height:48px;margin:0 auto"')}<h3>Nenhum download</h3>Toque em “Baixar” em um filme ou episódio para salvar o vídeo no seu aparelho.</div>`}</div>`;
+  }
+};
+
+/* ---- Estúdio do Autor ---- */
+SCREENS.studio = {
+  html() {
+    const items = sortedItems();
+    return `<div class="screen" style="padding-bottom:40px"><div class="dhead"><button data-a="back">${I.back}</button><h2>Estúdio do Autor</h2></div>
+    <div class="st">
+      <div class="st-hero"><h2>O que vamos lançar hoje? ❤</h2><p>Crie filmes e séries com os momentos de vocês. Capas, trailers, vídeos, sinopses e episódios: tudo é seu.</p>
+        <div class="grid2"><button class="sbtn red full" data-a="newItem" data-t="movie">${I.film} Novo filme</button><button class="sbtn red full" data-a="newItem" data-t="series">${I.list} Nova série</button></div></div>
+      <div class="box"><h3>${I.film} Seus títulos (${items.length})</h3>
+        ${items.length ? items.map(it => `<div class="stitem">${posterImg(it, '')}<div class="tx"><b>${esc(it.title || 'Sem título')}</b><small>${it.type === 'series' ? `Série · ${it.seasons.length} temp. · ${allEps(it).length} ep.` : `Filme · ${fmtDur(it.duration) || 'sem vídeo'}`}${it.featured || S.settings.heroId === it.id ? ' · ★ Destaque' : ''}</small></div><button class="iconbtn" data-a="editItem" data-id="${it.id}">${I.pencil}</button><button class="iconbtn danger" data-a="delItem" data-id="${it.id}">${I.trash}</button></div>`).join('') : '<p style="color:#888;margin:0 0 14px">Nenhum título ainda. Comece criando um filme ou uma série!</p>'}
+        <div style="height:12px"></div></div>
+      <div class="box"><h3>${I.gear} Configurações do app</h3>
+        <div class="fld"><label>Nome do app</label><input class="inp" data-set="brand" value="${esc(brand())}" maxlength="20"><div class="hint">Aparece no logo e em “Minha ${esc(brandTitle())}”. Se começar com N, o logo vira o “N” clássico.</div></div>
+        <div class="fld"><label>Título em destaque (tela inicial)</label><select class="inp" data-set="heroId"><option value="">Automático (marcados como destaque / mais recente)</option>${items.map(i => `<option value="${i.id}" ${S.settings.heroId === i.id ? 'selected' : ''}>${esc(i.title || 'Sem título')}</option>`).join('')}</select></div>
+        <div class="fld"><label>PIN do Estúdio (opcional)</label><input class="inp" data-set="pin" value="${esc(S.settings.pin)}" inputmode="numeric" maxlength="8" placeholder="Sem PIN"><div class="hint">Com um PIN, só quem sabe consegue abrir o Estúdio (e a surpresa não é estragada 😉).</div></div>
+      </div>
+      <div class="box"><h3>${I.save} Nuvem (Supabase)</h3>
+        <p style="color:#bbb;font-size:14px;line-height:1.45;margin:0 0 6px">Tudo é salvo na nuvem e aparece em qualquer aparelho em que vocês entrarem.</p>
+        <p style="color:#888;font-size:13px;margin:0 0 12px">Conectado como <b id="whoami">…</b><br>Espaço usado: ${(Object.values(S.media).reduce((a, m) => a + (m.size || 0), 0) / 1048576).toFixed(0)} MB de 1024 MB (plano grátis) · máx. ${MAX_UPLOAD_MB} MB por arquivo</p>
+        <div id="legacyBox"></div>
+        <span class="sbtn full" style="margin-bottom:10px">${I.upload} Importar backup (.nflx)<input type="file" id="importFile" accept=".nflx,application/octet-stream"></span>
+        <button class="sbtn ghost full" data-a="logout" style="margin-bottom:10px">${I.logout} Sair da conta</button>
+        <button class="sbtn danger full" data-a="resetAll" style="margin-bottom:14px">${I.trash} Apagar tudo da nuvem</button>
+      </div></div></div>`;
+  },
+  async mount() {
+    sb.auth.getUser().then(({ data }) => { const el = document.getElementById('whoami'); if (el && data.user) el.textContent = data.user.email; });
+    if (await localLegacy()) { const el = document.getElementById('legacyBox'); if (el) el.innerHTML = `<button class="sbtn red full" data-a="migrateLocal" style="margin-bottom:10px">${I.upload} Enviar para a nuvem o que está salvo neste aparelho</button>`; }
+  }
+};
+
+/* ---- Editor de título ---- */
+let draft = null, draftOrig = null, draftNew = [], draftOld = [], draftSaved = false;
+const newSeason = n => ({ id: uid(), name: `Temporada ${n}`, desc: '', episodes: [] });
+const newEp = n => ({ id: uid(), number: n, title: '', synopsis: '', thumbId: '', videoId: '', duration: 0, createdAt: Date.now() });
+function newItemObj(type) { return { id: uid(), type, title: '', year: new Date().getFullYear(), rating: 'L', quality: 'HD', categories: '', tags: '', synopsis: '', cast: '', director: '', badge: 'novidade', top10: 0, featured: false, heroText: '', posterId: '', backdropId: '', trailerId: '', videoId: '', duration: 0, seasons: type === 'series' ? [newSeason(1)] : [], createdAt: Date.now() }; }
+function getPath(o, path) { return path.split('.').reduce((a, k) => a == null ? a : a[k], o); }
+function setPath(o, path, v) { const ks = path.split('.'); const last = ks.pop(); const t = ks.reduce((a, k) => a[k], o); t[last] = v; }
+function releaseMedia(id) { if (!id) return; if (draftNew.includes(id)) { draftNew = draftNew.filter(x => x !== id); deleteMedia(id); } else draftOld.push(id); }
+function setMedia(path, id) { releaseMedia(getPath(draft, path)); setPath(draft, path, id); if (id) draftNew.push(id); }
+function mediaIdsOf(o) { const out = []; ['posterId', 'backdropId', 'trailerId', 'videoId', 'thumbId'].forEach(k => o[k] && out.push(o[k])); (o.seasons || []).forEach(s => s.episodes.forEach(e => out.push(...mediaIdsOf(e)))); (o.episodes || []).forEach(e => out.push(...mediaIdsOf(e))); return out; }
+function uploader(path, kind, label, wide, hint) {
+  const id = getPath(draft, path); const url = mu(id);
+  const pv = url ? (kind === 'video' ? `<video src="${url}#t=0.5" muted playsinline preload="metadata"></video>` : `<img src="${url}" alt="">`) : (kind === 'video' ? I.film : I.image);
+  let extra = '';
+  if (url && kind === 'video') { const sz = mediaSize(id); extra = `<small>${sz ? (sz / 1048576).toFixed(1) + ' MB' : ''}</small>`; }
+  return `<div class="fld"><label>${label}</label><div class="up"><div class="pv ${wide ? 'wide' : ''}">${pv}</div><div class="up-btns">
+    <span class="sbtn">${I.upload} ${url ? 'Trocar' : 'Enviar'} ${kind === 'video' ? 'vídeo' : 'foto'}<input type="file" accept="${kind}/*" data-media="${path}" data-kind="${kind}"></span>
+    ${url ? `<button class="sbtn ghost" data-a="rmMedia" data-path="${path}">${I.trash} Remover</button>` : ''}${extra}</div></div>${hint ? `<div class="hint">${hint}</div>` : ''}</div>`;
+}
+function editBodyHTML() {
+  const d = draft; const isS = d.type === 'series';
+  const sel = (path, opts) => `<select class="inp" data-bind="${path}">${opts.map(o => `<option value="${o[0]}" ${String(getPath(d, path)) === String(o[0]) ? 'selected' : ''}>${o[1]}</option>`).join('')}</select>`;
+  const existing = allCategories().filter(c => !splitList(d.categories).some(x => norm(x) === norm(c)));
+  let h = `<div class="seg"><button class="${!isS ? 'on' : ''}" data-a="editType" data-t="movie">Filme</button><button class="${isS ? 'on' : ''}" data-a="editType" data-t="series">Série</button></div>
+  <div class="box"><h3>${I.pencil} Informações</h3>
+    <div class="fld"><label>Título *</label><input class="inp" data-bind="title" value="${esc(d.title)}" placeholder="Ex.: Nossa primeira viagem"></div>
+    <div class="grid2"><div class="fld"><label>Ano</label><input class="inp" data-bind="year" value="${esc(d.year)}" inputmode="numeric"></div>
+      <div class="fld"><label>Classificação</label>${sel('rating', [['L', 'Livre'], ['10', '10 anos'], ['12', '12 anos'], ['14', '14 anos'], ['16', '16 anos'], ['18', '18 anos']])}</div></div>
+    <div class="grid2"><div class="fld"><label>Qualidade</label>${sel('quality', [['HD', 'HD'], ['4K', '4K'], ['Ultra HD', 'Ultra HD'], ['', 'Nenhuma']])}</div>
+      ${!isS ? `<div class="fld"><label>Duração</label><input class="inp" value="${fmtDur(d.duration) || 'automática'}" disabled></div>` : '<div></div>'}</div>
+    <div class="fld"><label>Categorias (viram as fileiras da tela inicial)</label><input class="inp" data-bind="categories" id="catInput" value="${esc(d.categories)}" placeholder="Ex.: Nossas viagens, Românticos, Comédias">
+      ${existing.length ? `<div class="catchips">${existing.map(c => `<button data-a="addCat" data-c="${esc(c)}">+ ${esc(c)}</button>`).join('')}</div>` : ''}<div class="hint">Separe por vírgula.</div></div>
+    <div class="fld"><label>Tags (aparecem no destaque)</label><input class="inp" data-bind="tags" value="${esc(d.tags)}" placeholder="Ex.: Romântico, Divertido, Inesquecível"></div>
+    <div class="fld"><label>Sinopse</label><textarea class="inp" data-bind="synopsis" placeholder="Conte a história deste momento…">${esc(d.synopsis)}</textarea></div>
+    <div class="fld"><label>Estrelando</label><input class="inp" data-bind="cast" value="${esc(d.cast)}" placeholder="Ex.: Você, Ela, Nosso cachorro"></div>
+    <div class="fld"><label>${isS ? 'Criação' : 'Direção'}</label><input class="inp" data-bind="director" value="${esc(d.director)}" placeholder="Ex.: Nós dois"></div>
+  </div>
+  <div class="box"><h3>${I.star} Destaque e selos</h3>
+    <div class="grid2"><div class="fld"><label>Selo do cartão</label>${sel('badge', [['', 'Nenhum'], ['novidade', 'Novidade'], ['novoep', 'Novo episódio'], ['novatemp', 'Nova temporada'], ['tempbreve', 'Nova temp. em breve'], ['embreve', 'Em breve']])}</div>
+      <div class="fld"><label>Top 10</label>${sel('top10', [[0, 'Não'], ...Array.from({ length: 10 }, (_, i) => [i + 1, 'Top ' + (i + 1)])])}</div></div>
+    <label class="chk"><input type="checkbox" data-bind="featured" ${d.featured ? 'checked' : ''}> Mostrar como destaque na tela inicial</label>
+    <div class="fld"><label>Frase do destaque (opcional)</label><input class="inp" data-bind="heroText" value="${esc(d.heroText)}" placeholder="Ex.: O dia em que tudo começou"><div class="hint">Aparece acima dos botões quando não está no Top 10.</div></div>
+  </div>
+  <div class="box"><h3>${I.image} Imagens</h3>
+    ${uploader('posterId', 'image', 'Capa / cartão (vertical)', false, 'Usada nos cartões, no destaque e na tela de perfis. Ideal: foto em pé (2:3).')}
+    ${uploader('backdropId', 'image', 'Imagem horizontal (banner)', true, 'Usada na página do título e nas buscas. Se vazia, é gerada do vídeo.')}
+  </div>
+  <div class="box"><h3>${I.film} Vídeos</h3>
+    ${uploader('trailerId', 'video', 'Trailer', true, 'Toca automaticamente na página do título e aparece em “Clipes”.')}
+    ${!isS ? uploader('videoId', 'video', 'Filme (vídeo principal)', true, 'É o que toca ao apertar “Assistir”.') : ''}
+  </div>`;
+  if (isS) {
+    h += `<div class="box"><h3>${I.list} Temporadas e episódios</h3>${d.seasons.map((s, si) => `
+      <div class="season"><div class="season-h"><input class="inp" data-bind="seasons.${si}.name" value="${esc(s.name)}" placeholder="Nome da temporada"><button class="iconbtn danger" data-a="rmSeason" data-si="${si}">${I.trash}</button></div>
+        <div class="fld"><label>Descrição da temporada (opcional)</label><textarea class="inp" style="min-height:60px" data-bind="seasons.${si}.desc">${esc(s.desc)}</textarea></div>
+        ${s.episodes.map((ep, ei) => { const b = `seasons.${si}.episodes.${ei}`; return `<div class="epb"><div class="epb-h"><span>Episódio ${esc(ep.number)}${ep.duration ? ' · ' + fmtDur(ep.duration) : ''}</span><button class="iconbtn danger" data-a="rmEp" data-si="${si}" data-ei="${ei}">${I.trash}</button></div>
+          <div class="grid2" style="grid-template-columns:80px 1fr"><div class="fld"><label>Nº</label><input class="inp" data-bind="${b}.number" data-num value="${esc(ep.number)}" inputmode="numeric"></div><div class="fld"><label>Nome do episódio</label><input class="inp" data-bind="${b}.title" value="${esc(ep.title)}" placeholder="Ex.: O primeiro encontro"></div></div>
+          <div class="fld"><label>Sinopse do episódio</label><textarea class="inp" style="min-height:70px" data-bind="${b}.synopsis">${esc(ep.synopsis)}</textarea></div>
+          ${uploader(b + '.videoId', 'video', 'Vídeo do episódio', true)}
+          ${uploader(b + '.thumbId', 'image', 'Miniatura (opcional – gerada do vídeo)', true)}
+        </div>`; }).join('')}
+        <button class="sbtn full" data-a="addEp" data-si="${si}" style="margin-bottom:12px">${I.plus} Adicionar episódio</button></div>`).join('')}
+      <button class="sbtn red full" data-a="addSeason" style="margin-bottom:14px">${I.plus} Adicionar temporada</button></div>`;
+  }
+  return h;
+}
+function renderEditBody() { const y = window.scrollY; const el = document.getElementById('editbody'); if (el) el.innerHTML = editBodyHTML(); window.scrollTo(0, y); }
+SCREENS.edit = {
+  html() {
+    return `<div class="screen" style="padding-bottom:0"><div class="dhead"><button data-a="back">${I.x}</button><h2>${draftOrig ? 'Editar' : 'Novo'} ${draft.type === 'series' ? 'série' : 'filme'}</h2></div>
+      <div class="st" id="editbody">${editBodyHTML()}</div>
+      <div class="savebar"><button class="sbtn" data-a="back">Cancelar</button><button class="sbtn red" data-a="saveEdit">${I.check} Salvar</button></div></div>`;
+  },
+  mount() { cleanups.push(() => { if (!draftSaved) { draftNew.forEach(deleteMedia); draftNew = []; } }); }
+};
+
+/* =====================================================================
+   Mídia: redimensionar foto / ler vídeo
+   ===================================================================== */
+async function resizeImage(file, max = 1600) {
+  if (/gif|svg/.test(file.type)) return file;
+  try {
+    const bmp = await createImageBitmap(file);
+    const sc = Math.min(1, max / Math.max(bmp.width, bmp.height));
+    const c = document.createElement('canvas'); c.width = Math.round(bmp.width * sc); c.height = Math.round(bmp.height * sc);
+    c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+    const b = await new Promise(r => c.toBlob(r, 'image/jpeg', .9)); return b || file;
+  } catch (e) { return file; }
+}
+function videoMeta(blob, capture) {
+  return new Promise(res => {
+    const v = document.createElement('video'); v.preload = 'metadata'; v.muted = true; v.playsInline = true;
+    const url = URL.createObjectURL(blob); let done = false;
+    const fin = r => { if (done) return; done = true; URL.revokeObjectURL(url); res(r); };
+    setTimeout(() => fin({ duration: isFinite(v.duration) ? v.duration : 0, frame: null }), 15000);
+    v.onloadedmetadata = () => { if (!capture) return fin({ duration: v.duration, frame: null }); v.currentTime = Math.min((v.duration || 1) * 0.2, 4); };
+    v.onseeked = () => { try { const c = document.createElement('canvas'); const w = Math.min(960, v.videoWidth || 960); c.width = w; c.height = Math.round(w * (v.videoHeight || 540) / (v.videoWidth || 960)); c.getContext('2d').drawImage(v, 0, 0, c.width, c.height); c.toBlob(b => fin({ duration: v.duration, frame: b }), 'image/jpeg', .85); } catch (e) { fin({ duration: v.duration, frame: null }); } };
+    v.onerror = () => fin({ duration: 0, frame: null });
+    v.src = url;
+  });
+}
+async function onMediaFile(input) {
+  const file = input.files[0]; if (!file || !draft) return;
+  const path = input.dataset.media, kind = input.dataset.kind;
+  loading(true, kind === 'video' ? 'Preparando vídeo…' : 'Preparando foto…');
+  try {
+    const blob = kind === 'image' ? await resizeImage(file) : file;
+    checkSize(blob);
+    const id = await putMedia(blob, kind === 'video' ? 'Enviando vídeo…' : 'Enviando foto…'); setMedia(path, id);
+    loading(true, 'Finalizando…');
+    if (kind === 'video') {
+      const parent = path.includes('.') ? path.slice(0, path.lastIndexOf('.')) : '';
+      const pre = parent ? parent + '.' : '';
+      const needThumb = path.includes('episodes') && !getPath(draft, pre + 'thumbId');
+      const needBack = !draft.backdropId;
+      const meta = await videoMeta(blob, needThumb || needBack);
+      if (path.endsWith('videoId') && meta.duration && isFinite(meta.duration)) setPath(draft, pre + 'duration', Math.round(meta.duration));
+      if (meta.frame) { const fid = await putMedia(meta.frame); if (needThumb) setMedia(pre + 'thumbId', fid); else setMedia('backdropId', fid); }
+    }
+  } catch (e) { loading(false); alert('Não foi possível enviar: ' + (e.message || e)); }
+  input.value = ''; loading(false); renderEditBody();
+}
+
+/* =====================================================================
+   Backup
+   ===================================================================== */
+/* Envia para a nuvem um conteúdo antigo (backup .nflx ou o que ficou salvo no aparelho) */
+async function importInto(state, entries) {
+  if (!confirm('Isso vai SUBSTITUIR o conteúdo da nuvem pelo conteúdo importado. Continuar?')) return;
+  const skipped = [];
+  try {
+    const media = {};
+    for (let i = 0; i < entries.length; i++) {
+      const en = entries[i];
+      loading(true, `Enviando arquivo ${i + 1} de ${entries.length}…`);
+      const blob = await en.get();
+      if (!blob) continue;
+      if (blob.size > MAX_UPLOAD_MB * 1048576) { skipped.push(en.id); continue; }
+      await uploadFile(en.id, blob, p => loading(true, `Enviando arquivo ${i + 1} de ${entries.length}… ${Math.round(p * 100)}%`));
+      media[en.id] = { type: blob.type || '', size: blob.size, at: Date.now() };
+    }
+    loading(true, 'Salvando…');
+    S.settings = Object.assign({ brand: 'NOSSAFLIX', pin: '', heroId: '' }, state.settings || {});
+    S.profiles = state.profiles || []; S.items = state.items || []; S.notifications = state.notifications || [];
+    S.media = Object.assign({}, S.media, media); S.users = state.users || {};
+    await saveContent();
+    for (const pid of Object.keys(S.users)) await saveUser(pid);
+    loading(false);
+    alert(skipped.length ? `Importado! ${skipped.length} arquivo(s) ficaram de fora por passarem de ${MAX_UPLOAD_MB} MB.` : 'Tudo importado para a nuvem! ❤');
+    location.reload();
+  } catch (e) { loading(false); alert('Erro ao importar: ' + e.message); }
+}
+async function importBackup(file) {
+  try {
+    const hl = new DataView(await file.slice(0, 4).arrayBuffer()).getUint32(0);
+    const header = JSON.parse(await file.slice(4, 4 + hl).text());
+    if (header.app !== 'nossaflix') throw new Error('arquivo inválido');
+    let off = 4 + hl;
+    const entries = header.media.map(m => { const start = off; off += m.size; return { id: m.id, get: async () => new Blob([await file.slice(start, start + m.size).arrayBuffer()], { type: m.type }) }; });
+    await importInto(header.state, entries);
+  } catch (e) { alert('Erro ao importar: ' + e.message); }
+}
+async function localLegacy() {
+  try { if (!DB.db) await DB.open(); const st = await DB.get('kv', 'state'); return st && st.items && st.items.length ? st : null; } catch (e) { return null; }
+}
+async function migrateLocal() {
+  const st = await localLegacy(); if (!st) { toast('Nada salvo neste aparelho'); return; }
+  const keys = await DB.keys('media');
+  await importInto(st, keys.map(k => ({ id: k, get: () => DB.get('media', k) })));
+}
+async function wipeCloud() {
+  const ids = Object.keys(S.media);
+  for (let i = 0; i < ids.length; i += 100) await sb.storage.from(BUCKET).remove(ids.slice(i, i + 100));
+  await sb.from('kv').delete().neq('key', '');
+}
+
+/* =====================================================================
+   Folhas (sheets)
+   ===================================================================== */
+let pickerCb = null;
+function openPicker(opts, current, cb) {
+  pickerCb = cb;
+  openOverlay(`<div class="picker">${opts.map(o => `<button class="po ${String(o.v) === String(current) ? 'on' : ''}" data-a="pickOpt" data-v="${esc(o.v)}">${esc(o.label)}</button>`).join('')}<button class="pclose" data-a="closeOv">${I.x}</button></div>`, 'picker');
+}
+function openInfoSheet(id) {
+  const it = item(id); if (!it) return; const r = resume(it);
+  openOverlay(`<div class="ish">${posterImg(it, '')}<div style="flex:1;min-width:0"><div class="sh-title" style="margin:0"><h3>${esc(it.title)}</h3><button class="xbtn" data-a="closeOv">${I.x}</button></div>
+    <div class="meta"><span>${esc(it.year)}</span>${rateBadge(it.rating)}<span>${it.type === 'series' ? seasonsLabel(it) : fmtDur(it.duration)}</span></div><p>${esc(it.synopsis || '')}</p></div></div>
+    <div class="ish-acts"><button class="act" data-a="play" data-id="${id}" ${r.ep ? `data-ep="${r.ep.id}"` : ''}><span class="circ w">${I.play}</span>${r.started && !r.finished ? 'Continuar' : 'Assistir'}</button>
+      <button class="act" data-a="dl" data-id="${id}" ${r.ep ? `data-ep="${r.ep.id}"` : ''}><span class="circ">${I.download}</span>Baixar</button>
+      <button class="act" data-a="toggleList" data-id="${id}" data-k="circ">${listBtnInner(id, 'circ')}</button>
+      <button class="act" data-a="share" data-id="${id}"><span class="circ">${I.share}</span>Compartilhe</button></div>
+    <button class="ish-more" data-a="open" data-id="${id}">${I.info}<span class="grow">${it.type === 'series' ? 'Episódios e info' : 'Detalhes e mais'}</span>${I.chevR}</button>`);
+}
+function openMoreSheet(id) {
+  const it = item(id); if (!it) return;
+  openOverlay(`<div class="sh-title"><h3>${esc(it.title)}</h3><button class="xbtn" data-a="closeOv">${I.x}</button></div>
+    <button class="sh-opt" data-a="open" data-id="${id}">${I.info} ${it.type === 'series' ? 'Episódios e info' : 'Detalhes e mais'}</button>
+    <button class="sh-opt" data-a="dl" data-id="${id}">${I.download} Baixar</button>
+    <button class="sh-opt" data-a="rate" data-id="${id}">${I.thumb} Avaliar</button>
+    <button class="sh-opt danger" data-a="hideCW" data-id="${id}">${I.x} Remover de Continuar assistindo</button>`);
+}
+function openRateSheet(id) {
+  const v = user().ratings[id];
+  openOverlay(`<div class="sh-title"><h3>Avaliar “${esc(item(id).title)}”</h3><button class="xbtn" data-a="closeOv">${I.x}</button></div>
+    <div class="rates"><button class="${v === -1 ? 'on' : ''}" data-a="setRate" data-id="${id}" data-v="-1"><span class="circ"><span class="flip">${I.thumb}</span></span>Não é pra mim</button>
+    <button class="${v === 1 ? 'on' : ''}" data-a="setRate" data-id="${id}" data-v="1"><span class="circ">${I.thumb}</span>Gostei</button>
+    <button class="${v === 2 ? 'on' : ''}" data-a="setRate" data-id="${id}" data-v="2"><span class="circ">${I.thumbs2}</span>Amei!</button></div>`);
+}
+let profDraft = null, profNewPhoto = null;
+function openProfileSheet(id) {
+  const p = id ? S.profiles.find(x => x.id === id) : null;
+  profDraft = p ? { ...p } : { id: uid(), name: '', color: Object.keys(AV_COLORS)[S.profiles.length % 8], photoId: '' };
+  profDraft._new = !p; profNewPhoto = null; renderProfileSheet(true);
+}
+function renderProfileSheet(first) {
+  const d = profDraft; const nm = document.getElementById('profName'); if (!first && nm) d.name = nm.value;
+  const html = `<div class="sh-title"><h3>${d._new ? 'Adicionar perfil' : 'Editar perfil'}</h3><button class="xbtn" data-a="profCancel">${I.x}</button></div>
+    <div class="avprev">${avatarHTML(d)}</div>
+    <div class="fld"><label>Nome</label><input class="inp" id="profName" value="${esc(d.name)}" maxlength="16" placeholder="Nome do perfil"></div>
+    <div class="fld"><label>Ícone</label><div class="colors">${Object.keys(AV_COLORS).map(c => `<button class="${!d.photoId && d.color === c ? 'on' : ''}" data-a="profColor" data-c="${c}">${avatarHTML({ color: c })}</button>`).join('')}</div>
+      <div style="display:flex;gap:8px"><span class="sbtn">${I.image} Usar foto<input type="file" accept="image/*" id="profPhoto"></span>${d.photoId ? `<button class="sbtn ghost" data-a="profRmPhoto">${I.trash} Tirar foto</button>` : ''}</div></div>
+    <button class="sbtn red full" data-a="profSave" style="margin:6px 0 10px">${I.check} Salvar</button>
+    ${!d._new && S.profiles.length > 1 ? `<button class="sbtn danger full" data-a="profDelete">${I.trash} Excluir perfil</button>` : ''}`;
+  if (first) openOverlay(html); else if (overlay) overlay.querySelector('.sheet').innerHTML = html;
+}
+function openPinSheet(then) {
+  openOverlay(`<div class="sh-title"><h3>PIN do Estúdio</h3><button class="xbtn" data-a="closeOv">${I.x}</button></div>
+    <div class="fld"><input class="inp" id="pinInput" type="password" inputmode="numeric" placeholder="Digite o PIN" style="text-align:center;font-size:24px;letter-spacing:.3em"></div>
+    <button class="sbtn red full" data-a="pinOk">Entrar</button>`);
+  pinThen = then; setTimeout(() => { const i = document.getElementById('pinInput'); if (i) i.focus(); }, 300);
+}
+let pinThen = null;
+
+/* =====================================================================
+   Ações
+   ===================================================================== */
+function updateToggles(id) {
+  document.querySelectorAll(`[data-a="toggleList"][data-id="${id}"]`).forEach(el => el.innerHTML = listBtnInner(id, el.dataset.k));
+  document.querySelectorAll(`[data-a="rate"][data-id="${id}"][data-k]`).forEach(el => el.innerHTML = rateBtnInner(id, el.dataset.k));
+}
+function downloadVideo(it, ep) {
+  const mid = ep ? ep.videoId : it.videoId;
+  if (!hasMedia(mid)) { toast('Este ' + (ep ? 'episódio' : 'título') + ' ainda não tem vídeo'); return false; }
+  const type = (S.media[mid] && S.media[mid].type) || 'video/mp4';
+  const ext = (type.split('/')[1] || 'mp4').replace('quicktime', 'mov').replace(/;.*/, '');
+  const e = ep ? findEp(it, ep.id) : null;
+  const name = (it.title + (e ? ` - T${e.si + 1}E${ep.number} - ${ep.title}` : '')).replace(/[\\/:*?"<>|]/g, '').trim() + '.' + ext;
+  sb.storage.from(BUCKET).createSignedUrl(mid, 3600, { download: name }).then(({ data, error }) => {
+    if (error || !data) { toast('Não foi possível baixar: ' + (error ? error.message : '')); return; }
+    const a = document.createElement('a'); a.href = data.signedUrl; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+  });
+  const u = user(); const key = ep ? ep.id : it.id;
+  u.downloads = [{ key, itemId: it.id, epId: ep ? ep.id : '', at: Date.now() }, ...u.downloads.filter(d => d.key !== key)]; saveSoon();
+  return true;
+}
+const A = {
+  closeOv: () => closeOv(),
+  skipSplash() { if (stack[0] && stack[0].name === 'splash') setRoot('profiles'); },
+  back: () => back(),
+  pickProfile(d) { cur = d.id; ensureUser(cur); setRoot('home'); },
+  toggleEditProfiles() { const t = stack[stack.length - 1]; t.params = { edit: !t.params.edit }; render(); },
+  editProfile(d) { openProfileSheet(d.id); },
+  addProfile() { openProfileSheet(null); },
+  profColor(d) { profDraft.color = d.c; if (profDraft.photoId) { if (profDraft.photoId === profNewPhoto) { deleteMedia(profNewPhoto); profNewPhoto = null; } profDraft.photoId = ''; } renderProfileSheet(); },
+  profRmPhoto() { if (profDraft.photoId === profNewPhoto) { deleteMedia(profNewPhoto); profNewPhoto = null; } profDraft.photoId = ''; renderProfileSheet(); },
+  profCancel() { if (profNewPhoto) deleteMedia(profNewPhoto); profNewPhoto = null; closeOv(); },
+  async profSave() {
+    const name = document.getElementById('profName').value.trim(); if (!name) { toast('Dê um nome ao perfil'); return; }
+    const d = profDraft; d.name = name; const isNew = d._new; delete d._new;
+    if (isNew) S.profiles.push(d); else { const i = S.profiles.findIndex(p => p.id === d.id); const old = S.profiles[i]; if (old.photoId && old.photoId !== d.photoId) deleteMedia(old.photoId); S.profiles[i] = d; }
+    profNewPhoto = null; await saveState(); closeOv(() => refresh());
+  },
+  async profDelete() {
+    if (!confirm('Excluir este perfil? O histórico dele será apagado.')) return;
+    const d = profDraft; const old = S.profiles.find(p => p.id === d.id); if (old && old.photoId) deleteMedia(old.photoId); if (profNewPhoto) deleteMedia(profNewPhoto);
+    S.profiles = S.profiles.filter(p => p.id !== d.id); delete S.users[d.id]; if (cur === d.id) cur = null;
+    sb.from('kv').delete().eq('key', 'user:' + d.id).then(() => {});
+    await saveState(); closeOv(() => refresh());
+  },
+  tab(d) { if (d.t === 'my' && !cur) return; setRoot(d.t); },
+  chip(d) { const t = stack[stack.length - 1]; t.params = { filter: d.f }; t.scroll = 0; render(); },
+  chipCats() {
+    const cs = allCategories(); if (!cs.length) { toast('Nenhuma categoria cadastrada ainda'); return; }
+    const curF = (stack[stack.length - 1].params.filter || '');
+    openPicker([{ v: '', label: 'Início' }, { v: 'series', label: 'Séries' }, { v: 'movie', label: 'Filmes' }, { v: 'list', label: 'Minha lista' }, ...cs.map(c => ({ v: 'cat:' + c, label: c }))], curF, v => { const t = stack[stack.length - 1]; t.params = { filter: v }; t.scroll = 0; render(); });
+  },
+  pickOpt(d) { const cb = pickerCb; pickerCb = null; closeOv(() => cb && cb(d.v)); },
+  open(d) { const f = () => go('detail', { id: d.id }); overlay ? closeOv(f) : f(); },
+  play(d, el, ev) {
+    if (ev) ev.stopPropagation();
+    const it = item(d.id); if (!it) return;
+    let ep = d.ep || '';
+    if (it.type === 'series' && !ep) { const r = resume(it); if (!r.ep) { toast('Esta série ainda não tem episódios'); return; } ep = r.ep.id; }
+    const f = () => go('player', { id: it.id, ep }); overlay ? closeOv(f) : f();
+  },
+  playTrailer(d) { go('player', { id: d.id, trailer: 1 }); },
+  info(d) { openInfoSheet(d.id); },
+  more(d) { openMoreSheet(d.id); },
+  hideCW(d) { user().hidden[d.id] = Date.now(); saveSoon(); closeOv(() => refresh()); toast('Removido de Continuar assistindo'); },
+  toggleList(d) {
+    const u = user(); const on = u.myList.includes(d.id);
+    u.myList = on ? u.myList.filter(x => x !== d.id) : [d.id, ...u.myList]; saveSoon();
+    toast(on ? 'Removido da Minha lista' : 'Adicionado à Minha lista ✓'); updateToggles(d.id);
+  },
+  rate(d) { const f = () => openRateSheet(d.id); overlay ? closeOv(f) : f(); },
+  setRate(d) {
+    const u = user(); const v = Number(d.v); if (u.ratings[d.id] === v) delete u.ratings[d.id]; else u.ratings[d.id] = v; saveSoon();
+    closeOv(() => updateToggles(d.id)); toast(v === 2 ? 'Amei! ❤' : v === 1 ? 'Obrigado pela avaliação' : 'Ok, anotado');
+  },
+  async share(d) {
+    const it = item(d.id); const text = `Vem assistir “${it.title}” comigo no ${brandTitle()} ❤`;
+    try { if (navigator.share) await navigator.share({ title: it.title, text }); else { await navigator.clipboard.writeText(text); toast('Texto copiado!'); } } catch (e) {}
+  },
+  dl(d) {
+    const it = item(d.id); if (!it) return; let ep = null;
+    if (it.type === 'series') { const e = d.ep ? findEp(it, d.ep) : (resume(it).ep ? findEp(it, resume(it).ep.id) : null); if (!e) { toast('Sem episódios para baixar'); return; } ep = e.ep; }
+    const f = () => { if (downloadVideo(it, ep)) toast('Download iniciado'); }; overlay ? closeOv(f) : f();
+  },
+  dlSeason(d) {
+    const it = item(d.id); const t = stack[stack.length - 1]; const si = t.params.si ?? (resume(it).si || 0); const s = it.seasons[si];
+    if (!s || !s.episodes.length) { toast('Temporada sem episódios'); return; }
+    const eps = s.episodes.filter(e => hasMedia(e.videoId)); if (!eps.length) { toast('Nenhum episódio com vídeo'); return; }
+    eps.forEach((e, i) => setTimeout(() => downloadVideo(it, e), i * 900)); toast(`Baixando ${eps.length} episódio(s)…`);
+  },
+  rmDl(d) { const u = user(); u.downloads = u.downloads.filter(x => x.key !== d.k); saveSoon(); refresh(); },
+  dtab(d) { const t = stack[stack.length - 1]; t.params.tab = d.t; refreshDetail(); },
+  seasonPick(d) {
+    const it = item(d.id); const t = stack[stack.length - 1]; const curSi = t.params.si ?? (resume(it).si || 0);
+    openPicker(it.seasons.map((s, i) => ({ v: i, label: s.name || 'Temporada ' + (i + 1) })), curSi, v => { t.params.si = Number(v); t.params.tab = 'eps'; refreshDetail(); });
+  },
+  seasonInfo(d) { const s = item(d.id).seasons[d.si]; openOverlay(`<div class="sh-title"><h3>${esc(s.name)}</h3><button class="xbtn" data-a="closeOv">${I.x}</button></div><p style="line-height:1.5;color:#ddd;white-space:pre-line">${esc(s.desc)}</p>`); },
+  dmute(d, el) { const v = document.getElementById('dvid'); if (!v) return; detailMuted = !detailMuted; v.muted = detailMuted; el.innerHTML = detailMuted ? I.mute : I.sound; },
+  clipMute() { clipMuted = !clipMuted; document.querySelectorAll('#clips video').forEach(v => v.muted = clipMuted); const b = document.getElementById('cmute'); if (b) b.innerHTML = clipMuted ? I.mute : I.sound; toast(clipMuted ? 'Som desligado' : 'Som ligado'); },
+  expand(d, el) { el.classList.toggle('clamp'); },
+  notifs() { go('notifs'); },
+  downloads() { go('downloads'); },
+  notifOpen(d) { if (item(d.id)) go('detail', { id: d.id }); },
+  qclear() { const t = stack[stack.length - 1]; t.params.q = ''; render(); },
+  switchProfile() {
+    openOverlay(`<div class="sh-title"><h3>Trocar perfil</h3><button class="xbtn" data-a="closeOv">${I.x}</button></div>
+      ${S.profiles.map(p => `<button class="sh-opt" data-a="switchTo" data-id="${p.id}"><span style="width:40px;height:40px;border-radius:6px;overflow:hidden;flex:none">${avatarHTML(p)}</span>${esc(p.name)}${p.id === cur ? ' ✓' : ''}</button>`).join('')}
+      <button class="sh-opt" data-a="manageProfiles">${I.pencil} Gerenciar perfis</button>`);
+  },
+  switchTo(d) { closeOv(() => { cur = d.id; ensureUser(cur); setRoot('home'); }); },
+  manageProfiles() { closeOv(() => setRoot('profiles', { edit: true })); },
+  myMenu() {
+    openOverlay(`<div class="sh-title"><h3>Menu</h3><button class="xbtn" data-a="closeOv">${I.x}</button></div>
+      <button class="sh-opt" data-a="studio">${I.pencil} Estúdio do Autor</button>
+      <button class="sh-opt" data-a="manageProfiles">${I.user} Gerenciar perfis</button>
+      <button class="sh-opt" data-a="notifs">${I.bell} Notificações</button>
+      <button class="sh-opt" data-a="downloads">${I.download} Downloads</button>
+      <button class="sh-opt" data-a="leave">${I.user} Trocar de perfil</button>
+      <button class="sh-opt danger" data-a="logout">${I.logout} Sair da conta</button>`);
+  },
+  leave() { closeOv(() => setRoot('profiles')); },
+  studio() {
+    const f = () => { if (S.settings.pin) openPinSheet(() => go('studio')); else go('studio'); };
+    overlay ? closeOv(f) : f();
+  },
+  pinOk() { const v = document.getElementById('pinInput').value; if (v === S.settings.pin) { const t = pinThen; pinThen = null; closeOv(t); } else toast('PIN incorreto'); },
+  newItem(d) { draftOrig = null; draft = newItemObj(d.t); draftNew = []; draftOld = []; draftSaved = false; go('edit'); },
+  editItem(d) { draftOrig = item(d.id); draft = structuredClone(draftOrig); draftNew = []; draftOld = []; draftSaved = false; go('edit'); },
+  async delItem(d) {
+    const it = item(d.id); if (!confirm(`Excluir “${it.title}”? Isso apaga fotos e vídeos dele.`)) return;
+    mediaIdsOf(it).forEach(deleteMedia); S.items = S.items.filter(i => i.id !== d.id);
+    Object.values(S.users).forEach(u => { u.myList = u.myList.filter(x => x !== d.id); delete u.ratings[d.id]; u.downloads = u.downloads.filter(x => x.itemId !== d.id); });
+    S.notifications = S.notifications.filter(n => n.itemId !== d.id); if (S.settings.heroId === d.id) S.settings.heroId = '';
+    await saveState(); refresh(); toast('Título excluído');
+  },
+  editType(d) { draft.type = d.t; if (d.t === 'series' && !draft.seasons.length) draft.seasons = [newSeason(1)]; document.querySelector('.dhead h2').textContent = `${draftOrig ? 'Editar' : 'Novo'} ${d.t === 'series' ? 'série' : 'filme'}`; renderEditBody(); },
+  addCat(d) { const l = splitList(draft.categories); l.push(d.c); draft.categories = l.join(', '); renderEditBody(); },
+  addSeason() { draft.seasons.push(newSeason(draft.seasons.length + 1)); renderEditBody(); },
+  rmSeason(d) { const s = draft.seasons[d.si]; if (s.episodes.length && !confirm('Excluir esta temporada e todos os episódios dela?')) return; mediaIdsOf(s).forEach(releaseMedia); draft.seasons.splice(d.si, 1); renderEditBody(); },
+  addEp(d) { const s = draft.seasons[d.si]; const n = s.episodes.length ? Math.max(...s.episodes.map(e => Number(e.number) || 0)) + 1 : 1; s.episodes.push(newEp(n)); renderEditBody(); },
+  rmEp(d) { if (!confirm('Excluir este episódio?')) return; const e = draft.seasons[d.si].episodes[d.ei]; mediaIdsOf(e).forEach(releaseMedia); draft.seasons[d.si].episodes.splice(d.ei, 1); renderEditBody(); },
+  rmMedia(d) { setMedia(d.path, ''); if (d.path.endsWith('videoId')) { const pre = d.path.includes('.') ? d.path.slice(0, d.path.lastIndexOf('.') + 1) : ''; setPath(draft, pre + 'duration', 0); } renderEditBody(); },
+  async saveEdit() {
+    const d = draft; d.title = String(d.title || '').trim(); if (!d.title) { toast('O título é obrigatório'); window.scrollTo(0, 0); return; }
+    if (d.type === 'movie') { d.seasons.forEach(s => mediaIdsOf(s).forEach(releaseMedia)); d.seasons = []; } else { d.videoId && releaseMedia(d.videoId); d.videoId = ''; }
+    d.top10 = Number(d.top10) || 0;
+    if (!draftOrig) { notify(d.id, d.title, d.type === 'series' ? 'Nova série disponível. Assista agora!' : 'Novo filme disponível. Assista agora!'); S.items.push(d); }
+    else {
+      const oldEps = new Set(allEps(draftOrig).map(e => e.ep.id));
+      const added = allEps(d).filter(e => !oldEps.has(e.ep.id));
+      if (added.length === 1) notify(d.id, d.title, `Novo episódio: T${added[0].si + 1}:E${added[0].ep.number} “${added[0].ep.title || 'Episódio ' + added[0].ep.number}”`, added[0].ep.id);
+      else if (added.length > 1) notify(d.id, d.title, `${added.length} novos episódios disponíveis!`);
+      S.items[S.items.findIndex(i => i.id === d.id)] = d;
+    }
+    draftOld.forEach(deleteMedia); draftOld = []; draftNew = []; draftSaved = true;
+    await saveState(); toast('Salvo! ❤'); back();
+  },
+  migrateLocal() { migrateLocal(); },
+  async logout() { if (!confirm('Sair da conta neste aparelho?')) return; const f = async () => { await sb.auth.signOut(); location.reload(); }; overlay ? closeOv(f) : f(); },
+  async resetAll() {
+    if (!confirm('Apagar TODOS os títulos, fotos, vídeos e perfis da nuvem?')) return;
+    if (!confirm('Tem certeza absoluta? Some de todos os aparelhos e não dá para desfazer.')) return;
+    loading(true, 'Apagando…'); try { await wipeCloud(); } catch (e) {} location.reload();
+  },
+  pTap(d, el, ev) {
+    if (ev.target !== el) return; const ctl = document.getElementById('pctl'); ctl.classList.toggle('hid');
+    clearTimeout(ctlTimer); const v = document.getElementById('pv'); if (v && !v.paused) ctlTimer = setTimeout(() => ctl.classList.add('hid'), 3200);
+  },
+  pPlay() { const v = document.getElementById('pv'); if (!v) return; v.paused ? v.play() : v.pause(); },
+  pRw() { const v = document.getElementById('pv'); if (v) v.currentTime = Math.max(0, v.currentTime - 10); },
+  pFf() { const v = document.getElementById('pv'); if (v) v.currentTime = Math.min(v.duration || 0, v.currentTime + 10); },
+  pSwitch(d) { const f = () => go('player', { id: d.id, ep: d.ep }, true); overlay ? closeOv(f) : f(); },
+  pEps(d) {
+    const it = item(d.id); const t = stack[stack.length - 1]; const e = findEp(it, t.params.ep);
+    const v = document.getElementById('pv'); if (v) v.pause();
+    openOverlay(`<div class="sh-title"><h3>${esc(e.s.name)}</h3><button class="xbtn" data-a="closeOv">${I.x}</button></div>
+      ${e.s.episodes.map(ep => `<button class="nitem" style="padding:8px 0" data-a="pSwitch" data-id="${it.id}" data-ep="${ep.id}">${wideImg(it, ep)}<span class="tx"><b>${esc(ep.number)}. ${esc(ep.title)}</b><small>${fmtDur(ep.duration)}</small></span>${ep.id === e.ep.id ? '<span class="dot"></span>' : ''}</button>`).join('')}`);
+  }
+};
+
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-a]'); if (!el) return;
+  const fn = A[el.dataset.a]; if (!fn) return;
+  if (el.tagName === 'BUTTON' || el.dataset.a !== 'pTap') e.preventDefault();
+  fn(el.dataset, el, e);
+});
+document.addEventListener('input', e => {
+  const t = e.target;
+  if (t.dataset.bind && draft) { let v = t.type === 'checkbox' ? t.checked : t.value; if (t.dataset.num !== undefined) v = Number(v) || 0; setPath(draft, t.dataset.bind, v); }
+  if (t.id === 'q') { const top = stack[stack.length - 1]; top.params.q = t.value; document.getElementById('sres').innerHTML = searchResults(t.value); }
+  if (t.dataset.set) { S.settings[t.dataset.set] = t.value; saveContentSoon(); }
+  if (t.id === 'profName' && profDraft) profDraft.name = t.value;
+});
+document.addEventListener('change', async e => {
+  const t = e.target;
+  if (t.dataset.bind && draft && t.type === 'checkbox') setPath(draft, t.dataset.bind, t.checked);
+  if (t.dataset.media) onMediaFile(t);
+  if (t.id === 'importFile' && t.files[0]) importBackup(t.files[0]);
+  if (t.id === 'profPhoto' && t.files[0]) {
+    loading(true, 'Enviando foto…');
+    try {
+      const b = await resizeImage(t.files[0], 500); const id = await putMedia(b, 'Enviando foto…');
+      if (profNewPhoto) deleteMedia(profNewPhoto); profNewPhoto = id; profDraft.photoId = id;
+    } catch (err) { alert('Não foi possível enviar: ' + err.message); }
+    loading(false); renderProfileSheet();
+  }
+});
+document.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.id === 'pinInput') A.pinOk(); });
+
+/* =====================================================================
+   Início
+   ===================================================================== */
+SCREENS.login = {
+  html(p) {
+    return `<div class="login"><div class="login-bg"></div><div class="login-box">
+      <div style="display:flex;justify-content:center;margin-bottom:22px">${markHTML(90)}</div>
+      <h1>Entrar</h1>
+      <form id="loginForm" autocomplete="on">
+        <input class="inp" id="lgEmail" type="email" placeholder="E-mail" autocomplete="username" required>
+        <input class="inp" id="lgPass" type="password" placeholder="Senha" autocomplete="current-password" required>
+        <button class="btn" type="submit" id="lgBtn" style="background:#e50914;color:#fff;font-size:17px;margin-top:6px">Entrar</button>
+      </form>
+      <p class="login-err" id="lgErr">${esc(p.err || '')}</p>
+      <p class="login-hint">Acesso só para nós dois ❤</p></div></div>`;
+  }
+};
+document.addEventListener('submit', async e => {
+  if (e.target.id !== 'loginForm') return; e.preventDefault();
+  const btn = document.getElementById('lgBtn'), err = document.getElementById('lgErr');
+  btn.disabled = true; btn.textContent = 'Entrando…'; err.textContent = '';
+  const { error } = await sb.auth.signInWithPassword({ email: document.getElementById('lgEmail').value.trim(), password: document.getElementById('lgPass').value });
+  if (error) { btn.disabled = false; btn.textContent = 'Entrar'; err.textContent = /invalid/i.test(error.message) ? 'E-mail ou senha incorretos.' : error.message; return; }
+  boot();
+});
+function fatal(title, msg, retry) {
+  app.innerHTML = `<div class="empty" style="margin-top:80px"><h3>${esc(title)}</h3><p style="white-space:pre-line">${msg}</p>${retry ? '<button class="sbtn red" onclick="location.reload()">Tentar de novo</button>' : ''}</div>`;
+}
+async function loadCloud() {
+  const { data, error } = await sb.from('kv').select('key,value');
+  if (error) throw error;
+  const content = (data || []).find(r => r.key === 'content');
+  if (content) Object.assign(S, content.value);
+  S.settings = Object.assign({ brand: 'NOSSAFLIX', pin: '', heroId: '' }, S.settings || {});
+  S.profiles = S.profiles || []; S.items = S.items || []; S.notifications = S.notifications || []; S.media = S.media || {};
+  S.users = {}; (data || []).filter(r => r.key.startsWith('user:')).forEach(r => { S.users[r.key.slice(5)] = r.value; });
+  if (!S.profiles.length) { S.profiles = [{ id: uid(), name: 'Ele', color: 'blue', photoId: '' }, { id: uid(), name: 'Ela', color: 'red', photoId: '' }]; await saveContent(); }
+  await signAll();
+}
+async function boot() {
+  loading(true, 'Carregando…');
+  try { await loadCloud(); }
+  catch (e) {
+    loading(false);
+    const m = e.message || String(e);
+    if (/relation|does not exist|schema cache/i.test(m)) fatal('Banco ainda não configurado', 'Rode o arquivo supabase/setup.sql no SQL Editor do Supabase.\n\n' + esc(m), true);
+    else fatal('Não foi possível carregar', esc(m), true);
+    return;
+  }
+  loading(false);
+  document.title = brandTitle();
+  stack = [{ name: 'splash' }]; render();
+  setTimeout(A.skipSplash, 2700);
+}
+(async function init() {
+  history.replaceState({ root: 1 }, '');
+  if (!window.supabase) return fatal('Sem conexão', 'Não foi possível carregar o Supabase. Verifique a internet.', true);
+  if (!configured) return fatal('Falta configurar o Supabase', 'Abra o index.html e preencha SUPABASE_URL e SUPABASE_ANON_KEY no topo do script.');
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { stack = [{ name: 'login', params: {} }]; render(); return; }
+  boot();
+})();
+</script>
+</body>
+</html>
