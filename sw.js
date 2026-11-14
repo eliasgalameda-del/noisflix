@@ -1,5 +1,5 @@
 ﻿/* Service worker do Noisflix: permite instalar o app e abrir a casca do app sem internet.
-   Fotos, vÃ­deos e dados (Supabase) nunca sÃ£o guardados aqui. */
+   Fotos, vídeos e dados (Supabase) nunca são guardados aqui. */
 const CACHE = 'noisflix-v2';
 const ASSETS = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png'];
 
@@ -15,9 +15,9 @@ self.addEventListener('fetch', e => {
   const req = e.request;
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
-  if (url.origin !== self.location.origin) return; // Supabase, fontes e CDN vÃ£o direto para a rede
+  if (url.origin !== self.location.origin) return; // Supabase, fontes e CDN vão direto para a rede
   if (req.mode === 'navigate') {
-    // Sempre tenta a versÃ£o mais nova; sem internet, usa a guardada
+    // Sempre tenta a versão mais nova; sem internet, usa a guardada
     e.respondWith(fetch(req).then(res => {
       const copy = res.clone(); caches.open(CACHE).then(c => c.put('./index.html', copy)); return res;
     }).catch(() => caches.match('./index.html')));
