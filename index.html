@@ -8,6 +8,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Noisflix</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="App particular e pessoal de um casal para assistir aos próprios vídeos e fotos.">
 <meta name="apple-mobile-web-app-title" content="Noisflix">
 <meta name="application-name" content="Noisflix">
 <link rel="manifest" href="manifest.webmanifest">
@@ -18,7 +20,7 @@
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:#000;color:#fff}
-body{font-family:"Netflix Sans","Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased;overscroll-behavior-y:none}
+body{font-family:"Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased;overscroll-behavior-y:none}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:inherit}
 input,textarea,select{font:inherit}
 img,svg,video{display:block}
@@ -404,7 +406,7 @@ select.inp{appearance:none;-webkit-appearance:none;background-image:linear-gradi
 <script>
 "use strict";
 /* =====================================================================
-   NOISFLIX — "Netflix de casal".
+   NOISFLIX — nosso cantinho de filmes e séries.
    Dados: Supabase (tabela kv) · Fotos/vídeos: Supabase Storage (bucket privado "media")
    ===================================================================== */
 
@@ -610,7 +612,8 @@ function wideImg(it, ep) {
 }
 function markHTML(h) {
   const L = (brand()[0] || 'N').toUpperCase();
-  if (L === 'N') return `<svg viewBox="0 0 100 180" style="height:${h}px;width:${h * 0.555}px"><defs><linearGradient id="ng" x1="0" x2="1"><stop offset="0" stop-color="#b20710"/><stop offset="1" stop-color="#e50914"/></linearGradient></defs><path d="M0 0h31v180q-16-2-31-4z" fill="#b1060f"/><path d="M69 0h31v176q-15 2-31 4z" fill="#b1060f"/><path d="M0 0h31l69 176q-15 2-31 4z" fill="url(#ng)" style="filter:drop-shadow(0 0 6px rgba(0,0,0,.6))"/></svg>`;
+  // Marca própria do Noisflix: "N" arredondado com um coraçãozinho
+  if (L === 'N') return `<svg viewBox="0 0 100 100" style="height:${h}px;width:${h}px" aria-label="${esc(brandTitle())}"><defs><linearGradient id="nfg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff4d6d"/><stop offset="1" stop-color="#c9184a"/></linearGradient></defs><path d="M18 82V26l38 56V26" fill="none" stroke="url(#nfg)" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/><path d="M84 10c-3.6 0-5.6 2.6-6 4.2-.4-1.6-2.4-4.2-6-4.2-3.4 0-5.5 2.7-5.5 5.6 0 5.2 7.4 9.6 11.5 12.4 4.1-2.8 11.5-7.2 11.5-12.4 0-2.9-2.1-5.6-5.5-5.6z" fill="#ff4d6d"/></svg>`;
   return `<span class="markL" style="font-size:${Math.round(h * 1.15)}px">${esc(L)}</span>`;
 }
 const AV_COLORS = { blue: ['#3d7bf0', '#2253c9'], red: ['#e53935', '#b71c1c'], yellow: ['#f5c518', '#d19a00'], green: ['#2fae5d', '#1c7a3d'], purple: ['#8e5cf7', '#5a2fc2'], pink: ['#f0619a', '#c2185b'], teal: ['#21b5b0', '#11807c'], orange: ['#ff8a2b', '#d35400'] };
@@ -1685,12 +1688,13 @@ document.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.id
 SCREENS.login = {
   html(p) {
     return `<div class="login"><div class="login-bg"></div><div class="login-box">
-      <div style="display:flex;justify-content:center;margin-bottom:22px">${markHTML(90)}</div>
-      <h1>Entrar</h1>
+      <div style="display:flex;justify-content:center;margin-bottom:12px">${markHTML(84)}</div>
+      <h1 style="text-align:center;margin-bottom:4px">${esc(brandTitle())}</h1>
+      <p style="text-align:center;color:#bbb;margin:0 0 22px">Nosso cantinho de filmes e séries ❤</p>
       <form id="loginForm" autocomplete="on">
         <input class="inp" id="lgEmail" type="email" placeholder="E-mail" autocomplete="username" required>
         <input class="inp" id="lgPass" type="password" placeholder="Senha" autocomplete="current-password" required>
-        <button class="btn" type="submit" id="lgBtn" style="background:#e50914;color:#fff;font-size:17px;margin-top:6px">Entrar</button>
+        <button class="btn" type="submit" id="lgBtn" style="background:linear-gradient(135deg,#ff4d6d,#c9184a);color:#fff;font-size:17px;margin-top:6px;border-radius:28px">Abrir o nosso cantinho</button>
       </form>
       <p class="login-err" id="lgErr">${esc(p.err || '')}</p>
       <p class="login-hint">Acesso só para nós dois ❤</p>
@@ -1702,7 +1706,7 @@ document.addEventListener('submit', async e => {
   const btn = document.getElementById('lgBtn'), err = document.getElementById('lgErr');
   btn.disabled = true; btn.textContent = 'Entrando…'; err.textContent = '';
   const { error } = await sb.auth.signInWithPassword({ email: document.getElementById('lgEmail').value.trim(), password: document.getElementById('lgPass').value });
-  if (error) { btn.disabled = false; btn.textContent = 'Entrar'; err.textContent = /invalid/i.test(error.message) ? 'E-mail ou senha incorretos.' : error.message; return; }
+  if (error) { btn.disabled = false; btn.textContent = 'Abrir o nosso cantinho'; err.textContent = /invalid/i.test(error.message) ? 'E-mail ou senha incorretos.' : error.message; return; }
   boot();
 });
 function fatal(title, msg, retry) {

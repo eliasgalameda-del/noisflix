@@ -1,7 +1,7 @@
 {
   "name": "Noisflix",
   "short_name": "Noisflix",
-  "description": "A nossa Netflix de casal",
+  "description": "Nosso cantinho de filmes e séries",
   "lang": "pt-BR",
   "start_url": "./",
   "scope": "./",
