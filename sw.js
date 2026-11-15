@@ -1,6 +1,6 @@
 /* Service worker do Noisflix: permite instalar o app e abrir a casca do app sem internet.
    Fotos, vídeos e dados (Supabase) nunca são guardados aqui. */
-const CACHE = 'noisflix-v4';
+const CACHE = 'noisflix-v5';
 const ASSETS = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
