@@ -371,6 +371,78 @@ select.inp{appearance:none;-webkit-appearance:none;background-image:linear-gradi
 .login-err{color:#ff8a8a;min-height:20px;margin:14px 0 0;font-size:14px}
 .login-hint{color:#888;font-size:14px;text-align:center;margin:8px 0 0}
 
+/* ---------- recursos do casal ---------- */
+.both{position:absolute;top:5px;left:5px;z-index:2;width:24px;height:24px;border-radius:50%;background:rgba(0,0,0,.65);display:grid;place-items:center;font-size:13px;color:#ff4d6d;box-shadow:0 0 0 1px rgba(255,77,109,.6)}
+.card.locked .pimg{filter:brightness(.55) blur(1px)}
+.card.locked .bdg span:last-child{font-variant-numeric:tabular-nums}
+.bothline{color:#ff6b81;font-weight:700;font-size:15px;margin:-4px 0 12px}
+.bothtxt{color:#ff6b81;font-weight:600}
+.lockinfo{color:#ffb4c0 !important}
+.ep-locked .ep-th img,.ep-locked .ep-th .ph{filter:blur(6px) brightness(.6)}
+.ep-th .pc{font-size:18px}
+.together{position:relative;z-index:2;margin:-2px 16px 6px;padding:10px 14px;border-radius:12px;background:linear-gradient(135deg,rgba(255,77,109,.22),rgba(201,24,74,.12));border:1px solid rgba(255,107,129,.35);font-size:15px;color:#ffd9e0;line-height:1.4}
+.together b{color:#fff}
+.t10c.heart .t10n{-webkit-text-stroke-color:#ff4d6d}
+.actor{flex:none;width:96px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.actor img,.actor-ph{width:88px;height:88px;border-radius:50%;object-fit:cover;background:#2a2a2a;border:2px solid rgba(255,255,255,.15)}
+.actor-ph{display:grid;place-items:center;font-size:32px;font-weight:700;color:#888}
+.actor-n{font-size:13.5px;font-weight:600;text-align:center;line-height:1.25;max-width:96px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.voice{display:flex;align-items:center;gap:12px;margin:12px 16px 0;padding:10px 12px;border-radius:12px;background:linear-gradient(135deg,#3b0a17,#1e1e1e);border:1px solid rgba(255,77,109,.35)}
+.vplay{width:44px;height:44px;border-radius:50%;background:#ff4d6d;display:grid;place-items:center;flex:none}
+.vplay svg{width:20px;height:20px}
+.vtx{flex:1;display:flex;flex-direction:column;gap:2px;font-size:14px}
+.vtx span{color:#bbb;font-size:13px}
+.vwave{display:flex;gap:3px;align-items:center;height:24px}
+.vwave i{width:3px;height:6px;background:#ff4d6d;border-radius:2px}
+.voice.on .vwave i{animation:vw 1s ease-in-out infinite}
+.voice.on .vwave i:nth-child(2){animation-delay:.15s}.voice.on .vwave i:nth-child(3){animation-delay:.3s}.voice.on .vwave i:nth-child(4){animation-delay:.45s}.voice.on .vwave i:nth-child(5){animation-delay:.6s}
+@keyframes vw{0%,100%{height:6px}50%{height:22px}}
+.psub{position:absolute;left:50%;bottom:120px;transform:translateX(-50%);max-width:86%;text-align:center;background:rgba(0,0,0,.72);color:#fff;font-size:19px;font-weight:600;line-height:1.35;padding:8px 14px;border-radius:6px;pointer-events:none;z-index:3;text-shadow:0 1px 3px #000}
+.psub[hidden]{display:none}
+.preact{position:absolute;right:10px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:4}
+.preact button{width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,.45);font-size:22px;display:grid;place-items:center;opacity:.8}
+.preact button:active{transform:scale(1.25)}
+.pfloat{position:absolute;inset:0;pointer-events:none;z-index:5;overflow:hidden}
+.fr{position:absolute;bottom:22%;display:flex;flex-direction:column;align-items:center;animation:fr 2.6s ease-out forwards}
+.fr .fe{font-size:40px}
+.fr .fw{font-size:12px;font-weight:700;background:rgba(0,0,0,.6);padding:2px 8px;border-radius:10px;margin-top:2px}
+@keyframes fr{0%{transform:translateY(0) scale(.6);opacity:0}15%{opacity:1;transform:translateY(-20px) scale(1.1)}100%{transform:translateY(-260px) scale(1);opacity:0}}
+.pnote{display:flex;gap:10px;align-items:flex-start;text-align:left;margin:0 auto 14px;max-width:420px;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18)}
+.pnote-ic{font-size:24px;line-height:1}
+.pnote small{color:rgba(255,255,255,.65);font-size:12.5px}
+.pnote p{margin:3px 0 0;font-size:16px;font-weight:600;line-height:1.35}
+details.more{border-top:1px dashed #333;margin:4px 0 12px;padding-top:10px}
+details.more summary{cursor:pointer;color:#ff8fa3;font-weight:700;font-size:14px;margin-bottom:12px;list-style:none}
+details.more summary::-webkit-details-marker{display:none}
+.catchips button.on{background:#ff4d6d;color:#fff}
+.secret-q{font-size:19px;font-weight:700;text-align:center;margin:6px 0 16px;line-height:1.35}
+.surprise{text-align:center;padding:10px 4px}
+.surprise-ic{font-size:56px;animation:pop .6s ease}
+.surprise h3{font-size:22px;margin:10px 0 8px}
+.surprise p{color:#ddd;font-size:16px;line-height:1.45;margin:0 0 18px;white-space:pre-line}
+@keyframes pop{0%{transform:scale(.3)}70%{transform:scale(1.2)}100%{transform:scale(1)}}
+.tl{position:relative;padding:8px 16px 20px 46px}
+.tl::before{content:"";position:absolute;left:27px;top:0;bottom:0;width:2px;background:linear-gradient(#ff4d6d,#5a1a2a)}
+.tl-year{font-family:"Bebas Neue",Impact,sans-serif;font-size:34px;color:#ff6b81;margin:18px 0 8px -30px;padding-left:0}
+.tl-item{position:relative;margin-bottom:16px}
+.tl-dot{position:absolute;left:-26px;top:14px;width:14px;height:14px;border-radius:50%;background:#ff4d6d;box-shadow:0 0 0 4px #000;display:grid;place-items:center;font-size:9px}
+.tl-start .tl-dot,.tl-now .tl-dot{width:22px;height:22px;left:-30px;top:8px;font-size:12px;background:#000;border:2px solid #ff4d6d}
+.tl-card{display:flex;flex-direction:column;gap:3px;width:100%;text-align:left;background:#161616;border:1px solid #262626;border-radius:12px;padding:10px;overflow:hidden}
+.tl-card small{color:#ff8fa3;font-weight:700;font-size:13px}
+.tl-card b{font-size:16px}
+.tl-card span{color:#bbb;font-size:14px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tl-th{position:relative;aspect-ratio:16/9;border-radius:8px;overflow:hidden;margin-bottom:6px;background:#222}
+.tl-th img,.tl-th .ph{width:100%;height:100%;object-fit:cover}
+.tl-th.blur img{filter:blur(6px) brightness(.6)}
+.tl-lock{position:absolute;inset:0;display:grid;place-items:center;font-size:30px}
+.splash.special{background:radial-gradient(circle at 50% 30%,#4a0d1c,#000 70%);cursor:default}
+.sp-hearts{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.sp-hearts i{position:absolute;bottom:-40px;color:#ff4d6d;opacity:.7;font-style:normal;animation:rise 7s linear infinite}
+@keyframes rise{0%{transform:translateY(0) rotate(0)}100%{transform:translateY(-115vh) rotate(25deg);opacity:0}}
+.sp-box{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;padding:24px;max-width:420px}
+.sp-box h1{font-size:28px;margin:14px 0 8px}
+.sp-box p{color:#f3d3da;font-size:17px;line-height:1.5;margin:0 0 16px;white-space:pre-line}
+
 /* ---------- instalar app ---------- */
 .install-pill{position:absolute;top:calc(env(safe-area-inset-top) + 14px);right:14px;z-index:5;display:flex;gap:7px;align-items:center;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.35);border-radius:22px;padding:8px 14px;font-weight:700;font-size:14px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .install-pill svg{width:18px;height:18px}
@@ -553,11 +625,11 @@ async function deleteMedia(id) {
 }
 
 /* ---------------- Estado (tabela kv: "content" + "user:<perfil>") ---------------- */
-let S = { settings: { brand: 'NOISFLIX', pin: '', heroId: '' }, profiles: [], items: [], users: {}, notifications: [], media: {} };
+let S = { settings: { brand: 'NOISFLIX', pin: '', heroId: '' }, profiles: [], items: [], users: {}, notifications: [], media: {}, actors: [], specials: [] };
 let cur = null; // perfil atual
 async function saveContent() {
-  const { settings, profiles, items, notifications, media } = S;
-  const { error } = await sb.from('kv').upsert({ key: 'content', value: { settings, profiles, items, notifications, media }, updated_at: new Date().toISOString() });
+  const { settings, profiles, items, notifications, media, actors, specials } = S;
+  const { error } = await sb.from('kv').upsert({ key: 'content', value: { settings, profiles, items, notifications, media, actors, specials }, updated_at: new Date().toISOString() });
   if (error) toast('Erro ao salvar: ' + error.message);
 }
 async function saveUser(pid) {
@@ -570,7 +642,10 @@ let saveT, contentT;
 function saveSoon() { clearTimeout(saveT); saveT = setTimeout(() => saveUser(), 800); }
 function saveContentSoon() { clearTimeout(contentT); contentT = setTimeout(saveContent, 800); }
 document.addEventListener('visibilitychange', () => { if (document.hidden && cur) saveUser(); });
-const ensureUser = pid => (S.users[pid] ||= { myList: [], ratings: {}, progress: {}, hidden: {}, downloads: [], notifSeen: 0 });
+/* dados de cada perfil (linha "user:<perfil>"): lista, avaliações, progresso, contagem de vezes assistidas,
+   episódios desbloqueados por senha, reações no vídeo, recados e "quero rever com você" enviados */
+const DEF_USER = () => ({ myList: [], ratings: {}, progress: {}, hidden: {}, downloads: [], notifSeen: 0, surpriseSeen: 0, plays: {}, unlocked: {}, reactions: {}, notes: [], suggestions: [] });
+const ensureUser = pid => { const u = (S.users[pid] ||= DEF_USER()); const d = DEF_USER(); for (const k in d) if (u[k] == null) u[k] = d[k]; return u; };
 const user = () => ensureUser(cur);
 const profile = () => S.profiles.find(p => p.id === cur) || S.profiles[0];
 const item = id => S.items.find(i => i.id === id);
@@ -675,8 +750,112 @@ function heroLine(it) {
   if (it.heroText) return `<span>${esc(it.heroText)}</span>`;
   const t = splitList(it.tags).slice(0, 3); return t.length ? `<span>${t.map(esc).join(' • ')}</span>` : '';
 }
-function notifCount() { const u = user(); return S.notifications.filter(n => n.at > u.notifSeen).length; }
-function notify(itemId, title, text, epId) { S.notifications.unshift({ id: uid(), itemId, epId: epId || '', title, text, at: Date.now() }); S.notifications = S.notifications.slice(0, 60); }
+/* =====================================================================
+   RECURSOS DO CASAL
+   ===================================================================== */
+const profName = pid => { const p = S.profiles.find(x => x.id === pid); return p ? p.name : 'Alguém'; };
+const others = () => S.profiles.filter(p => p.id !== cur);
+const isDone = pr => !!(pr && pr.d && pr.t / pr.d >= 0.95);
+
+/* "Assistido por nós dois": pelo menos 2 perfis terminaram */
+const doneCount = key => S.profiles.filter(p => S.users[p.id] && isDone(S.users[p.id].progress && S.users[p.id].progress[key])).length;
+const bothWatched = it => it.type === 'series' ? allEps(it).some(e => doneCount(e.ep.id) >= 2) : doneCount(it.id) >= 2;
+
+/* Contador "Juntos há…" (data de início no Estúdio → Extras do casal) */
+function together() {
+  const sd = S.settings.startDate; if (!sd) return null;
+  const s = new Date(sd + 'T00:00:00'), n = new Date(); if (isNaN(s) || s > n) return null;
+  let y = n.getFullYear() - s.getFullYear(), m = n.getMonth() - s.getMonth(), d = n.getDate() - s.getDate();
+  if (d < 0) { m--; d += new Date(n.getFullYear(), n.getMonth(), 0).getDate(); }
+  if (m < 0) { y--; m += 12; }
+  const parts = []; if (y) parts.push(y + (y === 1 ? ' ano' : ' anos')); if (m) parts.push(m + (m === 1 ? ' mês' : ' meses')); if (d || !parts.length) parts.push(d + (d === 1 ? ' dia' : ' dias'));
+  const txt = parts.length > 1 ? parts.slice(0, -1).join(', ') + ' e ' + parts[parts.length - 1] : parts[0];
+  return { season: y + 1, txt, days: Math.floor((n - s) / 86400000) };
+}
+
+/* Top 10 do nosso coração: "Amei"/"Gostei" + vezes assistidas + reações, somando os perfis */
+function heartScore(it) {
+  const keys = it.type === 'series' ? allEps(it).map(e => e.ep.id) : [it.id];
+  let sc = 0;
+  for (const pid in S.users) {
+    const u = S.users[pid]; const r = u.ratings && u.ratings[it.id];
+    if (r === 2) sc += 3; else if (r === 1) sc += 1;
+    keys.forEach(k => { sc += ((u.plays && u.plays[k]) || 0) * 2; sc += ((u.reactions && u.reactions[k]) || []).length * 0.3; });
+  }
+  return sc;
+}
+const heartTop = () => S.items.map(it => ({ it, s: heartScore(it) })).filter(x => x.s > 0).sort((a, b) => b.s - a.s).slice(0, 10).map(x => x.it);
+
+/* Bloqueios: por data (contagem regressiva) e por senha secreta */
+const ts = v => { const t = v ? new Date(v).getTime() : 0; return isNaN(t) ? 0 : t; };
+function lockOf(it, ep) {
+  const now = Date.now();
+  for (const o of ep ? [it, ep] : [it]) {
+    const at = ts(o.unlockAt); if (at > now) return { type: 'date', at, o };
+  }
+  for (const o of ep ? [it, ep] : [it]) {
+    if (o.secretA && !user().unlocked[o.id]) return { type: 'secret', o };
+  }
+  return null;
+}
+const dateLocked = (it, ep) => { const l = lockOf(it, ep); return l && l.type === 'date' ? l : null; };
+function countdown(at) {
+  let s = Math.max(0, Math.floor((at - Date.now()) / 1000)); const d = Math.floor(s / 86400); s %= 86400; const h = Math.floor(s / 3600); s %= 3600; const m = Math.floor(s / 60); s %= 60;
+  return d ? `${d}d ${h}h ${m}min` : h ? `${h}h ${m}min ${s}s` : `${m}min ${s}s`;
+}
+const cdSpan = (at, pre) => `<span data-cd="${at}" data-pre="${esc(pre || '')}">${esc(pre || '')}${countdown(at)}</span>`;
+setInterval(() => document.querySelectorAll('[data-cd]').forEach(el => { const at = +el.dataset.cd; el.textContent = at > Date.now() ? el.dataset.pre + countdown(at) : 'Disponível agora! ❤'; }), 1000);
+const normSecret = s => norm(s).replace(/[^a-z0-9]/g, '');
+
+/* Legendas com comentários: uma por linha, "1:23 texto" (ou 0:01:23) */
+function parseSubs(txt) {
+  return String(txt || '').split('\n').map(l => l.trim()).map(l => { const m = l.match(/^(?:(\d+):)?(\d+):(\d{1,2})\s+(.+)$/); if (!m) return null; return { t: (+(m[1] || 0)) * 3600 + (+m[2]) * 60 + (+m[3]), text: m[4] }; }).filter(Boolean).sort((a, b) => a.t - b.t);
+}
+
+/* Notificações: as do conteúdo (inclui surpresas programadas que já chegaram na hora) + recados e "quero rever" dos outros perfis */
+function myNotifs() {
+  const now = Date.now();
+  const list = S.notifications.filter(n => n.at <= now && (!n.to || n.to === cur));
+  for (const p of others()) {
+    const u = S.users[p.id]; if (!u) continue;
+    (u.suggestions || []).filter(s => s.to === cur).forEach(s => { const it = item(s.itemId); if (it) list.push({ id: s.id, itemId: s.itemId, title: `${p.name} quer rever com você ❤`, text: it.title, at: s.at }); });
+    (u.notes || []).filter(nt => nt.to === cur).forEach(nt => list.push({ id: nt.id, itemId: '', title: `💌 Recado de ${p.name}`, text: nt.text, at: nt.at }));
+  }
+  return list.sort((a, b) => b.at - a.at);
+}
+function notifCount() { const u = user(); return myNotifs().filter(n => n.at > u.notifSeen).length; }
+const suggestedToMe = () => {
+  const out = []; const lim = Date.now() - 60 * 86400000;
+  for (const p of others()) { const u = S.users[p.id]; if (!u) continue; (u.suggestions || []).filter(s => s.to === cur && s.at > lim).forEach(s => { const it = item(s.itemId); if (it && !out.some(x => x.it === it)) out.push({ it, from: p.name, at: s.at }); }); }
+  return out.sort((a, b) => b.at - a.at);
+};
+/* Recados recentes (últimos 7 dias), o mais novo para cada perfil */
+function recentNotes() {
+  const lim = Date.now() - 7 * 86400000; const all = [];
+  for (const pid in S.users) (S.users[pid].notes || []).forEach(n => { if (n.at > lim && S.profiles.some(p => p.id === n.to)) all.push({ ...n, from: pid }); });
+  all.sort((a, b) => b.at - a.at); const seen = new Set();
+  return all.filter(n => (seen.has(n.to) ? false : (seen.add(n.to), true)));
+}
+/* Atualiza os dados dos outros perfis (recados, reações, progresso) sem mexer no perfil atual */
+let lastUsersFetch = 0;
+async function refreshUsers(force) {
+  if (!sb || (!force && Date.now() - lastUsersFetch < 20000)) return false;
+  lastUsersFetch = Date.now(); const skip = cur;
+  const { data, error } = await sb.from('kv').select('key,value').like('key', 'user:%'); if (error || !data) return false;
+  let changed = false;
+  data.forEach(r => { const pid = r.key.slice(5); if (pid === skip || pid === cur) return; if (JSON.stringify(S.users[pid]) !== JSON.stringify(r.value)) { S.users[pid] = r.value; changed = true; } });
+  return changed;
+}
+document.addEventListener('visibilitychange', () => { if (!document.hidden) refreshUsers(); });
+/* Data especial de hoje (Estúdio → Extras do casal) */
+function specialToday() {
+  const n = new Date(); const md = String(n.getMonth() + 1).padStart(2, '0') + '-' + String(n.getDate()).padStart(2, '0');
+  return (S.specials || []).find(s => s.date && s.date.slice(5) === md) || null;
+}
+function notify(itemId, title, text, epId) {
+  S.notifications.unshift({ id: uid(), itemId, epId: epId || '', title, text, at: Date.now() });
+  S.notifications = [...S.notifications.filter(n => !n.surprise).slice(0, 60), ...S.notifications.filter(n => n.surprise)]; // surpresas programadas nunca são cortadas
+}
 
 /* ---------------- Roteador ---------------- */
 let stack = [];
@@ -732,9 +911,26 @@ const SCREENS = {};
 const INTRO_SRC = 'assets/intro.mp4';
 SCREENS.splash = {
   html() {
+    const sp = specialToday();
+    if (sp) return `<div class="splash special" id="splash"><div class="sp-hearts">${Array.from({ length: 18 }, () => `<i style="left:${Math.random() * 100}%;animation-delay:${(Math.random() * 6).toFixed(1)}s;font-size:${14 + Math.random() * 22 | 0}px">❤</i>`).join('')}</div>
+      <div class="sp-box">${markHTML(90)}<h1>${esc(sp.title || 'Hoje é um dia especial ❤')}</h1>${sp.text ? `<p>${esc(sp.text)}</p>` : ''}
+        ${sp.voiceId && mu(sp.voiceId) ? `<audio id="spaudio" src="${mu(sp.voiceId)}" preload="auto"></audio><button class="intro-sound" id="spplay" style="position:static;transform:none;margin:6px auto 14px">${I.sound}<span>Ouvir mensagem</span></button>` : ''}
+        <button class="sbtn red" id="spgo" style="padding:14px 30px;font-size:16px">Continuar ❤</button></div></div>`;
     return `<div class="splash intro" id="splash"><video id="introv" src="${INTRO_SRC}" playsinline preload="auto"></video><button class="intro-sound" id="introSound" hidden>${I.sound}<span>Toque para ouvir</span></button></div>`;
   },
   mount() {
+    if (document.querySelector('.splash.special')) {
+      const a = document.getElementById('spaudio'), pb = document.getElementById('spplay');
+      document.getElementById('spgo').addEventListener('click', () => A.skipSplash());
+      if (a) {
+        const upd = () => { pb.querySelector('span').textContent = a.paused ? (a.ended ? 'Ouvir de novo' : 'Ouvir mensagem') : 'Tocando…'; };
+        ['play', 'pause', 'ended'].forEach(ev => a.addEventListener(ev, upd));
+        pb.addEventListener('click', () => { if (a.paused) { if (a.ended) a.currentTime = 0; a.play().catch(() => {}); } else a.pause(); });
+        a.play().catch(() => {});
+        cleanups.push(() => { a.pause(); a.removeAttribute('src'); a.load(); });
+      }
+      return;
+    }
     const box = document.getElementById('splash'), v = document.getElementById('introv'), snd = document.getElementById('introSound');
     let done = false, guard = 0;
     const finish = () => { if (done) return; done = true; clearTimeout(guard); A.skipSplash(); };
@@ -776,6 +972,7 @@ SCREENS.profiles = {
         ${hero && poster ? `<div class="prof-line">${heroLine(hero)}</div>` : ''}
       </div>
       <div class="prof-panel">
+        ${!ed ? recentNotes().map(n => `<div class="pnote"><span class="pnote-ic">💌</span><div><small>De ${esc(profName(n.from))} para ${esc(profName(n.to))}</small><p>${esc(n.text)}</p></div></div>`).join('') : ''}
         <div class="prof-q">${ed ? 'Gerenciar perfis' : 'Escolha o seu perfil'}</div>
         <div class="prof-grid">${S.profiles.map(pr => `<button class="ptile" data-a="${ed ? 'editProfile' : 'pickProfile'}" data-id="${pr.id}"><div class="pav">${avatarHTML(pr)}${ed ? `<div class="pedit">${I.pencil}</div>` : ''}</div><div class="pname">${esc(pr.name)}</div></button>`).join('')}</div>
         <div class="prof-actions">
@@ -787,6 +984,9 @@ SCREENS.profiles = {
   mount() {
     const hero = heroItem(); const url = hero && mu(hero.posterId || hero.backdropId);
     avgColor(url).then(c => { const el = document.getElementById('prof'); if (c && el) el.style.setProperty('--pc', shade(c, .34)); });
+    // busca recados novos dos outros perfis
+    if (cur) { clearTimeout(saveT); saveUser(); }
+    refreshUsers(true).then(ch => { const t = stack[stack.length - 1]; if (ch && t.name === 'profiles' && !overlay) refresh(); });
   }
 };
 
@@ -799,7 +999,14 @@ function filterItems(f) {
   else if (f && f.startsWith('cat:')) { const c = norm(f.slice(4)); l = l.filter(i => cats(i).some(x => norm(x) === c)); }
   return l;
 }
-function cardHTML(it) { return `<button class="card" data-a="open" data-id="${it.id}">${posterImg(it)}${it.top10 ? `<div class="c10">${t10(1)}</div>` : ''}${badgeHTML(it)}</button>`; }
+function cardHTML(it) {
+  const lk = dateLocked(it);
+  return `<button class="card ${lk ? 'locked' : ''}" data-a="open" data-id="${it.id}">${posterImg(it)}${it.top10 ? `<div class="c10">${t10(1)}</div>` : ''}${bothWatched(it) ? '<div class="both" title="Assistido por nós dois">❤</div>' : ''}${lk ? `<div class="bdg"><span>🔒 Estreia em</span><span>${cdSpan(lk.at)}</span></div>` : badgeHTML(it)}</button>`;
+}
+const actorsRowHTML = () => {
+  const a = (S.actors || []).filter(x => x.name || x.photoId); if (!a.length) return '';
+  return `<section class="row"><h2>${esc(S.settings.actorsTitle || 'Atores famosos')}</h2><div class="rail noscroll">${a.map(x => `<button class="actor" data-a="actorOpen" data-n="${esc(x.name)}">${mu(x.photoId) ? `<img src="${mu(x.photoId)}" alt="" loading="lazy">` : `<span class="actor-ph">${esc((x.name || '?')[0])}</span>`}<span class="actor-n">${esc(x.name)}</span></button>`).join('')}</div></section>`;
+};
 function cwCardHTML(it, r) {
   const pct = r.pr && r.pr.d ? Math.min(100, r.pr.t / r.pr.d * 100) : 0;
   return `<div class="card cw"><button class="cw-top" data-a="play" data-id="${it.id}" ${r.ep ? `data-ep="${r.ep.id}"` : ''}>${posterImg(it)}<span class="pcirc">${I.play}</span>${badgeHTML(it)}</button>
@@ -814,7 +1021,7 @@ SCREENS.home = {
     const title = f === 'series' ? 'Séries' : f === 'movie' ? 'Filmes' : f === 'list' ? 'Minha lista' : f.startsWith('cat:') ? f.slice(4) : 'Início';
     const nc = notifCount();
     let chips;
-    if (!f) chips = `<button class="chip" data-a="chip" data-f="series">Séries</button><button class="chip" data-a="chip" data-f="movie">Filmes</button><button class="chip" data-a="chip" data-f="list">Minha lista</button><button class="chip" data-a="chipCats">Categorias ${I.chev}</button>`;
+    if (!f) chips = `<button class="chip" data-a="chip" data-f="series">Séries</button><button class="chip" data-a="chip" data-f="movie">Filmes</button><button class="chip" data-a="story">❤ Nossa história</button><button class="chip" data-a="chip" data-f="list">Minha lista</button><button class="chip" data-a="chipCats">Categorias ${I.chev}</button>`;
     else chips = `<button class="chip x" data-a="chip" data-f="">${I.x}</button><button class="chip on" data-a="${f.startsWith('cat:') ? 'chipCats' : 'chip'}" data-f="">${esc(title)}${f.startsWith('cat:') ? ' ' + I.chev : ''}</button>${f.startsWith('cat:') ? '' : `<button class="chip" data-a="chipCats">Categorias ${I.chev}</button>`}`;
     let body = '';
     if (!S.items.length) {
@@ -836,9 +1043,16 @@ SCREENS.home = {
       } else {
         const cw = continueList(f === 'series' || f === 'movie' ? f : '').filter(x => !f.startsWith('cat:') || list.includes(x.it));
         if (cw.length) body += `<section class="row"><h2>Continuar assistindo como ${esc(profile().name)}</h2><div class="rail noscroll">${cw.map(x => cwCardHTML(x.it, x.r)).join('')}</div></section>`;
+        if (!f) {
+          const sg = suggestedToMe();
+          if (sg.length) body += `<section class="row"><h2>${esc(sg[0].from)} quer rever com você ❤</h2><div class="rail noscroll">${sg.map(x => cardHTML(x.it)).join('')}</div></section>`;
+          const ht = heartTop();
+          if (ht.length) body += `<section class="row"><h2>Top 10 do nosso coração ❤</h2><div class="rail noscroll">${ht.map((it, i) => `<button class="t10c heart" data-a="open" data-id="${it.id}"><span class="t10n">${i + 1}</span>${posterImg(it)}</button>`).join('')}</div></section>`;
+        }
         const top = list.filter(i => i.top10).sort((a, b) => a.top10 - b.top10);
         if (top.length) body += `<section class="row"><h2>Top 10 ${f === 'series' ? 'séries' : f === 'movie' ? 'filmes' : ''} de hoje</h2><div class="rail noscroll">${top.map(it => `<button class="t10c" data-a="open" data-id="${it.id}"><span class="t10n">${it.top10}</span>${posterImg(it)}</button>`).join('')}</div></section>`;
         body += rowHTML('Descubra suas próximas histórias', list);
+        if (!f) body += actorsRowHTML();
         if (!f) { const ml = user().myList.map(item).filter(Boolean); body += rowHTML('Minha lista', ml); }
         const news = list.filter(i => i.badge && i.badge !== 'embreve' && i.badge !== 'tempbreve');
         body += rowHTML('Novidades', news);
@@ -852,9 +1066,14 @@ SCREENS.home = {
       <header class="topbar" id="topbar">${markHTML(38)}<h1>${esc(title)}</h1>
         <button class="tb-btn" data-a="downloads">${I.download}</button>
         <button class="tb-btn" data-a="notifs">${I.bell}${nc ? `<span class="tb-badge">${nc > 99 ? '99+' : nc}</span>` : ''}</button></header>
-      <div class="chips noscroll">${chips}</div>${body}<div style="height:30px"></div></div>`;
+      <div class="chips noscroll">${chips}</div>${!f && together() ? `<div class="together">❤ <b>Temporada ${together().season}</b> · ${esc(together().txt)} juntos</div>` : ''}${body}<div style="height:30px"></div></div>`;
   },
   mount(p) {
+    // dados dos outros perfis (recados, "quero rever", reações) podem ter mudado
+    refreshUsers().then(ch => { const t = stack[stack.length - 1]; if (ch && t.name === 'home' && !overlay) refresh(); });
+    // surpresa programada que acabou de chegar → abre um cartão
+    const u = user(); const sp = myNotifs().find(n => n.surprise && n.at > (u.surpriseSeen || 0));
+    if (sp) { u.surpriseSeen = Date.now(); saveSoon(); setTimeout(() => openSurprise(sp), 600); }
     const tb = document.getElementById('topbar');
     const onS = () => tb && tb.classList.toggle('solid', window.scrollY > 40); onS();
     window.addEventListener('scroll', onS, { passive: true }); cleanups.push(() => window.removeEventListener('scroll', onS));
@@ -879,11 +1098,18 @@ function detailInfoHTML(it) {
   } else if (it.type === 'series' && r.started && r.ep) {
     epLine = `<div class="epline">Próximo: T${r.si + 1}:E${r.ep.number} "${esc(r.ep.title)}"</div>`;
   }
-  const syn = (it.type === 'series' && r.started && r.ep && r.ep.synopsis) ? r.ep.synopsis : it.synopsis;
+  const lk = lockOf(it, r.ep);
+  // episódio trancado por data: não revela a sinopse antes da estreia
+  const syn = (it.type === 'series' && r.started && r.ep && r.ep.synopsis && !(lk && lk.type === 'date')) ? r.ep.synopsis : it.synopsis;
   const cast = splitList(it.cast), dir = splitList(it.director);
+  if (lk && lk.type === 'date' && epLine) epLine = epLine.replace(/<div class="epline">/, '<div class="epline">🔒 ');
+  const playBtn = lk && lk.type === 'date'
+    ? `<button class="btn btn-w" data-a="play" data-id="${it.id}" ${epAttr}>🔒 ${cdSpan(lk.at, 'Estreia em ')}</button>`
+    : `<button class="btn btn-w" data-a="play" data-id="${it.id}" ${epAttr}>${lk ? '🔑' : I.play} ${playLbl}</button>`;
   return `<h1 class="dtitle">${esc(it.title)}</h1>
     <div class="meta"><span>${esc(it.year || '')}</span>${rateBadge(it.rating)}${metaTxt ? `<span>${metaTxt}</span>` : ''}${it.quality ? `<span class="hd">${esc(it.quality)}</span>` : ''}</div>
-    <button class="btn btn-w" data-a="play" data-id="${it.id}" ${epAttr}>${I.play} ${playLbl}</button>
+    ${bothWatched(it) ? '<div class="bothline">❤ Assistido por nós dois</div>' : ''}
+    ${playBtn}
     <button class="btn btn-d" data-a="dl" data-id="${it.id}" ${epAttr}>${I.download} ${dlLbl}</button>
     ${epLine}
     ${syn ? `<p class="syn">${esc(syn)}</p>` : ''}
@@ -905,7 +1131,7 @@ function rateBtnInner(id, k) {
 function detailActsHTML(it) {
   return `<button class="act" data-a="toggleList" data-id="${it.id}" data-k="act">${listBtnInner(it.id, 'act')}</button>
     <button class="act" data-a="rate" data-id="${it.id}" data-k="act">${rateBtnInner(it.id, 'act')}</button>
-    <button class="act" data-a="share" data-id="${it.id}">${I.share}<span>Compartilhe</span></button>
+    ${others().length ? `<button class="act" data-a="suggest" data-id="${it.id}">${I.heart}<span>Rever<br>juntos</span></button>` : `<button class="act" data-a="share" data-id="${it.id}">${I.share}<span>Compartilhe</span></button>`}
     ${it.type === 'series' ? `<button class="act" data-a="dlSeason" data-id="${it.id}">${I.dlSeason}<span>Baixar<br>Temporada</span></button>` : `<button class="act" data-a="dl" data-id="${it.id}">${I.download}<span>Baixar</span></button>`}`;
 }
 function similarTo(it) {
@@ -928,7 +1154,10 @@ function detailTabsHTML(it, p) {
     else {
       const prog = user().progress;
       content = `<div class="srow"><button class="ssel" data-a="seasonPick" data-id="${it.id}">${esc(s.name || 'Temporada ' + (si + 1))} ${I.chev}</button>${s.desc ? `<button data-a="seasonInfo" data-id="${it.id}" data-si="${si}" style="color:#bbb">${I.info.replace('<svg', '<svg style="width:30px;height:30px"')}</button>` : ''}</div>
-      ${s.episodes.length ? s.episodes.map(ep => { const pr = prog[ep.id]; const pct = pr && pr.d ? Math.min(100, pr.t / pr.d * 100) : 0; return `<div class="ep"><div class="ep-top"><button class="ep-th" data-a="play" data-id="${it.id}" data-ep="${ep.id}">${wideImg(it, ep)}<span class="pc">${I.play}</span>${pct ? `<span class="pbar"><i style="width:${pct}%"></i></span>` : ''}</button><div class="ep-t">${esc(ep.number)}. ${esc(ep.title || 'Episódio ' + ep.number)}<small>${fmtDur(ep.duration)}</small></div><button class="ep-dl" data-a="dl" data-id="${it.id}" data-ep="${ep.id}">${I.download}</button></div>${ep.synopsis ? `<div class="ep-syn">${esc(ep.synopsis)}</div>` : ''}</div>`; }).join('') : '<p style="padding:16px;color:#aaa">Nenhum episódio nesta temporada ainda.</p>'}`;
+      ${s.episodes.length ? s.episodes.map(ep => {
+        const pr = prog[ep.id]; const pct = pr && pr.d ? Math.min(100, pr.t / pr.d * 100) : 0; const lk = lockOf(it, ep);
+        const sub = lk && lk.type === 'date' ? `<small class="lockinfo">🔒 ${cdSpan(lk.at, 'Disponível em ')}</small>` : lk ? '<small class="lockinfo">🔑 Episódio secreto</small>' : `<small>${fmtDur(ep.duration)}${doneCount(ep.id) >= 2 ? ' · <span class="bothtxt">❤ nós dois</span>' : ''}</small>`;
+        return `<div class="ep ${lk && lk.type === 'date' ? 'ep-locked' : ''}"><div class="ep-top"><button class="ep-th" data-a="play" data-id="${it.id}" data-ep="${ep.id}">${wideImg(it, ep)}<span class="pc">${lk ? (lk.type === 'date' ? '🔒' : '🔑') : I.play}</span>${pct ? `<span class="pbar"><i style="width:${pct}%"></i></span>` : ''}</button><div class="ep-t">${esc(ep.number)}. ${esc(ep.title || 'Episódio ' + ep.number)}${sub}</div><button class="ep-dl" data-a="dl" data-id="${it.id}" data-ep="${ep.id}">${I.download}</button></div>${ep.synopsis && !(lk && lk.type === 'date') ? `<div class="ep-syn">${esc(ep.synopsis)}</div>` : ''}</div>`; }).join('') : '<p style="padding:16px;color:#aaa">Nenhum episódio nesta temporada ainda.</p>'}`;
     }
   } else if (tab === 'sim') {
     const sim = similarTo(it);
@@ -954,6 +1183,7 @@ SCREENS.detail = {
       : (bd ? `<img src="${bd}" alt="">` : `<div class="ph" style="position:absolute;inset:0;font-size:40px">${esc(it.title)}</div>`);
     return `<div class="screen"><div class="dhead"><button data-a="back">${I.back}</button></div>
       <div class="dmedia">${media}</div>${pct ? `<div class="dprog"><i style="width:${pct}%"></i></div>` : ''}
+      ${it.voiceId && mu(it.voiceId) ? `<div class="voice" id="voicebar"><button class="vplay" data-a="voiceToggle" id="vbtn">${I.play}</button><div class="vtx"><b>🎙 Mensagem de voz</b><span id="vstat">Toque para ouvir</span></div><div class="vwave" id="vwave"><i></i><i></i><i></i><i></i><i></i></div><audio id="vaudio" src="${mu(it.voiceId)}" preload="auto"></audio></div>` : ''}
       <div class="dbody" id="dinfo">${detailInfoHTML(it)}</div>
       <div class="acts" id="dacts">${detailActsHTML(it)}</div>
       <div id="dtabs">${detailTabsHTML(it, p)}</div></div>`;
@@ -961,11 +1191,30 @@ SCREENS.detail = {
   mount() {
     const v = document.getElementById('dvid');
     if (v) { v.play().catch(() => { v.muted = true; detailMuted = true; v.play().catch(() => {}); }); cleanups.push(() => { v.pause(); v.removeAttribute('src'); v.load(); }); }
+    // mensagem de voz: tenta tocar sozinha ao abrir o título
+    const a = document.getElementById('vaudio');
+    if (a) {
+      const btn = document.getElementById('vbtn'), st = document.getElementById('vstat'), bar = document.getElementById('voicebar');
+      const upd = () => { btn.innerHTML = a.paused ? I.play : I.pause; bar.classList.toggle('on', !a.paused); st.textContent = a.paused ? (a.ended ? 'Ouvir de novo' : 'Toque para ouvir') : 'Tocando… ' + fmtClock(a.currentTime); };
+      ['play', 'pause', 'ended', 'timeupdate'].forEach(ev => a.addEventListener(ev, upd));
+      a.play().catch(() => {});
+      cleanups.push(() => { a.pause(); a.removeAttribute('src'); a.load(); });
+    }
   }
 };
 
 /* ---- Player ---- */
 let ctlTimer;
+const REACTS = ['❤️', '😂', '😭', '😍', '😮'];
+let playerCtx = null; // { key, v } do vídeo que está tocando (para gravar reações)
+const subsOn = () => { try { return localStorage.getItem('nf_subs') !== '0'; } catch (e) { return true; } };
+function floatReact(emoji, who) {
+  const box = document.getElementById('pfloat'); if (!box) return;
+  const el = document.createElement('div'); el.className = 'fr';
+  el.style.left = (55 + Math.random() * 30) + '%';
+  el.innerHTML = `<span class="fe">${esc(emoji)}</span>${who ? `<span class="fw">${esc(who)}</span>` : ''}`;
+  box.appendChild(el); setTimeout(() => el.remove(), 2600);
+}
 SCREENS.player = {
   html(p) {
     const it = item(p.id); if (!it) return '<div class="player"></div>';
@@ -973,14 +1222,19 @@ SCREENS.player = {
     const vid = p.trailer ? it.trailerId : e ? e.ep.videoId : it.videoId;
     const title = p.trailer ? `Trailer: ${it.title}` : e ? `${it.title} · T${e.si + 1}:E${e.ep.number} "${e.ep.title}"` : it.title;
     const nx = e && !p.trailer ? allEps(it)[allEps(it).findIndex(x => x.ep.id === e.ep.id) + 1] : null;
+    const subs = p.trailer ? [] : parseSubs(e ? e.ep.subs : it.subs);
     return `<div class="player" id="player">
       ${vid && mu(vid) ? `<video id="pv" src="${mu(vid)}" playsinline preload="auto"></video>` : `<div class="pnov">Este ${e ? 'episódio' : 'título'} ainda não tem vídeo.<br>Adicione pelo Estúdio do Autor.</div>`}
       <div class="pctl" id="pctl" data-a="pTap">
         <div class="ptop"><button data-a="back">${I.back}</button><div class="ptitle">${esc(title)}</div></div>
         <div class="pmid"><button data-a="pRw">${I.rw}</button><button class="pp" data-a="pPlay" id="ppbtn">${I.pause}</button><button data-a="pFf">${I.ff}</button></div>
         <div class="pbot"><div class="seek"><input type="range" id="pseek" min="0" max="1000" value="0" step="1"><span id="ptime">0:00</span></div>
-          <div class="pbtns">${e && !p.trailer ? `<button data-a="pEps" data-id="${it.id}">${I.list} Episódios</button>` : ''}${nx ? `<button data-a="pSwitch" data-id="${it.id}" data-ep="${nx.ep.id}">${I.next} Próximo ep.</button>` : ''}</div></div>
-      </div><div id="pnext"></div></div>`;
+          <div class="pbtns">${e && !p.trailer ? `<button data-a="pEps" data-id="${it.id}">${I.list} Episódios</button>` : ''}${subs.length ? `<button data-a="pSubs" id="psubbtn">💬 Legendas: ${subsOn() ? 'sim' : 'não'}</button>` : ''}${nx ? `<button data-a="pSwitch" data-id="${it.id}" data-ep="${nx.ep.id}">${I.next} Próximo ep.</button>` : ''}</div></div>
+      </div>
+      <div class="psub" id="psub" hidden></div>
+      ${!p.trailer && vid && mu(vid) ? `<div class="preact">${REACTS.map(r => `<button data-a="react" data-e="${r}">${r}</button>`).join('')}</div>` : ''}
+      <div class="pfloat" id="pfloat"></div>
+      <div id="pnext"></div></div>`;
   },
   mount(p) {
     const it = item(p.id); const v = document.getElementById('pv'); const ctl = document.getElementById('pctl');
@@ -988,6 +1242,7 @@ SCREENS.player = {
     if (!document.fullscreenElement && root.requestFullscreen) root.requestFullscreen().then(() => { try { screen.orientation.lock('landscape').catch(() => {}); } catch (e) {} }).catch(() => {});
     if (!v || !it) return;
     const e = p.ep ? findEp(it, p.ep) : null; const key = e ? e.ep.id : it.id; const track = !p.trailer;
+    playerCtx = { key, v }; cleanups.push(() => { playerCtx = null; });
     const seek = document.getElementById('pseek'), time = document.getElementById('ptime'), ppb = document.getElementById('ppbtn');
     const pr = user().progress[key];
     v.addEventListener('loadedmetadata', () => {
@@ -1000,19 +1255,32 @@ SCREENS.player = {
       if (!force && v.currentTime < 1) return;
       user().progress[key] = { t: v.currentTime, d: v.duration, at: Date.now(), itemId: it.id }; saveSoon();
     };
+    // legendas com comentários + reações dos outros perfis no mesmo momento do vídeo
+    const subs = track ? parseSubs(e ? e.ep.subs : it.subs) : [];
+    const subEl = document.getElementById('psub');
+    const theirReacts = track ? others().flatMap(o => ((S.users[o.id] && S.users[o.id].reactions && S.users[o.id].reactions[key]) || []).map(r => ({ ...r, who: o.name }))) : [];
+    let lastT = 0;
     v.addEventListener('timeupdate', () => {
-      const d = v.duration || 0; const pct = d ? v.currentTime / d * 100 : 0;
+      const d = v.duration || 0; const pct = d ? v.currentTime / d * 100 : 0; const ct = v.currentTime;
       if (!seek.dragging) { seek.value = Math.round(pct * 10); seek.style.setProperty('--p', pct + '%'); }
-      time.textContent = '-' + fmtClock(d - v.currentTime);
+      time.textContent = '-' + fmtClock(d - ct);
       if (Date.now() - lastSave > 10000) { lastSave = Date.now(); save(); }
+      if (subs.length && subEl) {
+        let cur = null; for (let i = 0; i < subs.length; i++) { const end = Math.min(subs[i].t + 6, subs[i + 1] ? subs[i + 1].t : Infinity); if (ct >= subs[i].t && ct < end) cur = subs[i]; }
+        const show = cur && subsOn(); subEl.hidden = !show; if (show && subEl.textContent !== cur.text) subEl.textContent = cur.text;
+      }
+      if (ct > lastT && ct - lastT < 1.5) theirReacts.filter(r => r.t > lastT && r.t <= ct).forEach(r => floatReact(r.e, r.who));
+      lastT = ct;
     });
+    v.addEventListener('seeked', () => { lastT = v.currentTime; });
     v.addEventListener('play', () => { ppb.innerHTML = I.pause; hideSoon(); });
     v.addEventListener('pause', () => { ppb.innerHTML = I.play; ctl.classList.remove('hid'); save(); });
     seek.addEventListener('input', () => { seek.dragging = true; seek.style.setProperty('--p', seek.value / 10 + '%'); if (v.duration) v.currentTime = seek.value / 1000 * v.duration; });
     seek.addEventListener('change', () => { seek.dragging = false; hideSoon(); });
     v.addEventListener('ended', () => {
-      if (track) { user().progress[key] = { t: v.duration, d: v.duration, at: Date.now(), itemId: it.id }; saveUser(); }
-      const all = e ? allEps(it) : []; const nx = e && track ? all[all.findIndex(x => x.ep.id === e.ep.id) + 1] : null;
+      if (track) { const u = user(); u.progress[key] = { t: v.duration, d: v.duration, at: Date.now(), itemId: it.id }; u.plays[key] = (u.plays[key] || 0) + 1; saveUser(); }
+      const all = e ? allEps(it) : []; let nx = e && track ? all[all.findIndex(x => x.ep.id === e.ep.id) + 1] : null;
+      if (nx && lockOf(it, nx.ep)) nx = null; // próximo episódio ainda bloqueado
       if (nx) {
         let n = 5; const box = document.getElementById('pnext');
         const tick = () => { box.innerHTML = `<button class="pnext" data-a="pSwitch" data-id="${it.id}" data-ep="${nx.ep.id}">${I.next} Próximo episódio em ${n}</button>`; };
@@ -1084,6 +1352,8 @@ SCREENS.my = {
     return `<div class="screen"><div class="my-top"><h1>Minha ${esc(brandTitle())}</h1><div class="r"><button data-a="tab" data-t="search">${I.search}</button><button data-a="myMenu">${I.menu}</button></div></div>
       <div class="my-prof"><div class="bigav">${avatarHTML(p)}</div><button class="my-name" data-a="switchProfile">${esc(p.name)} ${I.chev}</button></div>
       <button class="mrow" data-a="notifs"><span class="icc">${I.bell}</span><span class="tx">Notificações${lastN ? `<small>${esc(lastN.title)}</small>` : '<small>Nenhuma por enquanto</small>'}</span>${nc ? `<span class="tb-badge" style="position:static">${nc}</span>` : ''}<span class="chev">${I.chev}</span></button>
+      ${others().length ? `<button class="mrow" data-a="noteSheet"><span class="icc">💌</span><span class="tx">Deixar um recado<small>Aparece na tela de perfis e no sininho</small></span><span class="chev">${I.chev}</span></button>` : ''}
+      <button class="mrow" data-a="story"><span class="icc">${I.heart}</span><span class="tx">Nossa história<small>${together() ? esc('Temporada ' + together().season + ' · ' + together().txt + ' juntos') : 'Todos os momentos em ordem'}</small></span><span class="chev">${I.chev}</span></button>
       <button class="mrow" data-a="downloads"><span class="icc b">${I.download}</span><span class="tx">Downloads<small>${u.downloads.length ? u.downloads.length + ' baixado(s)' : 'Baixe títulos para ter no aparelho'}</small></span><span class="chev">${I.chev}</span></button>
       ${isStandalone() ? '' : `<button class="mrow" data-a="install"><span class="icc">${I.phone}</span><span class="tx">Instalar aplicativo<small>Coloque o ${esc(brandTitle())} na tela inicial</small></span><span class="chev">${I.chev}</span></button>`}
       <button class="mrow" data-a="studio"><span class="icc g">${I.pencil}</span><span class="tx">Estúdio do Autor<small>Adicionar e editar filmes, séries e episódios</small></span><span class="chev">${I.chev}</span></button>
@@ -1094,12 +1364,44 @@ SCREENS.my = {
   }
 };
 
+/* ---- Nossa história (linha do tempo) ---- */
+const fmtDateLong = d => new Date(d + 'T12:00:00').toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
+function storyEntries() {
+  const out = [];
+  if (S.settings.startDate) out.push({ date: S.settings.startDate, start: true });
+  S.items.forEach(it => {
+    if (it.date) out.push({ date: it.date, it });
+    allEps(it).forEach(e => { if (e.ep.date) out.push({ date: e.ep.date, it, e }); });
+  });
+  return out.filter(x => /^\d{4}-\d{2}-\d{2}$/.test(x.date)).sort((a, b) => a.date.localeCompare(b.date));
+}
+SCREENS.story = {
+  nav: 'home',
+  html() {
+    const list = storyEntries(); const tg = together();
+    let year = '', h = '';
+    list.forEach(x => {
+      const y = x.date.slice(0, 4); if (y !== year) { year = y; h += `<div class="tl-year">${y}</div>`; }
+      if (x.start) { h += `<div class="tl-item tl-start"><span class="tl-dot">❤</span><div class="tl-card"><small>${fmtDateLong(x.date)}</small><b>O começo de tudo</b><span>Onde a nossa história começou ❤</span></div></div>`; return; }
+      const lk = lockOf(x.it, x.e && x.e.ep);
+      const title = x.e ? `${x.it.title} · T${x.e.si + 1}:E${x.e.ep.number}` : x.it.title;
+      const sub = x.e ? (x.e.ep.title || '') : (x.it.synopsis || '');
+      h += `<div class="tl-item"><span class="tl-dot"></span><button class="tl-card" data-a="${x.e ? 'play' : 'open'}" data-id="${x.it.id}" ${x.e ? `data-ep="${x.e.ep.id}"` : ''}>
+        <div class="tl-th ${lk && lk.type === 'date' ? 'blur' : ''}">${wideImg(x.it, x.e && x.e.ep)}${lk ? `<span class="tl-lock">${lk.type === 'date' ? '🔒' : '🔑'}</span>` : ''}</div>
+        <small>${fmtDateLong(x.date)}</small><b>${esc(title)}</b>${sub ? `<span>${esc(sub)}</span>` : ''}</button></div>`;
+    });
+    return `<div class="screen"><div class="dhead"><button data-a="back">${I.back}</button><h2>Nossa história</h2></div>
+      ${tg ? `<div class="together" style="margin-top:0">❤ <b>Temporada ${tg.season}</b> · ${esc(tg.txt)} juntos · ${tg.days} dias</div>` : ''}
+      ${list.length ? `<div class="tl">${h}<div class="tl-item tl-now"><span class="tl-dot">✨</span><div class="tl-card"><b>E a história continua…</b></div></div></div>` : `<div class="empty"><h3>Nossa linha do tempo</h3>Coloque a <b>data do momento</b> nos filmes e episódios (no Estúdio) e eles aparecem aqui, em ordem, do primeiro encontro até hoje.</div>`}</div>`;
+  }
+};
+
 /* ---- Notificações ---- */
 SCREENS.notifs = {
   html() {
-    const seen = user().notifSeen;
+    const seen = user().notifSeen; const ns = myNotifs();
     return `<div class="screen"><div class="dhead"><button data-a="back">${I.back}</button><h2>Notificações</h2></div>
-      ${S.notifications.length ? S.notifications.map(n => { const it = item(n.itemId); const ep = it && n.epId ? findEp(it, n.epId) : null; return `<button class="nitem" data-a="notifOpen" data-id="${n.itemId}">${it ? wideImg(it, ep && ep.ep) : '<div class="ph"></div>'}<span class="tx"><b>${esc(n.title)}</b>${esc(n.text)}<br><small>${new Date(n.at).toLocaleDateString('pt-BR', { day: 'numeric', month: 'short' })}</small></span>${n.at > seen ? '<span class="dot"></span>' : ''}</button>`; }).join('') : '<div class="empty"><h3>Nenhuma notificação</h3>Quando um novo título ou episódio for lançado, ele aparece aqui.</div>'}</div>`;
+      ${ns.length ? ns.map(n => { const it = item(n.itemId); const ep = it && n.epId ? findEp(it, n.epId) : null; return `<button class="nitem" data-a="notifOpen" data-id="${n.itemId}">${it ? wideImg(it, ep && ep.ep) : '<div class="ph"></div>'}<span class="tx"><b>${esc(n.title)}</b>${esc(n.text)}<br><small>${new Date(n.at).toLocaleDateString('pt-BR', { day: 'numeric', month: 'short' })}</small></span>${n.at > seen ? '<span class="dot"></span>' : ''}</button>`; }).join('') : '<div class="empty"><h3>Nenhuma notificação</h3>Quando um novo título ou episódio for lançado, ele aparece aqui.</div>'}</div>`;
   },
   mount() { user().notifSeen = Date.now(); saveSoon(); }
 };
@@ -1121,7 +1423,8 @@ SCREENS.studio = {
     return `<div class="screen" style="padding-bottom:40px"><div class="dhead"><button data-a="back">${I.back}</button><h2>Estúdio do Autor</h2></div>
     <div class="st">
       <div class="st-hero"><h2>O que vamos lançar hoje? ❤</h2><p>Crie filmes e séries com os momentos de vocês. Capas, trailers, vídeos, sinopses e episódios: tudo é seu.</p>
-        <div class="grid2"><button class="sbtn red full" data-a="newItem" data-t="movie">${I.film} Novo filme</button><button class="sbtn red full" data-a="newItem" data-t="series">${I.list} Nova série</button></div></div>
+        <div class="grid2"><button class="sbtn red full" data-a="newItem" data-t="movie">${I.film} Novo filme</button><button class="sbtn red full" data-a="newItem" data-t="series">${I.list} Nova série</button></div>
+        <button class="sbtn full" data-a="extras" style="margin-top:10px;background:rgba(255,255,255,.12)">💝 Extras do casal: contador, atores, datas especiais e surpresas</button></div>
       <div class="box"><h3>${I.film} Seus títulos (${items.length})</h3>
         ${items.length ? items.map(it => `<div class="stitem">${posterImg(it, '')}<div class="tx"><b>${esc(it.title || 'Sem título')}</b><small>${it.type === 'series' ? `Série · ${it.seasons.length} temp. · ${allEps(it).length} ep.` : `Filme · ${fmtDur(it.duration) || 'sem vídeo'}`}${it.featured || S.settings.heroId === it.id ? ' · ★ Destaque' : ''}</small></div><button class="iconbtn" data-a="editItem" data-id="${it.id}">${I.pencil}</button><button class="iconbtn danger" data-a="delItem" data-id="${it.id}">${I.trash}</button></div>`).join('') : '<p style="color:#888;margin:0 0 14px">Nenhum título ainda. Comece criando um filme ou uma série!</p>'}
         <div style="height:12px"></div></div>
@@ -1154,9 +1457,14 @@ function getPath(o, path) { return path.split('.').reduce((a, k) => a == null ? 
 function setPath(o, path, v) { const ks = path.split('.'); const last = ks.pop(); const t = ks.reduce((a, k) => a[k], o); t[last] = v; }
 function releaseMedia(id) { if (!id) return; if (draftNew.includes(id)) { draftNew = draftNew.filter(x => x !== id); deleteMedia(id); } else draftOld.push(id); }
 function setMedia(path, id) { releaseMedia(getPath(draft, path)); setPath(draft, path, id); if (id) draftNew.push(id); }
-function mediaIdsOf(o) { const out = []; ['posterId', 'backdropId', 'trailerId', 'videoId', 'thumbId'].forEach(k => o[k] && out.push(o[k])); (o.seasons || []).forEach(s => s.episodes.forEach(e => out.push(...mediaIdsOf(e)))); (o.episodes || []).forEach(e => out.push(...mediaIdsOf(e))); return out; }
+/* todos os arquivos (fotos, vídeos, áudios) usados dentro de um objeto: campos "...Id" com valor "m_..." */
+function mediaIdsOf(o) { const out = []; (function walk(x) { if (!x || typeof x !== 'object') return; for (const k in x) { const v = x[k]; if (typeof v === 'string' && /Id$/.test(k) && v.startsWith('m_')) out.push(v); else if (v && typeof v === 'object') walk(v); } })(o); return out; }
 function uploader(path, kind, label, wide, hint) {
   const id = getPath(draft, path); const url = mu(id);
+  if (kind === 'audio') return `<div class="fld"><label>${label}</label>${url ? `<audio controls src="${url}" preload="metadata" style="width:100%;margin-bottom:8px"></audio>` : ''}
+    <div class="up-btns" style="flex-direction:row;flex-wrap:wrap"><span class="sbtn">${I.upload} ${url ? 'Trocar' : 'Enviar'} áudio<input type="file" accept="audio/*" data-media="${path}" data-kind="audio"></span>
+    <button class="sbtn" data-a="recStart" data-path="${path}">🎙 Gravar agora</button>
+    ${url ? `<button class="sbtn ghost" data-a="rmMedia" data-path="${path}">${I.trash} Remover</button>` : ''}</div>${hint ? `<div class="hint">${hint}</div>` : ''}</div>`;
   const pv = url ? (kind === 'video' ? `<video src="${url}#t=0.5" muted playsinline preload="metadata"></video>` : `<img src="${url}" alt="">`) : (kind === 'video' ? I.film : I.image);
   let extra = '';
   if (url && kind === 'video') { const sz = mediaSize(id); extra = `<small>${sz ? (sz / 1048576).toFixed(1) + ' MB' : ''}</small>`; }
@@ -1182,6 +1490,12 @@ function editBodyHTML() {
     <div class="fld"><label>Sinopse</label><textarea class="inp" data-bind="synopsis" placeholder="Conte a história deste momento…">${esc(d.synopsis)}</textarea></div>
     <div class="fld"><label>Estrelando</label><input class="inp" data-bind="cast" value="${esc(d.cast)}" placeholder="Ex.: Você, Ela, Nosso cachorro"></div>
     <div class="fld"><label>${isS ? 'Criação' : 'Direção'}</label><input class="inp" data-bind="director" value="${esc(d.director)}" placeholder="Ex.: Nós dois"></div>
+    <div class="fld"><label>Data do momento</label><input type="date" class="inp" data-bind="date" value="${esc(d.date || '')}"><div class="hint">Coloca este ${isS ? 'título' : 'filme'} na linha do tempo “Nossa história”.${isS ? ' Cada episódio também pode ter a sua data.' : ''}</div></div>
+  </div>
+  <div class="box"><h3>💝 Surpresas</h3>
+    ${lockFields('', d, isS ? 'a série inteira' : 'o filme')}
+    ${uploader('voiceId', 'audio', 'Mensagem de voz', false, 'Toca sozinha quando ela abrir a página deste título.')}
+    ${!isS ? subsField('subs', d.subs) : ''}
   </div>
   <div class="box"><h3>${I.star} Destaque e selos</h3>
     <div class="grid2"><div class="fld"><label>Selo do cartão</label>${sel('badge', [['', 'Nenhum'], ['novidade', 'Novidade'], ['novoep', 'Novo episódio'], ['novatemp', 'Nova temporada'], ['tempbreve', 'Nova temp. em breve'], ['embreve', 'Em breve']])}</div>
@@ -1206,13 +1520,85 @@ function editBodyHTML() {
           <div class="fld"><label>Sinopse do episódio</label><textarea class="inp" style="min-height:70px" data-bind="${b}.synopsis">${esc(ep.synopsis)}</textarea></div>
           ${uploader(b + '.videoId', 'video', 'Vídeo do episódio', true)}
           ${uploader(b + '.thumbId', 'image', 'Miniatura (opcional – gerada do vídeo)', true)}
+          <details class="more" ${ep.date || ep.unlockAt || ep.secretA || ep.subs ? 'open' : ''}><summary>💝 Data, estreia, senha secreta e legendas</summary>
+            <div class="fld"><label>Data do momento</label><input type="date" class="inp" data-bind="${b}.date" value="${esc(ep.date || '')}"></div>
+            ${lockFields(b + '.', ep, 'este episódio')}
+            ${subsField(b + '.subs', ep.subs)}
+          </details>
         </div>`; }).join('')}
         <button class="sbtn full" data-a="addEp" data-si="${si}" style="margin-bottom:12px">${I.plus} Adicionar episódio</button></div>`).join('')}
       <button class="sbtn red full" data-a="addSeason" style="margin-bottom:14px">${I.plus} Adicionar temporada</button></div>`;
   }
   return h;
 }
-function renderEditBody() { const y = window.scrollY; const el = document.getElementById('editbody'); if (el) el.innerHTML = editBodyHTML(); window.scrollTo(0, y); }
+/* campos de bloqueio (estreia com data + senha secreta) */
+function lockFields(pre, o, what) {
+  return `<div class="fld"><label>Estreia em (bloqueia até essa data)</label><input type="datetime-local" class="inp" data-bind="${pre}unlockAt" value="${esc(o.unlockAt || '')}"><div class="hint">Até lá, ${what} aparece com 🔒 e contagem regressiva. Vazio = liberado.</div></div>
+    <div class="grid2"><div class="fld"><label>Pergunta secreta</label><input class="inp" data-bind="${pre}secretQ" value="${esc(o.secretQ || '')}" placeholder="Onde foi nosso 1º beijo?"></div>
+      <div class="fld"><label>Resposta</label><input class="inp" data-bind="${pre}secretA" value="${esc(o.secretA || '')}" placeholder="Ex.: na praia" autocomplete="off"></div></div>
+    <div class="hint" style="margin:-6px 0 14px">Com resposta preenchida, só assiste quem acertar (maiúsculas, acentos e espaços não importam).</div>`;
+}
+function subsField(path, val) {
+  return `<div class="fld"><label>Legendas com comentários</label><textarea class="inp" data-bind="${path}" style="min-height:90px;font-family:monospace;font-size:14px" placeholder="0:05 Olha a sua cara aqui 😂&#10;1:23 Aqui eu já sabia que te amava ❤">${esc(val || '')}</textarea><div class="hint">Uma por linha: <b>minuto:segundo</b> + o texto. Aparecem no vídeo como legenda (botão 💬 no player).</div></div>`;
+}
+function renderEditBody() { const y = window.scrollY; const el = document.getElementById('editbody'); if (el) el.innerHTML = draftKind === 'extras' ? extrasBodyHTML() : editBodyHTML(); window.scrollTo(0, y); }
+
+/* ---- Extras do casal (contador, atores, datas especiais, surpresas programadas) ---- */
+let draftKind = 'item';
+const toLocalInput = ms => { const d = new Date(ms); return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 16); };
+function startExtras() {
+  draftKind = 'extras'; draftOrig = null; draftNew = []; draftOld = []; draftSaved = false;
+  draft = {
+    startDate: S.settings.startDate || '', actorsTitle: S.settings.actorsTitle || 'Atores famosos',
+    actors: structuredClone(S.actors || []), specials: structuredClone(S.specials || []),
+    surprises: S.notifications.filter(n => n.surprise).map(n => ({ ...n, atStr: toLocalInput(n.at) }))
+  };
+  go('extras');
+}
+function extrasBodyHTML() {
+  const d = draft;
+  const profOpts = cur => `<option value="">Para todos</option>${S.profiles.map(p => `<option value="${p.id}" ${cur === p.id ? 'selected' : ''}>Para ${esc(p.name)}</option>`).join('')}`;
+  const itemOpts = cur => `<option value="">Sem título vinculado</option>${sortedItems().map(i => `<option value="${i.id}" ${cur === i.id ? 'selected' : ''}>${esc(i.title)}</option>`).join('')}`;
+  return `
+  <div class="box"><h3>❤ Nosso começo</h3>
+    <div class="fld"><label>Data em que começamos</label><input type="date" class="inp" data-bind="startDate" value="${esc(d.startDate)}"><div class="hint">Mostra “Temporada X · tantos anos, meses e dias juntos” na tela inicial e abre a “Nossa história”.</div></div>
+  </div>
+  <div class="box"><h3>⭐ Atores famosos</h3>
+    <div class="fld"><label>Nome da fileira</label><input class="inp" data-bind="actorsTitle" value="${esc(d.actorsTitle)}" placeholder="Atores famosos"></div>
+    ${d.actors.map((a, i) => `<div class="epb"><div class="epb-h"><span>Ator ${i + 1}</span><button class="iconbtn danger" data-a="rmExtra" data-list="actors" data-i="${i}">${I.trash}</button></div>
+      <div class="fld"><label>Nome (aparece como legenda)</label><input class="inp" data-bind="actors.${i}.name" value="${esc(a.name)}" placeholder="Ex.: Thamyris"></div>
+      ${uploader(`actors.${i}.photoId`, 'image', 'Foto', false)}</div>`).join('')}
+    <button class="sbtn full" data-a="addExtra" data-list="actors" style="margin-bottom:14px">${I.plus} Adicionar ator</button>
+    <div class="hint" style="margin:-6px 0 14px">Tocar no ator abre a busca com tudo em que ele está (campo “Estrelando”).</div>
+  </div>
+  <div class="box"><h3>🎂 Datas especiais</h3>
+    <p class="hint" style="margin:0 0 12px">Todo ano, nesse dia, o app abre com uma tela especial no lugar da intro, com a sua mensagem de voz.</p>
+    ${d.specials.map((s, i) => `<div class="epb"><div class="epb-h"><span>Data especial ${i + 1}</span><button class="iconbtn danger" data-a="rmExtra" data-list="specials" data-i="${i}">${I.trash}</button></div>
+      <div class="fld"><label>Dia</label><input type="date" class="inp" data-bind="specials.${i}.date" value="${esc(s.date || '')}"></div>
+      <div class="fld"><label>Título</label><input class="inp" data-bind="specials.${i}.title" value="${esc(s.title || '')}" placeholder="Feliz aniversário, amor!"></div>
+      <div class="fld"><label>Mensagem</label><textarea class="inp" style="min-height:70px" data-bind="specials.${i}.text">${esc(s.text || '')}</textarea></div>
+      ${uploader(`specials.${i}.voiceId`, 'audio', 'Mensagem de voz')}</div>`).join('')}
+    <button class="sbtn full" data-a="addExtra" data-list="specials" style="margin-bottom:14px">${I.plus} Adicionar data especial</button>
+  </div>
+  <div class="box"><h3>💌 Surpresas programadas</h3>
+    <p class="hint" style="margin:0 0 12px">Uma notificação que só aparece no dia e hora que você escolher (no sininho e num cartão ao abrir o app).</p>
+    ${d.surprises.map((s, i) => `<div class="epb"><div class="epb-h"><span>Surpresa ${i + 1}</span><button class="iconbtn danger" data-a="rmExtra" data-list="surprises" data-i="${i}">${I.trash}</button></div>
+      <div class="grid2"><div class="fld"><label>Quando</label><input type="datetime-local" class="inp" data-bind="surprises.${i}.atStr" value="${esc(s.atStr || '')}"></div>
+        <div class="fld"><label>Para</label><select class="inp" data-bind="surprises.${i}.to">${profOpts(s.to)}</select></div></div>
+      <div class="fld"><label>Título</label><input class="inp" data-bind="surprises.${i}.title" value="${esc(s.title || '')}" placeholder="Novo episódio disponível"></div>
+      <div class="fld"><label>Texto</label><textarea class="inp" style="min-height:60px" data-bind="surprises.${i}.text">${esc(s.text || '')}</textarea></div>
+      <div class="fld"><label>Abrir qual título? (opcional)</label><select class="inp" data-bind="surprises.${i}.itemId">${itemOpts(s.itemId)}</select></div></div>`).join('')}
+    <button class="sbtn full" data-a="addExtra" data-list="surprises" style="margin-bottom:14px">${I.plus} Programar surpresa</button>
+  </div>`;
+}
+SCREENS.extras = {
+  html() {
+    return `<div class="screen" style="padding-bottom:0"><div class="dhead"><button data-a="back">${I.x}</button><h2>Extras do casal</h2></div>
+      <div class="st" id="editbody">${extrasBodyHTML()}</div>
+      <div class="savebar"><button class="sbtn" data-a="back">Cancelar</button><button class="sbtn red" data-a="saveExtras">${I.check} Salvar</button></div></div>`;
+  },
+  mount() { cleanups.push(() => { if (!draftSaved) { draftNew.forEach(deleteMedia); draftNew = []; } draftKind = 'item'; }); }
+};
 SCREENS.edit = {
   html() {
     return `<div class="screen" style="padding-bottom:0"><div class="dhead"><button data-a="back">${I.x}</button><h2>${draftOrig ? 'Editar' : 'Novo'} ${draft.type === 'series' ? 'série' : 'filme'}</h2></div>
@@ -1327,8 +1713,8 @@ function cropImage(file, aspect, maxW, title) {
     img.src = url;
   });
 }
-const aspectOf = path => /backdropId|thumbId/.test(path) ? 16 / 9 : 2 / 3;
-const cropTitle = path => /backdropId/.test(path) ? 'Enquadrar banner (16:9)' : /thumbId/.test(path) ? 'Enquadrar miniatura (16:9)' : 'Enquadrar capa (vertical)';
+const aspectOf = path => /^actors\./.test(path) ? 1 : /backdropId|thumbId/.test(path) ? 16 / 9 : 2 / 3;
+const cropTitle = path => /^actors\./.test(path) ? 'Enquadrar foto do ator' : /backdropId/.test(path) ? 'Enquadrar banner (16:9)' : /thumbId/.test(path) ? 'Enquadrar miniatura (16:9)' : 'Enquadrar capa (vertical)';
 async function recropMedia(path) {
   const id = getPath(draft, path); if (!mu(id)) return;
   loading(true, 'Abrindo foto…');
@@ -1345,9 +1731,9 @@ async function onMediaFile(input) {
   const path = input.dataset.media, kind = input.dataset.kind;
   let blob = file;
   if (kind === 'image') { const asp = aspectOf(path); blob = await cropImage(file, asp, asp > 1 ? 1600 : 1000, cropTitle(path)); if (!blob) return; }
-  loading(true, kind === 'video' ? 'Preparando vídeo…' : 'Preparando foto…');
+  loading(true, ({ video: 'Preparando vídeo…', audio: 'Preparando áudio…' })[kind] || 'Preparando foto…');
   try {
-    const id = await putMedia(blob, kind === 'video' ? 'Enviando vídeo…' : 'Enviando foto…'); setMedia(path, id);
+    const id = await putMedia(blob, ({ video: 'Enviando vídeo…', audio: 'Enviando áudio…' })[kind] || 'Enviando foto…'); setMedia(path, id);
     loading(true, 'Finalizando…');
     if (kind === 'video') {
       const parent = path.includes('.') ? path.slice(0, path.lastIndexOf('.')) : '';
@@ -1512,6 +1898,23 @@ function installSheet() {
     <div class="appprev"><img src="icons/icon-192.png" alt=""><span>${esc(name)}</span></div>
     <p style="color:#bbb;margin:0 0 12px;line-height:1.45">O ícone vai aparecer na tela inicial e o app abre em tela cheia, como um aplicativo de verdade.</p>${steps}`);
 }
+/* ---- janelas dos recursos do casal ---- */
+let rec = null, noteTo = '', secretCtx = null;
+function openSecret(o, then) {
+  secretCtx = { o, then };
+  openOverlay(`<div class="sh-title"><h3>🔑 Episódio secreto</h3><button class="xbtn" data-a="closeOv">${I.x}</button></div>
+    <p class="secret-q">${esc(o.secretQ || 'Qual é a senha secreta?')}</p>
+    <input class="inp" id="secretIn" autocomplete="off" autocapitalize="off" placeholder="Sua resposta" style="text-align:center;font-size:19px">
+    <p class="login-err" id="secretErr" style="text-align:center"></p>
+    <button class="sbtn red full" data-a="secretOk">${I.heart} Desbloquear</button>`);
+  setTimeout(() => { const i = document.getElementById('secretIn'); if (i) i.focus(); }, 300);
+}
+function openSurprise(n) {
+  const it = n.itemId && item(n.itemId);
+  openOverlay(`<div class="surprise"><div class="surprise-ic">💌</div><h3>${esc(n.title)}</h3>${n.text ? `<p>${esc(n.text)}</p>` : ''}
+    ${it ? `<button class="sbtn red full" data-a="open" data-id="${it.id}">${I.play} Ver agora</button>` : ''}
+    <button class="sbtn ghost full" data-a="closeOv" style="margin-top:10px">Fechar ❤</button></div>`);
+}
 const A = {
   closeOv: () => closeOv(),
   async install() {
@@ -1560,7 +1963,89 @@ const A = {
     const it = item(d.id); if (!it) return;
     let ep = d.ep || '';
     if (it.type === 'series' && !ep) { const r = resume(it); if (!r.ep) { toast('Esta série ainda não tem episódios'); return; } ep = r.ep.id; }
-    const f = () => go('player', { id: it.id, ep }); overlay ? closeOv(f) : f();
+    const lk = lockOf(it, ep ? (findEp(it, ep) || {}).ep : null);
+    const f = lk ? () => (lk.type === 'date' ? toast('🔒 Disponível em ' + countdown(lk.at)) : openSecret(lk.o, () => go('player', { id: it.id, ep })))
+      : () => go('player', { id: it.id, ep });
+    overlay ? closeOv(f) : f();
+  },
+  /* ---- recursos do casal ---- */
+  story() { go('story'); },
+  extras() { startExtras(); },
+  actorOpen(d) { go('search', { q: d.n }); },
+  suggest(d) {
+    const send = to => {
+      const u = user(); u.suggestions = [{ id: uid(), to, itemId: d.id, at: Date.now() }, ...u.suggestions.filter(s => !(s.to === to && s.itemId === d.id))].slice(0, 60);
+      saveSoon(); toast(`Enviado para ${profName(to)} ❤`);
+    };
+    const os = others(); if (os.length === 1) return send(os[0].id);
+    openPicker(os.map(p => ({ v: p.id, label: p.name })), '', send);
+  },
+  voiceToggle() { const a = document.getElementById('vaudio'); if (!a) return; if (a.paused) { if (a.ended) a.currentTime = 0; a.play().catch(() => {}); } else a.pause(); },
+  react(d) {
+    if (!playerCtx) return; const u = user(); const k = playerCtx.key;
+    (u.reactions[k] ||= []).push({ t: Math.round(playerCtx.v.currentTime * 10) / 10, e: d.e, at: Date.now() });
+    u.reactions[k] = u.reactions[k].slice(-200); saveSoon(); floatReact(d.e, '');
+  },
+  pSubs(d, el) {
+    const on = !subsOn(); try { localStorage.setItem('nf_subs', on ? '1' : '0'); } catch (e) {}
+    el.textContent = `💬 Legendas: ${on ? 'sim' : 'não'}`; if (!on) { const s = document.getElementById('psub'); if (s) s.hidden = true; }
+  },
+  secretOk() {
+    const inp = document.getElementById('secretIn'); if (!inp || !secretCtx) return;
+    if (normSecret(inp.value) && normSecret(inp.value) === normSecret(secretCtx.o.secretA)) {
+      user().unlocked[secretCtx.o.id] = Date.now(); saveSoon(); const then = secretCtx.then; secretCtx = null; toast('Acertou! ❤'); closeOv(then);
+    } else { document.getElementById('secretErr').textContent = 'Hmm… não foi dessa vez 😅 Tenta de novo!'; inp.select(); }
+  },
+  noteSheet() {
+    const os = others(); noteTo = os[0] ? os[0].id : '';
+    openOverlay(`<div class="sh-title"><h3>💌 Deixar um recado</h3><button class="xbtn" data-a="closeOv">${I.x}</button></div>
+      ${os.length > 1 ? `<div class="catchips" style="margin:0 0 12px">${os.map(p => `<button class="${p.id === noteTo ? 'on' : ''}" data-a="noteTo" data-id="${p.id}">Para ${esc(p.name)}</button>`).join('')}</div>` : `<p style="margin:0 0 10px;color:#bbb">Para <b>${esc(os[0].name)}</b></p>`}
+      <textarea class="inp" id="noteText" maxlength="200" placeholder="Bom dia, amor ☀️" style="min-height:100px"></textarea>
+      <p class="hint">Aparece na tela “Escolha o seu perfil” por 7 dias e no sininho.</p>
+      <button class="sbtn red full" data-a="sendNote">${I.heart} Enviar recado</button>`);
+    setTimeout(() => { const t = document.getElementById('noteText'); if (t) t.focus(); }, 300);
+  },
+  noteTo(d, el) { noteTo = d.id; el.parentElement.querySelectorAll('button').forEach(b => b.classList.toggle('on', b === el)); },
+  sendNote() {
+    const text = (document.getElementById('noteText').value || '').trim(); if (!text || !noteTo) { toast('Escreva o recado ❤'); return; }
+    const u = user(); u.notes = [{ id: uid(), to: noteTo, text, at: Date.now() }, ...u.notes].slice(0, 30); saveUser();
+    closeOv(); toast(`Recado enviado para ${profName(noteTo)} 💌`);
+  },
+  addExtra(d) {
+    const l = draft[d.list];
+    if (d.list === 'actors') l.push({ id: uid(), name: '', photoId: '' });
+    if (d.list === 'specials') l.push({ id: uid(), date: '', title: '', text: '', voiceId: '' });
+    if (d.list === 'surprises') l.push({ id: uid(), surprise: true, atStr: toLocalInput(Date.now() + 86400000), to: '', title: 'Novo episódio disponível', text: '', itemId: '' });
+    renderEditBody();
+  },
+  rmExtra(d) { const l = draft[d.list]; const x = l[+d.i]; if (!x) return; mediaIdsOf(x).forEach(releaseMedia); l.splice(+d.i, 1); renderEditBody(); },
+  async saveExtras() {
+    const d = draft;
+    S.settings.startDate = d.startDate || ''; S.settings.actorsTitle = (d.actorsTitle || '').trim() || 'Atores famosos';
+    S.actors = d.actors.filter(a => (a.name || '').trim() || a.photoId);
+    S.specials = d.specials.filter(s => s.date);
+    const sur = d.surprises.filter(s => s.atStr && (s.title || s.text)).map(s => ({ id: s.id || uid(), surprise: true, title: s.title || '💌', text: s.text || '', itemId: s.itemId || '', epId: '', to: s.to || '', at: ts(s.atStr) || Date.now() }));
+    S.notifications = [...S.notifications.filter(n => !n.surprise), ...sur];
+    draftOld.forEach(deleteMedia); draftOld = []; draftNew = []; draftSaved = true;
+    await saveContent(); toast('Salvo! ❤'); back();
+  },
+  async recStart(d, el) {
+    if (rec) { rec.stop(); return; }
+    if (!navigator.mediaDevices || !window.MediaRecorder) { alert('Este navegador não grava áudio. Grave no celular e envie o arquivo.'); return; }
+    let stream; try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); } catch (e) { alert('Não consegui acessar o microfone. Libere a permissão do microfone para o site.'); return; }
+    const mr = new MediaRecorder(stream); const chunks = []; const t0 = Date.now();
+    mr.ondataavailable = e => { if (e.data && e.data.size) chunks.push(e.data); };
+    const iv = setInterval(() => { el.innerHTML = `⏹ Parar (${fmtClock((Date.now() - t0) / 1000)})`; }, 300);
+    el.classList.add('red');
+    mr.onstop = async () => {
+      clearInterval(iv); stream.getTracks().forEach(t => t.stop()); rec = null;
+      const blob = new Blob(chunks, { type: mr.mimeType || 'audio/webm' });
+      if (!blob.size) { renderEditBody(); return; }
+      loading(true, 'Enviando áudio…');
+      try { const id = await putMedia(blob, 'Enviando áudio…'); setMedia(d.path, id); } catch (e) { alert('Não foi possível enviar: ' + e.message); }
+      loading(false); renderEditBody();
+    };
+    mr.start(); rec = mr;
   },
   playTrailer(d) { go('player', { id: d.id, trailer: 1 }); },
   info(d) { openInfoSheet(d.id); },
@@ -1627,8 +2112,8 @@ const A = {
     overlay ? closeOv(f) : f();
   },
   pinOk() { const v = document.getElementById('pinInput').value; if (v === S.settings.pin) { const t = pinThen; pinThen = null; closeOv(t); } else toast('PIN incorreto'); },
-  newItem(d) { draftOrig = null; draft = newItemObj(d.t); draftNew = []; draftOld = []; draftSaved = false; go('edit'); },
-  editItem(d) { draftOrig = item(d.id); draft = structuredClone(draftOrig); draftNew = []; draftOld = []; draftSaved = false; go('edit'); },
+  newItem(d) { draftKind = 'item'; draftOrig = null; draft = newItemObj(d.t); draftNew = []; draftOld = []; draftSaved = false; go('edit'); },
+  editItem(d) { draftKind = 'item'; draftOrig = item(d.id); draft = structuredClone(draftOrig); draftNew = []; draftOld = []; draftSaved = false; go('edit'); },
   async delItem(d) {
     const it = item(d.id); if (!confirm(`Excluir “${it.title}”? Isso apaga fotos e vídeos dele.`)) return;
     mediaIdsOf(it).forEach(deleteMedia); S.items = S.items.filter(i => i.id !== d.id);
@@ -1672,7 +2157,12 @@ const A = {
   pPlay() { const v = document.getElementById('pv'); if (!v) return; v.paused ? v.play() : v.pause(); },
   pRw() { const v = document.getElementById('pv'); if (v) v.currentTime = Math.max(0, v.currentTime - 10); },
   pFf() { const v = document.getElementById('pv'); if (v) v.currentTime = Math.min(v.duration || 0, v.currentTime + 10); },
-  pSwitch(d) { const f = () => go('player', { id: d.id, ep: d.ep }, true); overlay ? closeOv(f) : f(); },
+  pSwitch(d) {
+    const it = item(d.id); const e = it && findEp(it, d.ep); const lk = e && lockOf(it, e.ep);
+    const f = lk ? () => (lk.type === 'date' ? toast('🔒 Disponível em ' + countdown(lk.at)) : openSecret(lk.o, () => go('player', { id: d.id, ep: d.ep }, true)))
+      : () => go('player', { id: d.id, ep: d.ep }, true);
+    overlay ? closeOv(f) : f();
+  },
   pEps(d) {
     const it = item(d.id); const t = stack[stack.length - 1]; const e = findEp(it, t.params.ep);
     const v = document.getElementById('pv'); if (v) v.pause();
@@ -1710,7 +2200,7 @@ document.addEventListener('change', async e => {
     loading(false); renderProfileSheet();
   }
 });
-document.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.id === 'pinInput') A.pinOk(); });
+document.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.id === 'pinInput') A.pinOk(); if (e.key === 'Enter' && e.target.id === 'secretIn') A.secretOk(); });
 
 /* =====================================================================
    Início
@@ -1749,6 +2239,7 @@ async function loadCloud() {
   if (content) Object.assign(S, content.value);
   S.settings = Object.assign({ brand: 'NOISFLIX', pin: '', heroId: '' }, S.settings || {});
   S.profiles = S.profiles || []; S.items = S.items || []; S.notifications = S.notifications || []; S.media = S.media || {};
+  S.actors = S.actors || []; S.specials = S.specials || [];
   S.users = {}; (data || []).filter(r => r.key.startsWith('user:')).forEach(r => { S.users[r.key.slice(5)] = r.value; });
   if (!S.profiles.length) { S.profiles = [{ id: uid(), name: 'Ele', color: 'blue', photoId: '' }, { id: uid(), name: 'Ela', color: 'red', photoId: '' }]; await saveContent(); }
   await signAll();
