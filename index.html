@@ -38,6 +38,10 @@ img,svg,video{display:block}
 .stripes i{opacity:0;transform:scaleY(.15);animation:stripe 2.8s cubic-bezier(.2,.7,.2,1) forwards}
 @keyframes stripe{0%{opacity:0;transform:scaleY(.15)}22%{opacity:1;transform:scaleY(1)}70%{opacity:.95;transform:scaleY(1)}100%{opacity:0;transform:scaleY(1.2) scaleX(.2)}}
 .splash .smark{position:relative;animation:markin 2.8s ease forwards;filter:drop-shadow(0 10px 30px rgba(0,0,0,.7))}
+.splash.intro video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000}
+.intro-sound{position:absolute;left:50%;bottom:calc(60px + env(safe-area-inset-bottom));transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:10px 18px;border-radius:24px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);font-weight:700;font-size:15px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.intro-sound[hidden]{display:none}
+.intro-sound svg{width:20px;height:20px}
 @keyframes markin{0%{transform:scale(.5);opacity:0}22%{opacity:1;transform:scale(1)}75%{transform:scale(1.06);opacity:1}100%{transform:scale(4);opacity:0}}
 
 /* ---------- perfis ---------- */
@@ -610,8 +614,11 @@ function wideImg(it, ep) {
   const u = mu((ep && ep.thumbId) || it.backdropId || it.posterId);
   return u ? `<img src="${u}" loading="lazy" alt="">` : `<div class="ph"><span>${esc((ep && ep.title) || it.title || '')}</span></div>`;
 }
-function markHTML(h) {
+/* neutral = true → usa a marca neutra (tela de login, que é pública e vista pelos robôs de segurança).
+   Dentro do app (depois do login) usa o logo do casal. */
+function markHTML(h, neutral) {
   const L = (brand()[0] || 'N').toUpperCase();
+  if (L === 'N' && !neutral) return `<img src="assets/logo-n.jpg" alt="${esc(brandTitle())}" style="height:${h}px;width:${h}px;object-fit:contain;mix-blend-mode:screen;flex:none">`;
   // Marca própria do Noisflix: "N" arredondado com um coraçãozinho
   if (L === 'N') return `<svg viewBox="0 0 100 100" style="height:${h}px;width:${h}px" aria-label="${esc(brandTitle())}"><defs><linearGradient id="nfg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff4d6d"/><stop offset="1" stop-color="#c9184a"/></linearGradient></defs><path d="M18 82V26l38 56V26" fill="none" stroke="url(#nfg)" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/><path d="M84 10c-3.6 0-5.6 2.6-6 4.2-.4-1.6-2.4-4.2-6-4.2-3.4 0-5.5 2.7-5.5 5.6 0 5.2 7.4 9.6 11.5 12.4 4.1-2.8 11.5-7.2 11.5-12.4 0-2.9-2.1-5.6-5.5-5.6z" fill="#ff4d6d"/></svg>`;
   return `<span class="markL" style="font-size:${Math.round(h * 1.15)}px">${esc(L)}</span>`;
@@ -720,8 +727,31 @@ function navHTML(active) {
 const SCREENS = {};
 
 /* ---- Abertura ---- */
+/* Intro "Tumdum": vídeo próprio do casal. Se o navegador bloquear o som automático,
+   toca sem som e mostra "Toque para ouvir". Tocar na tela pula. Se o vídeo falhar, usa a animação de listras. */
+const INTRO_SRC = 'assets/intro.mp4';
 SCREENS.splash = {
   html() {
+    return `<div class="splash intro" id="splash"><video id="introv" src="${INTRO_SRC}" playsinline preload="auto"></video><button class="intro-sound" id="introSound" hidden>${I.sound}<span>Toque para ouvir</span></button></div>`;
+  },
+  mount() {
+    const box = document.getElementById('splash'), v = document.getElementById('introv'), snd = document.getElementById('introSound');
+    let done = false, guard = 0;
+    const finish = () => { if (done) return; done = true; clearTimeout(guard); A.skipSplash(); };
+    const arm = ms => { clearTimeout(guard); guard = setTimeout(finish, ms); };
+    const fallback = () => { if (done) return; box.innerHTML = SCREENS.splash.stripes(); arm(2700); };
+    arm(9000);
+    v.addEventListener('ended', finish);
+    v.addEventListener('error', fallback);
+    v.muted = false;
+    v.play().catch(() => { v.muted = true; snd.hidden = false; v.play().catch(fallback); });
+    box.addEventListener('click', () => {
+      if (v.isConnected && v.muted && !done) { v.muted = false; snd.hidden = true; v.currentTime = 0; v.play().catch(() => {}); arm(9000); }
+      else finish();
+    });
+    cleanups.push(() => { clearTimeout(guard); v.pause(); v.removeAttribute('src'); v.load(); });
+  },
+  stripes() {
     const warm = ['#ff1f1f', '#ff4d2e', '#ff7a45', '#ffa06b', '#ffcf9e', '#e8336f', '#b8174a', '#ff5468'];
     const cool = ['#1e5bff', '#2f8bff', '#5fb8ff', '#0a3fbf', '#7a8cff', '#3fd0ff', '#9fd8ff', '#1236a8'];
     const mid = ['#c2185b', '#8e24aa', '#ff3d7f', '#5e35b1'];
@@ -732,7 +762,7 @@ SCREENS.splash = {
       const dark = Math.random() < .18;
       s += `<i style="flex:${(0.4 + Math.random() * 2.6).toFixed(2)};background:${dark ? '#000' : `linear-gradient(transparent,${c} 18%,${c} 82%,transparent)`};animation-delay:${(Math.random() * .25).toFixed(2)}s"></i>`;
     }
-    return `<div class="splash" data-a="skipSplash"><div class="stripes">${s}</div><div class="smark">${markHTML(190)}</div></div>`;
+    return `<div class="stripes">${s}</div><div class="smark">${markHTML(190)}</div>`;
   }
 };
 
@@ -1688,7 +1718,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.id
 SCREENS.login = {
   html(p) {
     return `<div class="login"><div class="login-bg"></div><div class="login-box">
-      <div style="display:flex;justify-content:center;margin-bottom:12px">${markHTML(84)}</div>
+      <div style="display:flex;justify-content:center;margin-bottom:12px">${markHTML(84, true)}</div>
       <h1 style="text-align:center;margin-bottom:4px">${esc(brandTitle())}</h1>
       <p style="text-align:center;color:#bbb;margin:0 0 22px">Nosso cantinho de filmes e séries ❤</p>
       <form id="loginForm" autocomplete="on">
@@ -1736,7 +1766,6 @@ async function boot() {
   loading(false);
   document.title = brandTitle();
   stack = [{ name: 'splash' }]; render();
-  setTimeout(A.skipSplash, 2700);
 }
 if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
 (async function init() {

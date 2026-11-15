@@ -1,7 +1,13 @@
-# imagens de referência (não vão para o GitHub)
+# imagens e vídeos soltos na pasta (referências / originais) não vão para o GitHub
 *.jpeg
 *.jpg
 *.png
-!icons/*.png
+*.mp4
+*.mov
 *.nflx
 desktop.ini
+
+# arquivos que o app usa
+!icons/*.png
+!assets/*.jpg
+!assets/*.mp4
